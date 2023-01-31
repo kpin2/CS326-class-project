@@ -3,7 +3,7 @@
 Project Overview
 CSCI 326 (Software Engineering) – Class Project
 
-
+ljgsjg
 
 In this project, you and your partners will work to write a program that acts as a Math Tutoring Software System to help elementary school students. This project can be worked on outside of class but you must work with your partners! You and your partners must work together.  Everyone must code. Your goal is to create something that you’d want to show your future employer to help land that job!
 
