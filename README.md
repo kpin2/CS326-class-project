@@ -50,4 +50,5 @@ a reward for the user
 
 This software works for grade k through grade 4.
 
-You must create at least 5 different types of questions which cover at least 3 of the standards in the documentation link above. 
+You must create at least 5 different types of questions which cover at least 3 of the standards in the documentation link above.
+Hi hello bye
