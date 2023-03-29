@@ -21,19 +21,33 @@ public class DragAndDropExample extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 500, 500);
 
-//        Font font = new Font("Space Mission", 20);
-//        Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 20);
+        /*Font font = Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 48);
+        Text text2 = new Text(75, 60, "Drag and Drop");
+        text2.setFont(font);
+        text2.setFill(Color.GREEN);
 
         Text text = new Text(75, 30, "Mission: Math!");
         text.setFont(Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 36));
+        text.setFill(Color.RED);*/
+
+        Text text = new Text(75, 30, "Mission: Math!");
+        Text text2 = new Text(75, 90, "Drag and Drop");
+
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 36));
         text.setFill(Color.RED);
-        root.getChildren().add(text);
+
+        text2.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 48));
+        text2.setFill(Color.GREEN);
+
+        root.getChildren().addAll(text, text2);
+
 
 
         Circle source = new Circle(150, 150, 25);
         Circle target = new Circle(300, 200, 50);
         source.setFill(Color.RED);
         target.setFill(Color.BLUE);
+
         source.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 Dragboard db = source.startDragAndDrop(TransferMode.ANY);
