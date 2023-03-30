@@ -35,7 +35,7 @@ public class DragAndDropExample extends Application {
         text2.setFont(font);
         text2.setFill(Color.GREEN);
         Text text = new Text(75, 30, "Mission: Math!");
-        text.setFont(Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 36));
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 36));
         text.setFill(Color.RED);*/
 
         Text text = new Text(75, 30, "Mission: Math!");
