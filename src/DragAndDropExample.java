@@ -20,16 +20,22 @@ public class DragAndDropExample extends Application {
 
 
     public void start(Stage stage) throws Exception {
-//        Group root = new Group();
+
+        //stage is the top level container, setting title displays the title in the title bar
+        stage.setTitle("Mission: Math!");
+
+        //root is the highest level pane and the root node of the scene graph
         Pane root = new Pane();
+
+        //scene is the container for all content so far
         Scene scene = new Scene(root, 960, 540);
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png",960,540,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
+        //setting the background image
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1200, 800, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
 
+        //Alternate way to set the font
         /*Font font = Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 48);
         Text text2 = new Text(75, 60, "Drag and Drop");
         text2.setFont(font);
@@ -38,6 +44,7 @@ public class DragAndDropExample extends Application {
         text.setFont(Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 36));
         text.setFill(Color.RED);*/
 
+        //Setting the font
         Text text = new Text(75, 30, "Mission: Math!");
         Text text2 = new Text(75, 90, "Drag and Drop");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 36));
@@ -46,13 +53,13 @@ public class DragAndDropExample extends Application {
         text2.setFill(Color.GREEN);
 
 
-
-
+        //Drag and Drop demo
         Circle source = new Circle(150, 150, 25);
         Circle target = new Circle(300, 200, 50);
         source.setFill(Color.RED);
         target.setFill(Color.BLUE);
 
+        //event handlers for drag and drop example
         source.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 Dragboard db = source.startDragAndDrop(TransferMode.ANY);
@@ -90,13 +97,20 @@ public class DragAndDropExample extends Application {
             }
         });
 
+        //creating toolbar for the reset and exit buttons
         ToolBar toolBar = new ToolBar();
         Button resetButton = new Button("Reset");
-        toolBar.getItems().add(resetButton);
+        Button exitButton = new Button("Exit");
         resetButton.setOnAction(e -> {
             source.setFill(Color.RED);
             target.setFill(Color.BLUE);
         });
+
+        exitButton.setOnAction(e -> {
+            stage.close();
+        });
+
+        toolBar.getItems().addAll(resetButton,exitButton);
 
         root.getChildren().addAll(source, target, toolBar, text, text2);
         stage.setScene(scene);
