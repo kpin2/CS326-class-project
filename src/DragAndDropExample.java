@@ -4,7 +4,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -18,28 +20,31 @@ public class DragAndDropExample extends Application {
 
 
     public void start(Stage stage) throws Exception {
-        Group root = new Group();
-        Scene scene = new Scene(root, 500, 500);
+//        Group root = new Group();
+        Pane root = new Pane();
+        Scene scene = new Scene(root, 960, 540);
+
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png",960,540,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        root.setBackground(new Background(myBI));
+
 
         /*Font font = Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 48);
         Text text2 = new Text(75, 60, "Drag and Drop");
         text2.setFont(font);
         text2.setFill(Color.GREEN);
-
         Text text = new Text(75, 30, "Mission: Math!");
         text.setFont(Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 36));
         text.setFill(Color.RED);*/
 
         Text text = new Text(75, 30, "Mission: Math!");
         Text text2 = new Text(75, 90, "Drag and Drop");
-
         text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 36));
         text.setFill(Color.RED);
-
         text2.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 48));
         text2.setFill(Color.GREEN);
 
-        root.getChildren().addAll(text, text2);
 
 
 
@@ -93,7 +98,7 @@ public class DragAndDropExample extends Application {
             target.setFill(Color.BLUE);
         });
 
-        root.getChildren().addAll(source, target, toolBar);
+        root.getChildren().addAll(source, target, toolBar, text, text2);
         stage.setScene(scene);
         stage.show();
     }
