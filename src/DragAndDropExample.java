@@ -36,67 +36,15 @@ public class DragAndDropExample extends Application {
         root.setBackground(new Background(myBI));
 
 
-        //Alternate way to set the font
-        /*Font font = Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 48);
-        Text text2 = new Text(75, 60, "Drag and Drop");
-        text2.setFont(font);
-        text2.setFill(Color.GREEN);
-        Text text = new Text(75, 30, "Mission: Math!");
-        text.setFont(Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 36));
-        text.setFill(Color.RED);*/
+
 
         //Setting the font
         Text text = new Text(375, 130, "Mission: Math!");
-        Text text2 = new Text(75, 90, "Drag and Drop");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 64));
         text.setFill(Color.RED);
-        text2.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 48));
-        text2.setFill(Color.GREEN);
 
 
-        //Drag and Drop demo
-        Circle source = new Circle(150, 150, 25);
-        Circle target = new Circle(300, 200, 50);
-        source.setFill(Color.RED);
-        target.setFill(Color.BLUE);
 
-        //event handlers for drag and drop example
-        source.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                Dragboard db = source.startDragAndDrop(TransferMode.ANY);
-                ClipboardContent content = new ClipboardContent();
-                content.putString("Hello");
-                db.setContent(content);
-                event.consume();
-            }
-        });
-        target.setOnDragOver(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                if (event.getGestureSource() != target && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                    target.setFill(Color.GREEN);
-                }
-                event.consume();
-            }
-        });
-        target.setOnDragDropped(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasString()) {
-                    success = true;
-                    target.setFill(Color.BLACK);
-                }
-                event.setDropCompleted(success);
-                event.consume();
-            }
-        });
-        target.setOnDragExited(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                target.setFill(Color.YELLOW);
-                event.consume();
-            }
-        });
 
         //creating toolbar for the reset and exit buttons
         ToolBar toolBar = new ToolBar();
@@ -106,10 +54,8 @@ public class DragAndDropExample extends Application {
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
 
-        resetButton.setOnAction(e -> {
-            source.setFill(Color.RED);
-            target.setFill(Color.BLUE);
-        });
+
+
 
         exitButton.setOnAction(e -> {
             stage.close();
@@ -117,7 +63,7 @@ public class DragAndDropExample extends Application {
 
         toolBar.getItems().addAll(resetButton, exitButton);
 
-        root.getChildren().addAll(source, target, toolBar, text, text2);
+        root.getChildren().addAll(toolBar, text);
         stage.setScene(scene);
         stage.show();
     }
