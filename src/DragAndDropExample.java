@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -45,9 +46,9 @@ public class DragAndDropExample extends Application {
         text.setFill(Color.RED);*/
 
         //Setting the font
-        Text text = new Text(75, 30, "Mission: Math!");
+        Text text = new Text(375, 130, "Mission: Math!");
         Text text2 = new Text(75, 90, "Drag and Drop");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 36));
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 64));
         text.setFill(Color.RED);
         text2.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 48));
         text2.setFill(Color.GREEN);
@@ -101,6 +102,10 @@ public class DragAndDropExample extends Application {
         ToolBar toolBar = new ToolBar();
         Button resetButton = new Button("Reset");
         Button exitButton = new Button("Exit");
+
+        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        exitButton.setGraphic(new ImageView(exitButtonImage));
+
         resetButton.setOnAction(e -> {
             source.setFill(Color.RED);
             target.setFill(Color.BLUE);
@@ -110,7 +115,7 @@ public class DragAndDropExample extends Application {
             stage.close();
         });
 
-        toolBar.getItems().addAll(resetButton,exitButton);
+        toolBar.getItems().addAll(resetButton, exitButton);
 
         root.getChildren().addAll(source, target, toolBar, text, text2);
         stage.setScene(scene);
