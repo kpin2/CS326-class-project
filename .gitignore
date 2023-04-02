@@ -34,3 +34,5 @@ hs_err_pid*
 /ZeppelinRemoteNotebooks/
 
 /.idea/
+/.out/
+
