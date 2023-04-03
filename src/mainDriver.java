@@ -6,8 +6,10 @@
  * */
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -22,73 +24,113 @@ public class mainDriver extends Application {
 
         //stage is the top level container, setting title displays the title in the title bar
         stage.setTitle("Mission: Math!");
-//        stage.setResizable(false);
+        stage.setResizable(false);
 
-        //root is the highest level pane and the root node of the scene graph
+        //root is the highest level pane
         Pane root = new Pane();
 
-        //scene is the container for all content so far
-        Scene landingScene = new Scene(root, 1200, 675);
+        //landingScene is the homepage/landing page of the software
+        Scene landingScene = new Scene(root, 1360, 750);
+
+        //loading our custom font first so the rest of the program can use it
+        Font.loadFont("file:resources/font/SpaceMission.otf", 32);
+
+        //loading the stylesheet(s)
+        landingScene.getStylesheets().add(("stylesheet.css"));
 
         //setting the background image
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1200, 800, true, true), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
         //Setting the font
-        Text text = new Text(180, 100, "Mission: Math!");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission-rgyw9.otf", 120));
-        text.setFill(Color.RED);
+        Text text = new Text(300, 100, "Mission: Math!");
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setId("title");
 
         //loading images for buttons and other assets and creating image views
         Image exitButtonImage, helpButtonImage, asteroidHomeImage, smallShipImage, andromedaPlanetImage, galaxyImage, cosmicCountingImage;
-        exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        exitButtonImage = new Image("file:resources/assets/exit.png");
         asteroidHomeImage = new Image("file:resources/assets/Asteroid.png");
-        helpButtonImage = new Image("file:resources/assets/help2-64px.png");
+        helpButtonImage = new Image("file:resources/assets/help2.png");
         smallShipImage = new Image("file:resources/assets/small spaceship.png");
         andromedaPlanetImage = new Image("file:resources/assets/planet 200x200.png");
         galaxyImage = new Image("file:resources/assets/galaxy-transparent-24.png");
         cosmicCountingImage = new Image("file:resources/assets/planet 300x250.png");
+
         ImageView exitButtonImageView, helpButtonImageView, asteroidHomeImageView, smallShipImageView, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView;
+
+        //exit and help buttons
         exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
         helpButtonImageView = new ImageView(helpButtonImage);
+        helpButtonImageView.setFitHeight(96);
+        helpButtonImageView.setFitWidth(96);
         Button exitButton = new Button("", exitButtonImageView);
         Button helpButton = new Button("", helpButtonImageView);
-        helpButton.setLayoutX(60);
+        helpButton.setLayoutX(96);
         helpButton.setLayoutY(5);
         exitButton.setLayoutX(-5);
         exitButton.setLayoutY(5);
         exitButton.setStyle("-fx-background-color: transparent;");
         helpButton.setStyle("-fx-background-color: transparent;");
 
-        //help button action, will switch scenes to the tutorials/practice
+        //tooltips for the help and exit buttons
+        Tooltip help = new Tooltip("Need Help? Click here!");
+        helpButton.setTooltip(help);
+        Tooltip exit = new Tooltip("Return to Login Screen");
+        exitButton.setTooltip(exit);
+
+        //help button action, will switch the scene to the tutorial/practice section
         helpButton.setOnAction(e -> {
             System.out.println("Help button pressed");
-          /*  Scene helpScene = null;
+          /*
             stage.setScene(helpScene);*/
         });
 
+        //exit button, leads back to log in screen?
         exitButton.setOnAction(e -> {
+//            stage.setScene(loginScene);
             stage.close();
         });
 
 
+        //small spaceship that starts on top of the 'home' asteroid
         smallShipImageView = new ImageView(smallShipImage);
-        smallShipImageView.setFitHeight(200);
-        smallShipImageView.setFitWidth(200);
-        smallShipImageView.setLayoutX(100);
-        smallShipImageView.setLayoutY(150);
+        smallShipImageView.setLayoutX(95);
+        smallShipImageView.setLayoutY(152);
+        smallShipImageView.setRotate(-25);
 
+
+        //home button/asteroid that returns the user to the landing screen
         asteroidHomeImageView = new ImageView(asteroidHomeImage);
-        asteroidHomeImageView.setFitHeight(200);
-        asteroidHomeImageView.setFitWidth(200);
-        asteroidHomeImageView.setLayoutX(0);
-        asteroidHomeImageView.setLayoutY(200);
+        Button asteroidHomeButton = new Button("", asteroidHomeImageView);
+        asteroidHomeButton.setLayoutX(-100);
+        asteroidHomeButton.setLayoutY(200);
+        asteroidHomeButton.setStyle("-fx-background-color: transparent;");
 
+        asteroidHomeButton.setOnAction(e -> {
+            System.out.println("Asteroid Home button pressed");
+            stage.setScene(landingScene);
+        });
+
+        //tooltip for the asteroid/home button
+        Tooltip home = new Tooltip("Return to Home-screen!");
+        asteroidHomeButton.setTooltip(home);
+
+
+        //andromeda planet image
         andromedaPlanetImageView = new ImageView(andromedaPlanetImage);
         andromedaPlanetImageView.setFitHeight(250);
         andromedaPlanetImageView.setFitWidth(250);
-        andromedaPlanetImageView.setLayoutX(175);
-        andromedaPlanetImageView.setLayoutY(380);
+        andromedaPlanetImageView.setLayoutX(150);
+        andromedaPlanetImageView.setLayoutY(390);
+        Button andromedaArithmetic = new Button("", andromedaPlanetImageView);
+        andromedaArithmetic.setLayoutX(150);
+        andromedaArithmetic.setLayoutY(390);
+        andromedaArithmetic.setStyle("-fx-background-color: transparent;");
+
+
 
         galaxyImageView = new ImageView(galaxyImage);
         galaxyImageView.setFitHeight(379);
@@ -97,13 +139,13 @@ public class mainDriver extends Application {
         galaxyImageView.setLayoutY(130);
 
         cosmicCountingImageView = new ImageView(cosmicCountingImage);
-        cosmicCountingImageView.setFitHeight(300);
-        cosmicCountingImageView.setFitWidth(275);
+        cosmicCountingImageView.setFitHeight(250);
+        cosmicCountingImageView.setFitWidth(300);
         cosmicCountingImageView.setLayoutX(900);
-        cosmicCountingImageView.setLayoutY(300);
+        cosmicCountingImageView.setLayoutY(380);
 
 
-        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeImageView, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView);
+        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView, andromedaArithmetic);
         stage.setScene(landingScene);
         stage.show();
     }
