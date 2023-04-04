@@ -36,7 +36,7 @@ public class mainDriver extends Application {
         Font.loadFont("file:resources/font/SpaceMission.otf", 32);
 
         //loading the stylesheet(s)
-        landingScene.getStylesheets().add(("stylesheet.css"));
+        landingScene.getStylesheets().add(("styles/stylesheet.css"));
 
         //setting the background image
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
