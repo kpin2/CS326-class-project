@@ -23,3 +23,10 @@
     -fx-font-weight: bold;
     -fx-text-fill: rgb(255, 255, 255);
 }
+
+#andromedaText {
+    -fx-font-family: "Space Mission";
+    -fx-font-size: 64px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(97, 197, 184);
+}

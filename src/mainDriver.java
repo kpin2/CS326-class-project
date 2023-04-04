@@ -119,33 +119,41 @@ public class mainDriver extends Application {
         asteroidHomeButton.setTooltip(home);
 
 
-        //andromeda planet image
+        //andromeda arithmetic
         andromedaPlanetImageView = new ImageView(andromedaPlanetImage);
         andromedaPlanetImageView.setFitHeight(250);
         andromedaPlanetImageView.setFitWidth(250);
-        andromedaPlanetImageView.setLayoutX(150);
-        andromedaPlanetImageView.setLayoutY(390);
+        andromedaPlanetImageView.setLayoutX(200);
+        andromedaPlanetImageView.setLayoutY(400);
         Button andromedaArithmetic = new Button("", andromedaPlanetImageView);
-        andromedaArithmetic.setLayoutX(150);
-        andromedaArithmetic.setLayoutY(390);
+        andromedaArithmetic.setLayoutX(200);
+        andromedaArithmetic.setLayoutY(400);
         andromedaArithmetic.setStyle("-fx-background-color: transparent;");
-
+        Text andromedaText = new Text(75, 675, "Andromeda Arithmetic");
+        andromedaText.setFill(Color.rgb(97, 197, 184));
+        andromedaText.setId("andromedaText");
+        Tooltip andromeda = new Tooltip("Andromeda Arithmetic");
+        andromedaArithmetic.setTooltip(andromeda);
+        andromedaArithmetic.setOnAction(e -> {
+            System.out.println("Andromeda Arithmetic button pressed");
+            //stage.setScene(andromedaScene);
+        });
 
 
         galaxyImageView = new ImageView(galaxyImage);
         galaxyImageView.setFitHeight(379);
         galaxyImageView.setFitWidth(800);
-        galaxyImageView.setLayoutX(150);
+        galaxyImageView.setLayoutX(300);
         galaxyImageView.setLayoutY(130);
 
         cosmicCountingImageView = new ImageView(cosmicCountingImage);
         cosmicCountingImageView.setFitHeight(250);
         cosmicCountingImageView.setFitWidth(300);
-        cosmicCountingImageView.setLayoutX(900);
-        cosmicCountingImageView.setLayoutY(380);
+        cosmicCountingImageView.setLayoutX(1000);
+        cosmicCountingImageView.setLayoutY(400);
 
 
-        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView, andromedaArithmetic);
+        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, galaxyImageView, cosmicCountingImageView, andromedaArithmetic, andromedaText);
         stage.setScene(landingScene);
         stage.show();
     }
