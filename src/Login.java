@@ -22,7 +22,7 @@ public class Login extends Application{
 
     public void start(Stage stage) throws Exception {
         Pane root = new Pane();
-        Scene scene = new Scene(root, 960, 540);
+        Scene loginScene = new Scene(root, 960, 540);
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png",960,540,false,true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -84,7 +84,7 @@ public class Login extends Application{
         text.setFill(Color.RED);
         root.getChildren().addAll(text, txt1, username, txt2, password, toolBar, testIt);
         stage.setTitle("Login");
-        stage.setScene(scene);
+        stage.setScene(loginScene);
         stage.show();
     }
 }
