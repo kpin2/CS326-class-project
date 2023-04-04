@@ -69,7 +69,6 @@ public class LoginScreen extends Application{
                 password.setPromptText("Error! Please enter password");
             }
             testIt.setText("Username: "+userN+" Password: "+passW);
-            stage.setScene();
         });
 
 //        Font font = new Font("Space Mission", 48);
@@ -84,7 +83,5 @@ public class LoginScreen extends Application{
         stage.show();
     }
 
-    public Scene getScene(Scene input){
-        return input;
-    }
+
 }
