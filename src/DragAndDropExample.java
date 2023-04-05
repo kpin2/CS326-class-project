@@ -11,14 +11,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.web.WebView;
+
+import java.util.Random;
 
 public class DragAndDropExample extends Application {
+    String[] questions = {
+            "What is 2 + 2?",
+            "How many different shapes are called quadrilaterals?",
+            "What is 16/4?",
+            "How many sides does a triangle have?",
+            "What is 4-2"
+    };
 
-    Pane root = new Pane();
-    Scene helpScene = new Scene(root, 1360, 750);
+    Random rand = new Random();
+
+    String randomQuestion = questions[rand.nextInt(questions.length)];
+
+    Pane root2 = new Pane();
+    Scene helpScene = new Scene(root2, 1360, 750);
 
     public void start(Stage stage) throws Exception {
 
+        Pane root = new Pane();
 
         Scene scene = new Scene(root, 1360, 750);
 
@@ -29,6 +44,24 @@ public class DragAndDropExample extends Application {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
+        class YouTubeViewer extends Application {
+            public static void main(String[] args) { launch(args); }
+
+            @Override public void start(Stage stage) throws Exception {
+                WebView webview = new WebView();
+                webview.getEngine().load(
+
+                        "https://www.youtube.com/embed/lBCIGY3dWXQ" //be sure to get the YouTube embed URL
+                );
+                webview.setPrefSize(640, 390);
+
+
+
+                stage.setScene(new Scene(webview));
+                stage.show();
+            }
+        }
+
 
 
         //creating toolbar for the reset and exit buttons
@@ -40,7 +73,7 @@ public class DragAndDropExample extends Application {
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
 
-        Label questionLabel = new Label("What is 2 + 2?");
+        Label questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         RadioButton choice1 = new RadioButton("1");
         RadioButton choice2 = new RadioButton("2");
