@@ -69,6 +69,7 @@ public class LoginScreen extends Application{
                 password.setPromptText("Error! Please enter password");
             }
             testIt.setText("Username: "+userN+" Password: "+passW);
+
         });
 
 //        Font font = new Font("Space Mission", 48);
