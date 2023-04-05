@@ -11,19 +11,28 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+/**
+ All the other classes are going to be extensions of Scene and implemented in this same format!!
+*/
+
+
 public class loginScene extends Scene {
 
+    //declare variable
+    private final Scene loginScene;
 
-
+    //constructor
     public loginScene() {
+        //call the super class constructor
         super(new Pane(), 960, 540);
-        Pane root = new Pane();
-        Scene loginScene = new Scene(root, 960, 540);
 
-        Stage stage = new Stage();
-        stage.setTitle("Login");
-        stage.setScene(loginScene);
-        stage.show();
+        //create a new pane
+        Pane root = new Pane();
+
+        //tell loginScene to use the pane root
+        loginScene = new Scene(root, 960, 540);
+
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png",960,540,false,true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -88,7 +97,7 @@ public class loginScene extends Scene {
     }
 
     public Scene getScene() {
-        return this;
+        return loginScene;
     }
 
 }
