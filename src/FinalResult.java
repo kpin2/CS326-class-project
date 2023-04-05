@@ -54,7 +54,7 @@ public class FinalResult extends Application {
         root.setBackground(new Background(myBI));
 
 
-        Image image = new Image("file:resources/assets/Astronaut Finish small.jpg");
+        Image image = new Image("file:resources/assets/Astronaut_Finish transparent bgpng.png");
         ImageView imageView = new ImageView(image);
 
         Scale scaleTransformation = new Scale();
