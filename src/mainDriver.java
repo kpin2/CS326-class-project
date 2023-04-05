@@ -21,13 +21,19 @@ import javafx.stage.Stage;
 
 public class mainDriver extends Application {
 
-    private final loginScene loginScene = new loginScene();
+    //loginScene is the login screen
+    private final loginScene loginScene;
 
 
+    public mainDriver() {
+        //initializing the loginScene
+        loginScene = new loginScene();
+    }
 
-    public void switchToLoginScene(){
+    //method to switch to the login scene
+    public void switchToLoginScene(Stage stage){
+        //getting the scene from the loginScene object
         Scene scene = loginScene.getScene();
-        Stage stage = (Stage) scene.getWindow();
         stage.setScene(scene);
     }
 
@@ -41,11 +47,8 @@ public class mainDriver extends Application {
         //root is the highest level pane
         Pane root = new Pane();
 
-
-
         //landingScene is the homepage/landing page of the software
         Scene landingScene = new Scene(root, 1360, 750);
-
 
 
         //loading our custom font first so the rest of the program can use it
@@ -73,6 +76,7 @@ public class mainDriver extends Application {
         galaxyImage = new Image("file:resources/assets/galaxy-transparent-24.png");
         cosmicCountingImage = new Image("file:resources/assets/planet 300x250.png");
 
+        //image views for the buttons and other assets
         ImageView exitButtonImageView, helpButtonImageView, asteroidHomeImageView, smallShipImageView, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView;
 
         //exit and help buttons
@@ -104,10 +108,12 @@ public class mainDriver extends Application {
             stage.setScene(helpScene);*/
         });
 
-        //exit button, leads back to log in screen?
+        //exit button, leads back to log in screen
         exitButton.setOnAction(e -> {
             System.out.println("Exit button pressed");
-            switchToLoginScene();
+
+            //calling the method to switch to the login scene once the button is pressed
+            switchToLoginScene(stage);
         });
 
 
@@ -156,19 +162,21 @@ public class mainDriver extends Application {
         });
 
 
+        //Galactic Geometry assets
         galaxyImageView = new ImageView(galaxyImage);
         galaxyImageView.setFitHeight(379);
         galaxyImageView.setFitWidth(800);
         galaxyImageView.setLayoutX(300);
         galaxyImageView.setLayoutY(130);
 
+        //Cosmic Counting assets
         cosmicCountingImageView = new ImageView(cosmicCountingImage);
         cosmicCountingImageView.setFitHeight(250);
         cosmicCountingImageView.setFitWidth(300);
         cosmicCountingImageView.setLayoutX(1000);
         cosmicCountingImageView.setLayoutY(400);
 
-
+        //adding all the nodes to the root
         root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, galaxyImageView, cosmicCountingImageView, andromedaArithmetic, andromedaText);
         stage.setScene(landingScene);
         stage.show();
