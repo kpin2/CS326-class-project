@@ -16,9 +16,21 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class mainDriver extends Application {
+
+    private final loginScene loginScene = new loginScene();
+
+
+
+    public void switchToLoginScene(){
+        Scene scene = loginScene.getScene();
+        Stage stage = (Stage) scene.getWindow();
+        stage.setScene(scene);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -29,8 +41,12 @@ public class mainDriver extends Application {
         //root is the highest level pane
         Pane root = new Pane();
 
+
+
         //landingScene is the homepage/landing page of the software
         Scene landingScene = new Scene(root, 1360, 750);
+
+
 
         //loading our custom font first so the rest of the program can use it
         Font.loadFont("file:resources/font/SpaceMission.otf", 32);
@@ -90,8 +106,8 @@ public class mainDriver extends Application {
 
         //exit button, leads back to log in screen?
         exitButton.setOnAction(e -> {
-//            stage.setScene(loginScene);
-            stage.close();
+            System.out.println("Exit button pressed");
+            switchToLoginScene();
         });
 
 

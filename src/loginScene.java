@@ -1,24 +1,29 @@
-import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
-import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-public class LoginScreen extends Application{
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class loginScene extends Scene {
 
-    public void start(Stage stage) {
+
+
+    public loginScene() {
+        super(new Pane(), 960, 540);
         Pane root = new Pane();
         Scene loginScene = new Scene(root, 960, 540);
+
+        Stage stage = new Stage();
+        stage.setTitle("Login");
+        stage.setScene(loginScene);
+        stage.show();
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png",960,540,false,true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -72,8 +77,6 @@ public class LoginScreen extends Application{
 
         });
 
-//        Font font = new Font("Space Mission", 48);
-//        Font.loadFont(getClass().getResourceAsStream("resources/font/SpaceMission-rgyw9.otf"), 20);
 
         Text text = new Text(75, 100, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 108));
@@ -82,12 +85,10 @@ public class LoginScreen extends Application{
 
 
 
-
-        stage.setTitle("Login");
-        stage.setScene(loginScene);
-        stage.show();
     }
 
-
+    public Scene getScene() {
+        return this;
+    }
 
 }
