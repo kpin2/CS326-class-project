@@ -35,20 +35,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+public class FinalResult extends Scene {
 
-public class FinalResult extends Application {
+    private static Scene FinalResult;
 
+    public FinalResult() {
+        super(new Pane(), 960, 540);
 
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-
-
-    public void start(Stage stage) throws Exception {
         Pane root = new Pane();
-        Scene scene = new Scene(root, 500, 500);
+
+        //tell loginScene to use the pane root
+        FinalResult = new Scene(root, 960, 540);
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1200, 800, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -60,12 +57,12 @@ public class FinalResult extends Application {
         Scale scaleTransformation = new Scale();
         scaleTransformation.setX(0.40);
         scaleTransformation.setY(0.40);
-        scaleTransformation.setPivotX(250);
-        scaleTransformation.setPivotY(850);
+        scaleTransformation.setPivotX(600);
+        scaleTransformation.setPivotY(980);
 
         imageView.getTransforms().add(scaleTransformation);
 
-        KeyValue keyValue = new KeyValue(imageView.translateYProperty(), -170);
+        KeyValue keyValue = new KeyValue(imageView.translateYProperty(), -190);
 
         // over the course of 5 seconds
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), keyValue);
@@ -80,32 +77,14 @@ public class FinalResult extends Application {
 
 
 
-
-
-
-
-        ToolBar toolBar = new ToolBar();
-        Button resetButton = new Button("Reset");
-        toolBar.getItems().add(resetButton);
-        resetButton.setOnAction(e -> {
-
-
-        });
-
-        root.getChildren().addAll(imageView ,toolBar, text);
-        stage.setScene(scene);
-        stage.show();
+        root.getChildren().addAll(imageView, text);
         timeline.play();
+
     }
 
-
-
-
-
-
-
-
-
+    public static Scene getScene(){
+        return FinalResult;
+    }
 
 
 }
