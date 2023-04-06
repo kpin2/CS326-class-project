@@ -1,4 +1,8 @@
 import javafx.application.Application;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
@@ -9,7 +13,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import java.io.BufferedWriter;
+
 public class LoginScreen extends Application{
 
     public static void main(String[] args) {
@@ -47,9 +54,6 @@ public class LoginScreen extends Application{
         password.setLayoutY(350);
         password.getText();
 
-        Text testIt = new Text(250, 500, "");
-        testIt.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
-        testIt.setFill(Color.WHITE);
 
         ToolBar toolBar = new ToolBar();
         Button loginButton = new Button("Login");
@@ -63,12 +67,26 @@ public class LoginScreen extends Application{
             if((username.getText() != null) && (username.getText().length() >= 8) && (password.getText() != null) && (password.getText().length() >= 8)){
                 userN = username.getText();
                 passW = password.getText();
+
+                String loginInfo = userN+ ", " +passW;
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Login Information");
+
+                File file = fileChooser.showSaveDialog(loginScene.getWindow());
+
+                if (file != null) {
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                        writer.write(loginInfo);
+                    } catch (IOException b) {
+                        b.printStackTrace();
+                    }
+                }
             }
             else{
                 username.setPromptText("Error! Please enter username");
                 password.setPromptText("Error! Please enter password");
             }
-            testIt.setText("Username: "+userN+" Password: "+passW);
 
         });
 
@@ -78,7 +96,7 @@ public class LoginScreen extends Application{
         Text text = new Text(75, 100, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 108));
         text.setFill(Color.RED);
-        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar, testIt);
+        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar);
 
 
 
