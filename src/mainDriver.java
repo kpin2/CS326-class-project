@@ -24,12 +24,14 @@ public class mainDriver extends Application {
     //loginScene is the login screen
     private final loginScene loginScene;
     private final FinalResult finalResult;
+    private final practiceExamScene practiceExamScene;
 
 
     public mainDriver() {
         //initializing the loginScene
         loginScene = new loginScene();
         finalResult = new FinalResult();
+        practiceExamScene = new practiceExamScene();
     }
 
     //method to switch to the login scene
@@ -40,10 +42,15 @@ public class mainDriver extends Application {
     }
     public void switchToFinalResult(Stage stage){
         //getting the scene from the loginScene object
-        Scene scene = FinalResult.getScene();
+        Scene scene = finalResult.getScene();
         stage.setScene(scene);
     }
 
+    public void switchToPracticeExamScene(Stage stage){
+        //getting the scene from the loginScene object
+        Scene scene = practiceExamScene.getScene();
+        stage.setScene(scene);
+    }
 
 
     @Override
@@ -113,7 +120,11 @@ public class mainDriver extends Application {
         //help button action, will switch the scene to the tutorial/practice section
         helpButton.setOnAction(e -> {
             System.out.println("Help button pressed");
-          switchToFinalResult(stage);
+
+          //switchToFinalResult(stage);
+            switchToPracticeExamScene(stage);
+
+
         });
 
         //exit button, leads back to log in screen
@@ -201,7 +212,7 @@ public class mainDriver extends Application {
         cosmicCountingButton.setTooltip(cosmicCounting);
         cosmicCountingButton.setOnAction(e -> {
             System.out.println("Cosmic Counting button pressed");
-            //stage.setScene(cosmicCountingScene);
+            switchToFinalResult(stage);
         });
 
         //adding all the nodes to the root

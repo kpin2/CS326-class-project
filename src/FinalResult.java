@@ -63,7 +63,7 @@ public class FinalResult extends Scene {
 
     }
 
-    public static Scene getScene(){
+    public Scene getScene(){
         return FinalResult;
     }
 
