@@ -12,11 +12,13 @@ import java.util.Random;
 
 public class practiceExamScene extends Scene {
 
+    private Scene scene;
+
     public practiceExamScene() {
         super(new Pane(),960,540);
         Pane root = new Pane();
 
-        Scene scene = new Scene(root, 1360, 750);
+        scene = new Scene(root, 1360, 750);
         String[] questions = {
                 "What is 2 + 2?",
                 "How many different shapes are called quadrilaterals?",
@@ -100,4 +102,10 @@ public class practiceExamScene extends Scene {
 
 
     }
+
+    public Scene getScene(){
+        return scene;
+    }
+
+
 }
