@@ -1,41 +1,38 @@
-import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.web.WebView;
 
 import java.util.Random;
 
-public class DragAndDropExample extends Application {
-    String[] questions = {
-            "What is 2 + 2?",
-            "How many different shapes are called quadrilaterals?",
-            "What is 16/4?",
-            "How many sides does a triangle have?",
-            "What is 4-2"
-    };
+public class practiceExamScene extends Scene {
 
-    Random rand = new Random();
+    private Scene scene;
 
-    String randomQuestion = questions[rand.nextInt(questions.length)];
-
-    Pane root2 = new Pane();
-    Scene helpScene = new Scene(root2, 1360, 750);
-
-    public void start(Stage stage) throws Exception {
-
+    public practiceExamScene() {
+        super(new Pane(),960,540);
         Pane root = new Pane();
 
-        Scene scene = new Scene(root, 1360, 750);
+        scene = new Scene(root, 1360, 750);
+        String[] questions = {
+                "What is 2 + 2?",
+                "How many different shapes are called quadrilaterals?",
+                "What is 16/4?",
+                "How many sides does a triangle have?",
+                "What is 4-2"
+        };
+
+        Random rand = new Random();
+
+        String randomQuestion = questions[rand.nextInt(questions.length)];
+
+        Pane root2 = new Pane();
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -44,21 +41,6 @@ public class DragAndDropExample extends Application {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-        /*class YouTubeViewer extends Application {
-            public static void main(String[] args) { launch(args); }
-
-            @Override public void start(Stage stage) throws Exception {
-
-
-
-                stage.setScene(new Scene(webview));
-                stage.show();
-            }
-        }
-*/
-
-
-        //creating toolbar for the reset and exit buttons
         ToolBar toolBar = new ToolBar();
 
         Button exitButton = new Button("Exit");
@@ -96,7 +78,6 @@ public class DragAndDropExample extends Application {
 
 
         exitButton.setOnAction(e -> {
-            stage.close();
         });
 
         toolBar.getItems().addAll(resetButton, exitButton);
@@ -116,12 +97,25 @@ public class DragAndDropExample extends Application {
         choice4.setLayoutY(sceneHeight / 2 + 40);
         submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
         submitButton.setLayoutY(sceneHeight / 2 + 100);
-        stage.setScene(scene);
-        stage.show();
+
+
+   /*     WebView webview = new WebView();
+        webview.getEngine().load(
+
+                "https://www.youtube.com/embed/lBCIGY3dWXQ" //be sure to get the YouTube embed URL
+        );
+        webview.setPrefSize(640, 390);
+        webview.setLayoutX(0);
+        webview.setLayoutY(0);
+        root2.getChildren().add(webview);
+        scene.setRoot(root2);*/
+
+
     }
 
-    public Scene getScene(Scene scene){
-        return this.helpScene;
+    public Scene getScene(){
+        return scene;
     }
+
 
 }
