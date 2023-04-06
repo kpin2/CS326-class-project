@@ -23,11 +23,13 @@ public class mainDriver extends Application {
 
     //loginScene is the login screen
     private final loginScene loginScene;
+    private final FinalResult finalResult;
 
 
     public mainDriver() {
         //initializing the loginScene
         loginScene = new loginScene();
+        finalResult = new FinalResult();
     }
 
     //method to switch to the login scene
@@ -36,6 +38,13 @@ public class mainDriver extends Application {
         Scene scene = loginScene.getScene();
         stage.setScene(scene);
     }
+    public void switchToFinalResult(Stage stage){
+        //getting the scene from the loginScene object
+        Scene scene = FinalResult.getScene();
+        stage.setScene(scene);
+    }
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -104,8 +113,7 @@ public class mainDriver extends Application {
         //help button action, will switch the scene to the tutorial/practice section
         helpButton.setOnAction(e -> {
             System.out.println("Help button pressed");
-          /*
-            stage.setScene(helpScene);*/
+          switchToFinalResult(stage);
         });
 
         //exit button, leads back to log in screen
