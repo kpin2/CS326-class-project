@@ -26,7 +26,26 @@
 
 #andromedaText {
     -fx-font-family: "Space Mission";
-    -fx-font-size: 64px;
+    -fx-font-size: 60px;
     -fx-font-weight: bold;
     -fx-text-fill: rgb(97, 197, 184);
 }
+
+#andromedaText:hover {
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+
+#galacticGeometryText{
+    -fx-font-family: "Space Mission";
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+}
+
+#cosmicCountingText {
+    -fx-font-family: "Space Mission";
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+
+}
+

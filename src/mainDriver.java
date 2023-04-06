@@ -23,11 +23,13 @@ public class mainDriver extends Application {
 
     //loginScene is the login screen
     private final loginScene loginScene;
+    private final FinalResult finalResult;
 
 
     public mainDriver() {
         //initializing the loginScene
         loginScene = new loginScene();
+        finalResult = new FinalResult();
     }
 
     //method to switch to the login scene
@@ -36,6 +38,13 @@ public class mainDriver extends Application {
         Scene scene = loginScene.getScene();
         stage.setScene(scene);
     }
+    public void switchToFinalResult(Stage stage){
+        //getting the scene from the loginScene object
+        Scene scene = FinalResult.getScene();
+        stage.setScene(scene);
+    }
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -71,7 +80,7 @@ public class mainDriver extends Application {
         exitButtonImage = new Image("file:resources/assets/exit.png");
         asteroidHomeImage = new Image("file:resources/assets/Asteroid.png");
         helpButtonImage = new Image("file:resources/assets/help2.png");
-        smallShipImage = new Image("file:resources/assets/small spaceship.png");
+        smallShipImage = new Image("file:resources/assets/smallSpaceship2.png");
         andromedaPlanetImage = new Image("file:resources/assets/planet 200x200.png");
         galaxyImage = new Image("file:resources/assets/galaxy-transparent-24.png");
         cosmicCountingImage = new Image("file:resources/assets/planet 300x250.png");
@@ -104,8 +113,7 @@ public class mainDriver extends Application {
         //help button action, will switch the scene to the tutorial/practice section
         helpButton.setOnAction(e -> {
             System.out.println("Help button pressed");
-          /*
-            stage.setScene(helpScene);*/
+          switchToFinalResult(stage);
         });
 
         //exit button, leads back to log in screen
@@ -145,13 +153,11 @@ public class mainDriver extends Application {
         andromedaPlanetImageView = new ImageView(andromedaPlanetImage);
         andromedaPlanetImageView.setFitHeight(250);
         andromedaPlanetImageView.setFitWidth(250);
-        andromedaPlanetImageView.setLayoutX(200);
-        andromedaPlanetImageView.setLayoutY(400);
         Button andromedaArithmetic = new Button("", andromedaPlanetImageView);
-        andromedaArithmetic.setLayoutX(200);
-        andromedaArithmetic.setLayoutY(400);
+        andromedaArithmetic.setLayoutX(275);
+        andromedaArithmetic.setLayoutY(460);
         andromedaArithmetic.setStyle("-fx-background-color: transparent;");
-        Text andromedaText = new Text(75, 675, "Andromeda Arithmetic");
+        Text andromedaText = new Text(75, 715, "Andromeda Arithmetic");
         andromedaText.setFill(Color.rgb(97, 197, 184));
         andromedaText.setId("andromedaText");
         Tooltip andromeda = new Tooltip("Andromeda Arithmetic");
@@ -166,18 +172,40 @@ public class mainDriver extends Application {
         galaxyImageView = new ImageView(galaxyImage);
         galaxyImageView.setFitHeight(379);
         galaxyImageView.setFitWidth(800);
-        galaxyImageView.setLayoutX(300);
-        galaxyImageView.setLayoutY(130);
+        Text galacticGeometryText = new Text(500, 490, "Galactic Geometry");
+        galacticGeometryText.setFill(Color.rgb(189, 182, 190));
+        galacticGeometryText.setId("galacticGeometryText");
+        Button galacticGeometryButton = new Button("", galaxyImageView);
+        galacticGeometryButton.setLayoutX(300);
+        galacticGeometryButton.setLayoutY(110);
+        galacticGeometryButton.setStyle("-fx-background-color: transparent;");
+        Tooltip galacticGeometry = new Tooltip("Galactic Geometry");
+        galacticGeometryButton.setTooltip(galacticGeometry);
+        galacticGeometryButton.setOnAction(e -> {
+            System.out.println("Galactic Geometry button pressed");
+            //stage.setScene(galacticGeometryScene);
+        });
 
         //Cosmic Counting assets
         cosmicCountingImageView = new ImageView(cosmicCountingImage);
         cosmicCountingImageView.setFitHeight(250);
         cosmicCountingImageView.setFitWidth(300);
-        cosmicCountingImageView.setLayoutX(1000);
-        cosmicCountingImageView.setLayoutY(400);
+        Button cosmicCountingButton = new Button("", cosmicCountingImageView);
+        cosmicCountingButton.setLayoutX(1000);
+        cosmicCountingButton.setLayoutY(430);
+        cosmicCountingButton.setStyle("-fx-background-color: transparent;");
+        Text cosmicCountingText = new Text(850, 715, "Cosmic Counting");
+        cosmicCountingText.setFill(Color.rgb(224,171,76));
+        cosmicCountingText.setId("cosmicCountingText");
+        Tooltip cosmicCounting = new Tooltip("Cosmic Counting");
+        cosmicCountingButton.setTooltip(cosmicCounting);
+        cosmicCountingButton.setOnAction(e -> {
+            System.out.println("Cosmic Counting button pressed");
+            //stage.setScene(cosmicCountingScene);
+        });
 
         //adding all the nodes to the root
-        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, galaxyImageView, cosmicCountingImageView, andromedaArithmetic, andromedaText);
+        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, cosmicCountingButton, andromedaArithmetic, andromedaText, galacticGeometryButton, galacticGeometryText, cosmicCountingText);
         stage.setScene(landingScene);
         stage.show();
     }
