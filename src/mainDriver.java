@@ -7,6 +7,7 @@
 
 import javafx.application.Application;
 import javafx.event.Event;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -79,6 +80,13 @@ public class mainDriver extends Application {
         //setting the background image
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
+
+
+        //setting the cursor to the rocket ship
+        Image cursorImage = new Image("file:resources/assets/smallSpaceship2.png");
+        ImageCursor cursor = new ImageCursor(cursorImage);
+        landingScene.setCursor(cursor);
+
 
         //Setting the font
         Text text = new Text(300, 100, "Mission: Math!");
@@ -178,6 +186,7 @@ public class mainDriver extends Application {
         andromedaArithmetic.setTooltip(andromeda);
         andromedaArithmetic.setOnAction(e -> {
             System.out.println("Andromeda Arithmetic button pressed");
+//            andromedaArithmetic.setDisable(true);
             //stage.setScene(andromedaScene);
         });
 
