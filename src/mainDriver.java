@@ -6,7 +6,6 @@
  * */
 
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,11 +16,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-
-/*rocket ship mouse-cursor?*/
 
 public class mainDriver extends Application {
 
@@ -68,7 +64,7 @@ public class mainDriver extends Application {
         Pane root = new Pane();
 
         //landingScene is the homepage/landing page of the software
-        Scene landingScene = new Scene(root, 1360, 750);
+        Scene landingScene = new Scene(root, 1366, 768);
 
 
         //loading our custom font first so the rest of the program can use it
@@ -78,13 +74,19 @@ public class mainDriver extends Application {
         landingScene.getStylesheets().add(("styles/stylesheet.css"));
 
         //setting the background image
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
 
+
+        Image smShip = new Image("file:resources/assets/smallSpaceship.png");
+        Image px64Ship = new Image("file:resources/assets/64pxsmallSpaceship.png");
+        Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
+        stage.getIcons().addAll(smShip, px64Ship, px48Ship);
+
         //setting the cursor to the rocket ship
-        Image cursorImage = new Image("file:resources/assets/smallSpaceship2.png");
-        ImageCursor cursor = new ImageCursor(cursorImage);
+
+        ImageCursor cursor = new ImageCursor(smShip, 0, 0);
         landingScene.setCursor(cursor);
 
 

@@ -29,18 +29,16 @@ public class loginScene extends Scene {
     //constructor
     public loginScene() {
         //call the super class constructor
-        super(new Pane(), 960, 540);
+        super(new Pane(), 1366, 768);
 
         //create a new pane
         Pane root = new Pane();
 
         //tell loginScene to use the pane root
-        loginScene = new Scene(root, 960, 540);
+        loginScene = new Scene(root, 1366, 768);
 
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png",960,540,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
         Text txt1 = new Text(250, 320, "Username:");
