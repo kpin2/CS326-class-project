@@ -1,4 +1,3 @@
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -7,19 +6,20 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 
 import java.util.Random;
 
 public class practiceExamScene extends Scene {
 
-    private Scene scene;
+    private final Scene practiceExamScene;
 
     public practiceExamScene() {
-        super(new Pane(),960,540);
-        Pane root = new Pane();
 
-        scene = new Scene(root, 1360, 750);
+        super(new Pane(),1366, 768);
+        Pane root = new Pane();
+        practiceExamScene = new Scene(root, 1366, 768);
+
+
         String[] questions = {
                 "What is 2 + 2?",
                 "How many different shapes are called quadrilaterals?",
@@ -32,9 +32,7 @@ public class practiceExamScene extends Scene {
 
         String randomQuestion = questions[rand.nextInt(questions.length)];
 
-        Pane root2 = new Pane();
-
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
         //Setting the font
@@ -82,8 +80,8 @@ public class practiceExamScene extends Scene {
 
         toolBar.getItems().addAll(resetButton, exitButton);
         root.getChildren().addAll(toolBar, text, questionLabel, choice1, choice2, choice3, choice4, submitButton);
-        double sceneWidth = scene.getWidth();
-        double sceneHeight = scene.getHeight();
+        double sceneWidth = practiceExamScene.getWidth();
+        double sceneHeight = practiceExamScene.getHeight();
 
         questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
         questionLabel.setLayoutY(sceneHeight / 2 - 80);
@@ -114,7 +112,7 @@ public class practiceExamScene extends Scene {
     }
 
     public Scene getScene(){
-        return scene;
+        return practiceExamScene;
     }
 
 

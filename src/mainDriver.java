@@ -19,8 +19,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-/*rocket ship mouse-cursor?*/
-
 public class mainDriver extends Application {
 
     //loginScene is the login screen
@@ -66,7 +64,7 @@ public class mainDriver extends Application {
         Pane root = new Pane();
 
         //landingScene is the homepage/landing page of the software
-        Scene landingScene = new Scene(root, 1360, 750);
+        Scene landingScene = new Scene(root, 1366, 768);
 
 
         //loading our custom font first so the rest of the program can use it
@@ -76,7 +74,7 @@ public class mainDriver extends Application {
         landingScene.getStylesheets().add(("styles/stylesheet.css"));
 
         //setting the background image
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
 

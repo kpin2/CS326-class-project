@@ -1,10 +1,7 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -12,13 +9,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
 public class FinalResult extends Scene {
 
-    private static Scene FinalResult;
+    //declare Scene variable to allow getScene() to return the scene
+    private final Scene FinalResult;
 
     public FinalResult() {
         super(new Pane(), 960, 540);
@@ -26,9 +23,9 @@ public class FinalResult extends Scene {
         Pane root = new Pane();
 
         //tell loginScene to use the pane root
-        FinalResult = new Scene(root, 960, 540);
+        FinalResult = new Scene(root, 1366, 768);
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1200, 800, false, true), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
 
