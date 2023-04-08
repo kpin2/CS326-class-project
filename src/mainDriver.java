@@ -6,7 +6,6 @@
  * */
 
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,7 +16,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 
@@ -82,9 +80,15 @@ public class mainDriver extends Application {
         root.setBackground(new Background(myBI));
 
 
+
+        Image smShip = new Image("file:resources/assets/smallSpaceship.png");
+        Image px64Ship = new Image("file:resources/assets/64pxsmallSpaceship.png");
+        Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
+        stage.getIcons().addAll(smShip, px64Ship, px48Ship);
+
         //setting the cursor to the rocket ship
-        Image cursorImage = new Image("file:resources/assets/smallSpaceship2.png");
-        ImageCursor cursor = new ImageCursor(cursorImage);
+
+        ImageCursor cursor = new ImageCursor(smShip, 0, 0);
         landingScene.setCursor(cursor);
 
 
