@@ -1,8 +1,3 @@
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.File;
-import javafx.stage.FileChooser;
-import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -13,7 +8,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 /**
@@ -25,6 +24,8 @@ public class loginScene extends Scene {
 
     //declare variable
     private final Scene loginScene;
+
+    public Button loginButton;
 
     //constructor
     public loginScene() {
@@ -64,7 +65,8 @@ public class loginScene extends Scene {
         password.getText();
 
         ToolBar toolBar = new ToolBar();
-        Button loginButton = new Button("Login");
+
+        loginButton = new Button("Login");
         toolBar.setLayoutX(450);
         toolBar.setLayoutY(425);
         toolBar.getItems().add(loginButton);
@@ -100,9 +102,9 @@ public class loginScene extends Scene {
         });
 
 
-        Text text = new Text(75, 100, "Mission: Math!");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 108));
-        text.setFill(Color.RED);
+        Text text = new Text(300, 100, "Mission: Math!");
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
         root.getChildren().addAll(text, txt1, username, txt2, password, toolBar);
 
 
