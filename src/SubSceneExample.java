@@ -29,7 +29,7 @@ public class SubSceneExample extends Application {
         text.setLayoutX(50);
         text.setLayoutY(50);
         text.setFill(Color.WHITE);
-        text.setFont(Font.font("Mission Space", 36));
+        text.setFont(Font.font("Space Mission", 36));
         root.getChildren().add(text);
         primaryStage.setScene(scene);
         primaryStage.show();
