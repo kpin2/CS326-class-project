@@ -26,6 +26,7 @@ public class loginScene extends Scene {
     private final Scene loginScene;
 
     public Button loginButton;
+    public boolean login = true;
 
     //constructor
     public loginScene() {
@@ -71,8 +72,9 @@ public class loginScene extends Scene {
         toolBar.setLayoutY(425);
         toolBar.getItems().add(loginButton);
         loginButton.setOnAction(e -> {
-            String userN = "";
-            String passW = "";
+            String userN;
+            String passW;
+            login = true;
 
             if((username.getText() != null) && (username.getText().length() >= 8) && (password.getText() != null) && (password.getText().length() >= 8)){
                 userN = username.getText();
@@ -83,7 +85,6 @@ public class loginScene extends Scene {
                 fileChooser.setTitle("Login Information");
 
                 File file = fileChooser.showSaveDialog(loginScene.getWindow());
-
                 if (file != null) {
 
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -92,6 +93,8 @@ public class loginScene extends Scene {
                         b.printStackTrace();
                     }
                 }
+
+
 
             }
             else{

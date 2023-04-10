@@ -27,8 +27,8 @@ public class landingScene extends Scene {
 
     //TODO - Interstellar Equations? Intergalactic Algebra?
     public landingScene() {
-        super(new Pane(), 1366, 768);
 
+        super(new Pane(), 1366, 768);
         Pane root = new Pane();
 
         //landingScene is the homepage/landing page of the software
@@ -138,7 +138,7 @@ public class landingScene extends Scene {
         andromedaArithmetic.setOnAction(e -> {
             System.out.println("Andromeda Arithmetic button pressed");
 //            andromedaArithmetic.setDisable(true);
-            //stage.setScene(andromedaScene);
+
         });
 
 
@@ -155,6 +155,7 @@ public class landingScene extends Scene {
         galacticGeometryButton.setStyle("-fx-background-color: transparent;");
         Tooltip galacticGeometry = new Tooltip("Galactic Geometry");
         galacticGeometryButton.setTooltip(galacticGeometry);
+
         galacticGeometryButton.setOnAction(e -> {
             System.out.println("Galactic Geometry button pressed");
             //stage.setScene(galacticGeometryScene);
