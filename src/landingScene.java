@@ -25,7 +25,6 @@ public class landingScene extends Scene {
     private final Scene landingScene;
     public Button exitButton, helpButton, asteroidHomeButton, andromedaArithmetic,cosmicCountingButton, galacticGeometryButton;
 
-    //TODO - Interstellar Equations? Intergalactic Algebra?
     public landingScene() {
 
         super(new Pane(), 1366, 768);
