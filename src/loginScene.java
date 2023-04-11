@@ -27,6 +27,7 @@ public class loginScene extends Scene {
     public boolean login = false;
 
     public Button loginButton;
+    public boolean login = true;
 
     public TextField username;
     public PasswordField password;

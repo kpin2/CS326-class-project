@@ -8,6 +8,7 @@
 import javafx.application.Application;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -93,8 +94,16 @@ public class mainDriver extends Application {
         Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
         stage.getIcons().addAll(smShip, px64Ship, px48Ship);
 
+        Alert logout = new Alert(Alert.AlertType.CONFIRMATION);
+        logout.setTitle("Logout and Return to Login Screen");
+        logout.setHeaderText("Are you sure you want to logout?");
+        logout.setContentText("You will be returned to the login screen.");
+
+
+
         //once login is successful, switch to the landing scene
         //TODO - needs a check to see if login is successful before switching to landing
+
         loginScene.loginButton.setOnAction(e ->{
             if(correctLogin(loginScene.username, loginScene.password)) {
                 switchScene(stage, landingScene.getScene());
@@ -102,6 +111,7 @@ public class mainDriver extends Application {
         });
 
         landingScene.exitButton.setOnAction(e -> switchScene(stage, loginScene.getScene()));
+
         landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
 
