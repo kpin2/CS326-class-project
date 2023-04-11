@@ -24,9 +24,13 @@ public class loginScene extends Scene {
 
     //declare variable
     private final Scene loginScene;
+    public boolean login = false;
 
     public Button loginButton;
     public boolean login = true;
+
+    public TextField username;
+    public PasswordField password;
 
     //constructor
     public loginScene() {
@@ -43,67 +47,34 @@ public class loginScene extends Scene {
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
-        Text txt1 = new Text(250, 320, "Username:");
+        Text txt1 = new Text(540, 407, "Username:");
         txt1.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt1.setFill(Color.RED);
 
-        TextField username = new TextField();
+        /*TextField*/ username = new TextField();
         username.setPromptText("Enter username");
         username.setPrefColumnCount(20);
-        username.setLayoutX(400);
-        username.setLayoutY(300);
+        username.setLayoutX(683);
+        username.setLayoutY(384);
         username.getText();
 
-        Text txt2 = new Text(250, 370, "Password:");
+        Text txt2 = new Text(540, 437, "Password:");
         txt2.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt2.setFill(Color.RED);
 
-        PasswordField password = new PasswordField();
+        /*PasswordField*/ password = new PasswordField();
         password.setPromptText("Enter password");
         password.setPrefColumnCount(20);
-        password.setLayoutX(400);
-        password.setLayoutY(350);
+        password.setLayoutX(683);
+        password.setLayoutY(414);
         password.getText();
 
         ToolBar toolBar = new ToolBar();
 
         loginButton = new Button("Login");
-        toolBar.setLayoutX(450);
-        toolBar.setLayoutY(425);
+        toolBar.setLayoutX(683);
+        toolBar.setLayoutY(530);
         toolBar.getItems().add(loginButton);
-        loginButton.setOnAction(e -> {
-            String userN;
-            String passW;
-            login = true;
-
-            if((username.getText() != null) && (username.getText().length() >= 8) && (password.getText() != null) && (password.getText().length() >= 8)){
-                userN = username.getText();
-                passW = password.getText();
-
-                String loginInfo = userN+ ", " +passW;
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Login Information");
-
-                File file = fileChooser.showSaveDialog(loginScene.getWindow());
-                if (file != null) {
-
-                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                        writer.write(loginInfo);
-                    } catch (IOException b) {
-                        b.printStackTrace();
-                    }
-                }
-
-
-
-            }
-            else{
-                username.setPromptText("Error! Please enter username");
-                password.setPromptText("Error! Please enter password");
-            }
-
-        });
-
 
         Text text = new Text(300, 100, "Mission: Math!");
         text.setFill(Color.rgb(243, 5, 1));
@@ -117,5 +88,4 @@ public class loginScene extends Scene {
     public Scene getScene() {
         return loginScene;
     }
-
 }
