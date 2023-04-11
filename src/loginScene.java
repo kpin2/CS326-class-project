@@ -8,11 +8,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 /**
@@ -24,10 +19,8 @@ public class loginScene extends Scene {
 
     //declare variable
     private final Scene loginScene;
-    public boolean login = false;
 
     public Button loginButton;
-    public boolean login = true;
 
     public TextField username;
     public PasswordField password;
