@@ -9,6 +9,8 @@ import javafx.application.Application;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,6 +40,21 @@ public class mainDriver extends Application {
 
     public void switchScene(Stage stage, Scene scene){
         stage.setScene(scene);
+    }
+
+    public boolean correctLogin(TextField username, PasswordField password)
+    {
+        if(username.getText()!= null && password.getText()!=null) {
+            if (username.getText().length() >= 6 && password.getText().length() >= 8) {
+                return true;
+            }
+            else return false;
+        }
+        else {
+            loginScene.username.setPromptText("Error! Please enter username");
+            loginScene.password.setPromptText("Error! Please enter password");
+            return false;
+        }
     }
 
 
@@ -78,7 +95,12 @@ public class mainDriver extends Application {
 
         //once login is successful, switch to the landing scene
         //TODO - needs a check to see if login is successful before switching to landing
-        loginScene.loginButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
+        loginScene.loginButton.setOnAction(e ->{
+            if(correctLogin(loginScene.username, loginScene.password)) {
+                switchScene(stage, landingScene.getScene());
+            }
+        });
+
         landingScene.exitButton.setOnAction(e -> switchScene(stage, loginScene.getScene()));
         landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
