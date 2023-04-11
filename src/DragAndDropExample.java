@@ -44,16 +44,10 @@ public class DragAndDropExample extends Application {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-        class YouTubeViewer extends Application {
+        /*class YouTubeViewer extends Application {
             public static void main(String[] args) { launch(args); }
 
             @Override public void start(Stage stage) throws Exception {
-                WebView webview = new WebView();
-                webview.getEngine().load(
-
-                        "https://www.youtube.com/embed/lBCIGY3dWXQ" //be sure to get the YouTube embed URL
-                );
-                webview.setPrefSize(640, 390);
 
 
 
@@ -61,7 +55,7 @@ public class DragAndDropExample extends Application {
                 stage.show();
             }
         }
-
+*/
 
 
         //creating toolbar for the reset and exit buttons
