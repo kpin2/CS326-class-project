@@ -8,7 +8,6 @@
 
 
 import javafx.scene.ImageCursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -16,14 +15,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class landingScene extends Scene {
 
     //declare Scene variable to allow getScene() to return the scene
     private final Scene landingScene;
-    public Button exitButton, helpButton, asteroidHomeButton, andromedaArithmetic,cosmicCountingButton, galacticGeometryButton;
+    public Button exitButton, helpButton, asteroidHomeButton, andromedaArithmetic,cosmicCountingButton, intergalacticAlgebra;
 
     public landingScene() {
 
@@ -145,19 +143,18 @@ public class landingScene extends Scene {
         galaxyImageView = new ImageView(galaxyImage);
         galaxyImageView.setFitHeight(379);
         galaxyImageView.setFitWidth(800);
-        Text galacticGeometryText = new Text(500, 490, "Galactic Geometry");
-        galacticGeometryText.setFill(Color.rgb(189, 182, 190));
-        galacticGeometryText.setId("galacticGeometryText");
-        galacticGeometryButton = new Button("", galaxyImageView);
-        galacticGeometryButton.setLayoutX(300);
-        galacticGeometryButton.setLayoutY(110);
-        galacticGeometryButton.setStyle("-fx-background-color: transparent;");
-        Tooltip galacticGeometry = new Tooltip("Galactic Geometry");
-        galacticGeometryButton.setTooltip(galacticGeometry);
+        Text intergalacticAlgebraText = new Text(500, 490, "Intergalactic Algebra");
+        intergalacticAlgebraText.setFill(Color.rgb(189, 182, 190));
+        intergalacticAlgebraText.setId("intergalacticAlgebraText");
+        intergalacticAlgebra = new Button("", galaxyImageView);
+        intergalacticAlgebra.setLayoutX(300);
+        intergalacticAlgebra.setLayoutY(110);
+        intergalacticAlgebra.setStyle("-fx-background-color: transparent;");
+        Tooltip intergalacticTooltip = new Tooltip("Intergalactic Algebra");
+        intergalacticAlgebra.setTooltip(intergalacticTooltip);
 
-        galacticGeometryButton.setOnAction(e -> {
-            System.out.println("Galactic Geometry button pressed");
-            //stage.setScene(galacticGeometryScene);
+        intergalacticAlgebra.setOnAction(e -> {
+            System.out.println("Intergalactic Algebra button pressed");
         });
 
         //Cosmic Counting assets
@@ -179,7 +176,7 @@ public class landingScene extends Scene {
         });
 
         //adding all the nodes to the root
-        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, cosmicCountingButton, andromedaArithmetic, andromedaText, galacticGeometryButton, galacticGeometryText, cosmicCountingText);
+        root.getChildren().addAll(exitButton, text, helpButton, smallShipImageView, asteroidHomeButton, cosmicCountingButton, andromedaArithmetic, andromedaText, intergalacticAlgebra, intergalacticAlgebraText, cosmicCountingText);
 
 
     }
