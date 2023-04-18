@@ -17,14 +17,15 @@ import javafx.stage.Stage;
 
 public class mainDriver extends Application {
 
-    //loginScene is the login screen
     private final loginScene loginScene;
+    private final accountCreation accountCreation;
     private final FinalResult finalResult;
     private final practiceExamScene practiceExamScene;
     private final landingScene landingScene;
 
     private final practiceTF practiceTF;
     private final practiceFITB practiceFITB;
+    private final beginningScene beginningScene;
 
     public mainDriver() {
         //initializing the scenes
@@ -34,6 +35,8 @@ public class mainDriver extends Application {
         landingScene = new landingScene();
         practiceTF = new practiceTF();
         practiceFITB = new practiceFITB();
+        accountCreation = new accountCreation();
+        beginningScene = new beginningScene();
     }
 
     //method to switch scenes
@@ -116,7 +119,12 @@ public class mainDriver extends Application {
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
         landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
 
-        stage.setScene(loginScene.getScene());
+        stage.setScene(beginningScene.getScene());
+
+        beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
+        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
+
+
         stage.show();
     }
 
