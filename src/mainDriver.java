@@ -23,6 +23,8 @@ public class mainDriver extends Application {
     private final practiceExamScene practiceExamScene;
     private final landingScene landingScene;
 
+    private final practiceTF practiceTF;
+    private final practiceFITB practiceFITB;
 
     public mainDriver() {
         //initializing the loginScene
@@ -30,6 +32,8 @@ public class mainDriver extends Application {
         finalResult = new FinalResult();
         practiceExamScene = new practiceExamScene();
         landingScene = new landingScene();
+        practiceTF = new practiceTF();
+        practiceFITB = new practiceFITB();
     }
 
     public void switchScene(Stage stage, Scene scene) {
@@ -69,6 +73,16 @@ public class mainDriver extends Application {
         Scene scene = practiceExamScene.getScene();
         stage.setScene(scene);
     }
+    public void switchToPracticeTF(Stage stage) {
+        //getting the scene from the loginScene object
+        Scene scene = practiceTF.getScene();
+        stage.setScene(scene);
+    }
+    public void switchToPracticeFITB(Stage stage) {
+        //getting the scene from the loginScene object
+        Scene scene = practiceFITB.getScene();
+        stage.setScene(scene);
+    }
 
 
     @Override
@@ -102,9 +116,18 @@ public class mainDriver extends Application {
 
         landingScene.exitButton.setOnAction(e -> switchScene(stage, loginScene.getScene()));
 
-        landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
+      /*
+      In order to see the different style of questions(for now) you have to comment out the lines that have
+      the question types that you DO NOT want to see. Here is a small list to see the question types:
+      Multiple choice:  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
+      True/False: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
+      Fill in the Blank: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
+      */
 
+       // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
+        //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
+          landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
 
         stage.setScene(loginScene.getScene());
         stage.show();
