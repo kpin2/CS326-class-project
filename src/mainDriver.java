@@ -1,6 +1,6 @@
 /* CSCI362 Software Engineering
  * Class Project - Mission: Math!
- * mainDriver.java - Driver program for the tutoring software/game of Mission: Math! Calls the  JavaFX application start method and launches the software.
+ * mainDriver.java - Driver program for the tutoring software/game of Mission: Math! Calls the JavaFX application start method and launches the software.
  *
  * @author Kevin Pinto - Wrote initial code with a basic setup for the main driver.
  * */
@@ -17,36 +17,37 @@ import javafx.stage.Stage;
 
 public class mainDriver extends Application {
 
-    //loginScene is the login screen
     private final loginScene loginScene;
+    private final accountCreation accountCreation;
     private final FinalResult finalResult;
     private final practiceExamScene practiceExamScene;
     private final landingScene landingScene;
 
     private final practiceTF practiceTF;
     private final practiceFITB practiceFITB;
+    private final beginningScene beginningScene;
 
     public mainDriver() {
-        //initializing the loginScene
+        //initializing the scenes
         loginScene = new loginScene();
         finalResult = new FinalResult();
         practiceExamScene = new practiceExamScene();
         landingScene = new landingScene();
         practiceTF = new practiceTF();
         practiceFITB = new practiceFITB();
+        accountCreation = new accountCreation();
+        beginningScene = new beginningScene();
     }
 
+    //method to switch scenes
     public void switchScene(Stage stage, Scene scene) {
         stage.setScene(scene);
     }
 
+    //method to check if the login information is correct
     public boolean correctLogin(TextField username, PasswordField password) {
         if (username.getText() != null && password.getText() != null) {
-            if (username.getText().length() >= 6 && password.getText().length() >= 8) {
-                return true;
-            } else {
-                return false;
-            }
+            return username.getText().length() >= 6 && password.getText().length() >= 8;
         } else {
             loginScene.username.setPromptText("Error! Please enter username");
             loginScene.password.setPromptText("Error! Please enter password");
@@ -55,29 +56,12 @@ public class mainDriver extends Application {
     }
 
 
-    //method to switch to the login scene
-    public void switchToLoginScene(Stage stage) {
-        //getting the scene from the loginScene object
-        Scene scene = loginScene.getScene();
-        stage.setScene(scene);
-    }
-
-    public void switchToFinalResult(Stage stage) {
-        //getting the scene from the loginScene object
-        Scene scene = finalResult.getScene();
-        stage.setScene(scene);
-    }
-
-    public void switchToPracticeExamScene(Stage stage) {
-        //getting the scene from the loginScene object
-        Scene scene = practiceExamScene.getScene();
-        stage.setScene(scene);
-    }
     public void switchToPracticeTF(Stage stage) {
         //getting the scene from the loginScene object
         Scene scene = practiceTF.getScene();
         stage.setScene(scene);
     }
+
     public void switchToPracticeFITB(Stage stage) {
         //getting the scene from the loginScene object
         Scene scene = practiceFITB.getScene();
@@ -101,10 +85,10 @@ public class mainDriver extends Application {
         Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
         stage.getIcons().addAll(smShip, px64Ship, px48Ship);
 
-        Alert logout = new Alert(Alert.AlertType.CONFIRMATION);
-        logout.setTitle("Logout and Return to Login Screen");
-        logout.setHeaderText("Are you sure you want to logout?");
-        logout.setContentText("You will be returned to the login screen.");
+        Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        logoutConfirmation.setTitle("Logout and Return to Login Screen");
+        logoutConfirmation.setHeaderText("Are you sure you want to logout?");
+        logoutConfirmation.setContentText("You will be returned to the login screen.");
 
 
         //once login is successful, switch to the landing scene
@@ -114,7 +98,13 @@ public class mainDriver extends Application {
             }
         });
 
-        landingScene.exitButton.setOnAction(e -> switchScene(stage, loginScene.getScene()));
+        landingScene.exitButton.setOnAction(e ->
+                logoutConfirmation.showAndWait().ifPresent(response -> {
+                    if (response.getText().equals("OK")) {
+                        switchScene(stage, loginScene.getScene());
+                    }
+                }));
+
 
         landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
       /*
@@ -125,11 +115,16 @@ public class mainDriver extends Application {
       Fill in the Blank: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
       */
 
-       // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
+        // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
-          landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
+        landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
 
-        stage.setScene(loginScene.getScene());
+        stage.setScene(beginningScene.getScene());
+
+        beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
+        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
+
+
         stage.show();
     }
 

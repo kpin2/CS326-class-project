@@ -15,6 +15,9 @@ public class beginningScene extends Scene {
     private final Scene beginning;
     private accountCreation createAccount;
     private loginScene loginS;
+    public Text create;
+    public Text login;
+
 
     public void switchScene(Stage stage, Scene scene) {
         stage.setScene(scene);
@@ -23,8 +26,6 @@ public class beginningScene extends Scene {
     public beginningScene() {
 
         super(new Pane(), 1366, 768);
-
-        Stage stage = new Stage();
 
         Pane root = new Pane();
 
@@ -37,29 +38,18 @@ public class beginningScene extends Scene {
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
-        Text login = new Text(663, 387, "Login");
+        login = new Text(663, 387, "Login");
         login.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 60));
         login.setFill(Color.WHITE);
 
-        login.setOnMouseClicked(e -> {
-            loginS = new loginScene();
-            Scene loginSc = loginS.getScene();
-            switchScene(stage, loginSc);
-        });
 
-        Text create = new Text(513, 457, "Create Account");
+        create = new Text(513, 457, "Create Account");
         create.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 60));
         create.setFill(Color.WHITE);
 
-        create.setOnMouseClicked(e -> {
-            createAccount = new accountCreation();
-            Scene createA = createAccount.getScene();
-            switchScene(stage, createA);
-        });
 
         root.getChildren().addAll(text, login, create);
     }
-
 
 
     public Scene getScene() {
