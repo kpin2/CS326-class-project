@@ -1,5 +1,4 @@
 import javafx.scene.Scene;
-import javafx.application.Application;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -7,22 +6,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 
-/**
- All the other classes are going to be extensions of Scene and implemented in this same format!!
- */
 
 
 public class accountCreation extends Scene{
 
     //declare variable
 
-    private Scene creationScene;
+    private final Scene creationScene;
 
     public Button register;
-
     public TextField username;
     public PasswordField password;
 
