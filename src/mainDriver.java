@@ -11,8 +11,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 
 
 public class mainDriver extends Application {
@@ -22,10 +25,10 @@ public class mainDriver extends Application {
     private final FinalResult finalResult;
     private final practiceExamScene practiceExamScene;
     private final landingScene landingScene;
-
     private final practiceTF practiceTF;
     private final practiceFITB practiceFITB;
     private final beginningScene beginningScene;
+    private final databaseOps dbOps;
 
     public mainDriver() {
         //initializing the scenes
@@ -37,6 +40,7 @@ public class mainDriver extends Application {
         practiceFITB = new practiceFITB();
         accountCreation = new accountCreation();
         beginningScene = new beginningScene();
+        dbOps = new databaseOps();
     }
 
     //method to switch scenes
@@ -55,20 +59,6 @@ public class mainDriver extends Application {
         }
     }
 
-
-    public void switchToPracticeTF(Stage stage) {
-        //getting the scene from the loginScene object
-        Scene scene = practiceTF.getScene();
-        stage.setScene(scene);
-    }
-
-    public void switchToPracticeFITB(Stage stage) {
-        //getting the scene from the loginScene object
-        Scene scene = practiceFITB.getScene();
-        stage.setScene(scene);
-    }
-
-
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -85,18 +75,52 @@ public class mainDriver extends Application {
         Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
         stage.getIcons().addAll(smShip, px64Ship, px48Ship);
 
-        Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        logoutConfirmation.setTitle("Logout and Return to Login Screen");
-        logoutConfirmation.setHeaderText("Are you sure you want to logout?");
-        logoutConfirmation.setContentText("You will be returned to the login screen.");
+
+        //start at the beginning scene and handle click events
+        stage.setScene(beginningScene.getScene());
+        beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
+        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
+
+        //account creation
+        accountCreation.register.setOnAction(e -> {
+            if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
+
+                dbOps.addUser(accountCreation.username.getText(), accountCreation.password.getText(), accountCreation.avatarImage);
+
+                switchScene(stage, loginScene.getScene());
+            }
+        });
+
+
 
 
         //once login is successful, switch to the landing scene
         loginScene.loginButton.setOnAction(e -> {
-            if (correctLogin(loginScene.username, loginScene.password)) {
-                switchScene(stage, landingScene.getScene());
+
+
+            try {
+
+                /*ImageView avatar = new ImageView(dbOps.getAvatar(loginScene.username.getText()));
+                avatar.setImage(dbOps.getAvatar(loginScene.username.getText()));*/
+                Image avatar = dbOps.getAvatar(loginScene.username.getText());
+                loginScene.avatarImage.setImage(avatar);
+                System.out.println(loginScene.avatarImage.getImage());
+                System.out.println(avatar);
+
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
+
+            /*if (correctLogin(loginScene.username, loginScene.password)) {
+                switchScene(stage, landingScene.getScene());
+            }*/
         });
+
+
+        Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        logoutConfirmation.setTitle("Logout and Return to Login Screen");
+        logoutConfirmation.setHeaderText("Are you sure you want to logout?");
+        logoutConfirmation.setContentText("You will be returned to the login screen.");
 
         landingScene.exitButton.setOnAction(e ->
                 logoutConfirmation.showAndWait().ifPresent(response -> {
@@ -118,11 +142,6 @@ public class mainDriver extends Application {
         // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
         landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
-
-        stage.setScene(beginningScene.getScene());
-
-        beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
-        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
 
 
         stage.show();

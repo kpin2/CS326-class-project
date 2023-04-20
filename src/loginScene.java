@@ -4,6 +4,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -24,6 +25,8 @@ public class loginScene extends Scene {
 
     public TextField username;
     public PasswordField password;
+
+    public ImageView avatarImage;
 
     //constructor
     public loginScene() {
@@ -69,10 +72,17 @@ public class loginScene extends Scene {
         toolBar.setLayoutY(530);
         toolBar.getItems().add(loginButton);
 
+        avatarImage = new ImageView();
+        avatarImage.setFitWidth(500);
+        avatarImage.setFitHeight(500);
+        avatarImage.setLayoutX(400);
+        avatarImage.setLayoutY(200);
+
+
         Text text = new Text(300, 100, "Mission: Math!");
         text.setFill(Color.rgb(243, 5, 1));
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
-        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar);
+        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar, avatarImage);
 
 
 

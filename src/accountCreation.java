@@ -19,6 +19,7 @@ public class accountCreation extends Scene{
     public Button register;
     public TextField username;
     public PasswordField password;
+    public Image avatarImage;
 
 
     //constructor
@@ -99,6 +100,10 @@ public class accountCreation extends Scene{
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
         toolBar.getItems().add(register);
+
+
+        avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);
+
 
         register.setOnAction(e -> {
             // Remove the existing items from the pane
