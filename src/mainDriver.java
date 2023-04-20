@@ -1,82 +1,63 @@
 /* CSCI362 Software Engineering
  * Class Project - Mission: Math!
- * mainDriver.java - Driver program for the tutoring software/game of Mission: Math! Calls the  JavaFX application start method and launches the software.
+ * mainDriver.java - Driver program for the tutoring software/game of Mission: Math! Calls the JavaFX application start method and launches the software.
  *
  * @author Kevin Pinto - Wrote initial code with a basic setup for the main driver.
  * */
 
 import javafx.application.Application;
-import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 
 
 public class mainDriver extends Application {
 
-    //loginScene is the login screen
     private final loginScene loginScene;
+    private final accountCreation accountCreation;
     private final FinalResult finalResult;
     private final practiceExamScene practiceExamScene;
     private final landingScene landingScene;
-
+    private final practiceTF practiceTF;
+    private final practiceFITB practiceFITB;
+    private final beginningScene beginningScene;
+    private final databaseOps dbOps;
 
     public mainDriver() {
-        //initializing the loginScene
+        //initializing the scenes
         loginScene = new loginScene();
         finalResult = new FinalResult();
         practiceExamScene = new practiceExamScene();
         landingScene = new landingScene();
+        practiceTF = new practiceTF();
+        practiceFITB = new practiceFITB();
+        accountCreation = new accountCreation();
+        beginningScene = new beginningScene();
+        dbOps = new databaseOps();
     }
 
-    public void switchScene(Stage stage, Scene scene){
+    //method to switch scenes
+    public void switchScene(Stage stage, Scene scene) {
         stage.setScene(scene);
     }
 
-    public boolean correctLogin(TextField username, PasswordField password)
-    {
-        if(username.getText()!= null && password.getText()!=null) {
-            if (username.getText().length() >= 6 && password.getText().length() >= 8) {
-                return true;
-            }
-            else return false;
-        }
-        else {
+    //method to check if the login information is correct
+    public boolean correctLogin(TextField username, PasswordField password) {
+        if (username.getText() != null && password.getText() != null) {
+            return username.getText().length() >= 6 && password.getText().length() >= 8;
+        } else {
             loginScene.username.setPromptText("Error! Please enter username");
             loginScene.password.setPromptText("Error! Please enter password");
             return false;
         }
     }
-
-
-    //method to switch to the login scene
-    public void switchToLoginScene(Stage stage){
-        //getting the scene from the loginScene object
-        Scene scene = loginScene.getScene();
-        stage.setScene(scene);
-    }
-    public void switchToFinalResult(Stage stage){
-        //getting the scene from the loginScene object
-        Scene scene = finalResult.getScene();
-        stage.setScene(scene);
-    }
-
-    public void switchToPracticeExamScene(Stage stage){
-        //getting the scene from the loginScene object
-        Scene scene = practiceExamScene.getScene();
-        stage.setScene(scene);
-    }
-
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -94,35 +75,79 @@ public class mainDriver extends Application {
         Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
         stage.getIcons().addAll(smShip, px64Ship, px48Ship);
 
-        Alert logout = new Alert(Alert.AlertType.CONFIRMATION);
-        logout.setTitle("Logout and Return to Login Screen");
-        logout.setHeaderText("Are you sure you want to logout?");
-        logout.setContentText("You will be returned to the login screen.");
+
+        //start at the beginning scene and handle click events
+        stage.setScene(beginningScene.getScene());
+        beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
+        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
+
+        //account creation
+        accountCreation.register.setOnAction(e -> {
+            if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
+
+                dbOps.addUser(accountCreation.username.getText(), accountCreation.password.getText(), accountCreation.avatarImage);
+
+                switchScene(stage, loginScene.getScene());
+            }
+        });
+
 
 
 
         //once login is successful, switch to the landing scene
-        //TODO - needs a check to see if login is successful before switching to landing
+        loginScene.loginButton.setOnAction(e -> {
 
-        loginScene.loginButton.setOnAction(e ->{
-            if(correctLogin(loginScene.username, loginScene.password)) {
-                switchScene(stage, landingScene.getScene());
+
+            try {
+
+                /*ImageView avatar = new ImageView(dbOps.getAvatar(loginScene.username.getText()));
+                avatar.setImage(dbOps.getAvatar(loginScene.username.getText()));*/
+                Image avatar = dbOps.getAvatar(loginScene.username.getText());
+                loginScene.avatarImage.setImage(avatar);
+                System.out.println(loginScene.avatarImage.getImage());
+                System.out.println(avatar);
+
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
+
+            /*if (correctLogin(loginScene.username, loginScene.password)) {
+                switchScene(stage, landingScene.getScene());
+            }*/
         });
 
-        landingScene.exitButton.setOnAction(e -> switchScene(stage, loginScene.getScene()));
 
-        landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
+        Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        logoutConfirmation.setTitle("Logout and Return to Login Screen");
+        logoutConfirmation.setHeaderText("Are you sure you want to logout?");
+        logoutConfirmation.setContentText("You will be returned to the login screen.");
+
+        landingScene.exitButton.setOnAction(e ->
+                logoutConfirmation.showAndWait().ifPresent(response -> {
+                    if (response.getText().equals("OK")) {
+                        switchScene(stage, loginScene.getScene());
+                    }
+                }));
+
+
         landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
+      /*
+      In order to see the different style of questions(for now) you have to comment out the lines that have
+      the question types that you DO NOT want to see. Here is a small list to see the question types:
+      Multiple choice:  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
+      True/False: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
+      Fill in the Blank: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
+      */
+
+        // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
+        //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
+        landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
 
 
-        stage.setScene(loginScene.getScene());
         stage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
-
 }

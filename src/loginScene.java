@@ -4,15 +4,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 /**
@@ -24,13 +20,13 @@ public class loginScene extends Scene {
 
     //declare variable
     private final Scene loginScene;
-    public boolean login = false;
 
     public Button loginButton;
-    public boolean login = true;
 
     public TextField username;
     public PasswordField password;
+
+    public ImageView avatarImage;
 
     //constructor
     public loginScene() {
@@ -76,10 +72,17 @@ public class loginScene extends Scene {
         toolBar.setLayoutY(530);
         toolBar.getItems().add(loginButton);
 
+        avatarImage = new ImageView();
+        avatarImage.setFitWidth(500);
+        avatarImage.setFitHeight(500);
+        avatarImage.setLayoutX(400);
+        avatarImage.setLayoutY(200);
+
+
         Text text = new Text(300, 100, "Mission: Math!");
         text.setFill(Color.rgb(243, 5, 1));
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
-        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar);
+        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar, avatarImage);
 
 
 
