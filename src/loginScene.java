@@ -1,3 +1,4 @@
+import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -27,6 +28,7 @@ public class loginScene extends Scene {
     public PasswordField password;
 
     public ImageView avatarImage;
+    public Button exitButton;
 
     //constructor
     public loginScene() {
@@ -71,6 +73,10 @@ public class loginScene extends Scene {
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
         toolBar.getItems().add(loginButton);
+
+        landingScene landingScene = new landingScene();
+        exitButton = landingScene.exitButton;
+        toolBar.getItems().add(exitButton);
 
         avatarImage = new ImageView();
         avatarImage.setFitWidth(500);

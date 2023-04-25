@@ -1,3 +1,4 @@
+import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ public class accountCreation extends Scene{
     public TextField username;
     public PasswordField password;
     public Image avatarImage;
+    public Button exitButton;
 
 
     //constructor
@@ -101,6 +103,9 @@ public class accountCreation extends Scene{
         toolBar.setLayoutY(530);
         toolBar.getItems().add(register);
 
+        landingScene landingScene = new landingScene();
+        exitButton = landingScene.exitButton;
+        toolBar.getItems().add(exitButton);
 
         avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);
 
