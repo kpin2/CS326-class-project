@@ -52,6 +52,15 @@ public class mainDriver extends Application {
     }
 
     //method to check if the login information is correct
+    public boolean correctLogin(TextField username, PasswordField password) {
+        if (username.getText() != null && password.getText() != null) {
+            return username.getText().length() >= 6 && password.getText().length() >= 8;
+        } else {
+            loginScene.username.setPromptText("Error! Please enter username");
+            loginScene.password.setPromptText("Error! Please enter password");
+            return false;
+        }
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -89,8 +98,11 @@ public class mainDriver extends Application {
         });
 
 
+
+
         //once login is successful, switch to the landing scene
         loginScene.loginButton.setOnAction(e -> {
+
 
             try {
 
@@ -98,10 +110,6 @@ public class mainDriver extends Application {
                 loginScene.avatarImage.setImage(avatar);
                 System.out.println(loginScene.avatarImage.getImage());
                 System.out.println(avatar);
-
-                if(dbOps.verifyLogin(loginScene.username.getText(), loginScene.password.getText())){
-                    switchScene(stage, landingScene.getScene());
-                }
 
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
