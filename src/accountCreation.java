@@ -1,3 +1,4 @@
+import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ public class accountCreation extends Scene{
     public TextField username;
     public PasswordField password;
     public Image avatarImage;
+    public Button exitButton;
 
 
     //constructor

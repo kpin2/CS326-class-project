@@ -30,6 +30,7 @@ public class mainDriver extends Application {
     private final practiceFITB practiceFITB;
     private final beginningScene beginningScene;
     private final databaseOps dbOps;
+    private final overlayScene overlayScene;
 
     public mainDriver() {
         //initializing the scenes
@@ -42,6 +43,7 @@ public class mainDriver extends Application {
         accountCreation = new accountCreation();
         beginningScene = new beginningScene();
         dbOps = new databaseOps();
+        overlayScene = new overlayScene();
     }
 
     //method to switch scenes
@@ -69,7 +71,10 @@ public class mainDriver extends Application {
 
 
         //start at the beginning scene and handle click events
-        stage.setScene(beginningScene.getScene());
+//        stage.setScene(beginningScene.getScene());
+
+        stage.setScene(overlayScene.overlayScene);
+
         beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
         beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
 
@@ -89,8 +94,6 @@ public class mainDriver extends Application {
 
             try {
 
-                /*ImageView avatar = new ImageView(dbOps.getAvatar(loginScene.username.getText()));
-                avatar.setImage(dbOps.getAvatar(loginScene.username.getText()));*/
                 Image avatar = dbOps.getAvatar(loginScene.username.getText());
                 loginScene.avatarImage.setImage(avatar);
                 System.out.println(loginScene.avatarImage.getImage());
@@ -103,10 +106,6 @@ public class mainDriver extends Application {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-
-            /*if (correctLogin(loginScene.username, loginScene.password)) {
-                switchScene(stage, landingScene.getScene());
-            }*/
         });
 
 
