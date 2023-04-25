@@ -26,10 +26,12 @@ public class databaseOps {
         Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
         Statement myStatement = myConnection.createStatement();
         System.out.println("Connection successful");
-        ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
+        /*ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");*/
 
-        if (myResult.next()) {
-            return new Image(myResult.getBlob("avatar").getBinaryStream());
+        ResultSet myResults = myStatement.executeQuery("SELECT * FROM avatar_images WHERE id = 1");
+
+        if (myResults.next()) {
+            return new Image(myResults.getBlob("pic").getBinaryStream());
         }
         return null;
     }
@@ -47,6 +49,27 @@ public class databaseOps {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public boolean verifyLogin(String userN, String passW) {
+        boolean verify = false;
+        try {
+            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+            Statement myStatement = myConnection.createStatement();
+            System.out.println("Connection successful");
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration");
+            while (myResult.next()) {
+                if (myResult.getString("username").equals(userN)){
+                    if (myResult.getString("password").equals(passW)) {
+                        verify = true;
+                        System.out.println("Login Successful!");
+                    }
+                    else System.out.println("Error! Incorrect Password");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return verify;
     }
 
     public static void main(String[] args) {
