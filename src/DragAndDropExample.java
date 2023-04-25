@@ -13,6 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.web.WebView;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class DragAndDropExample extends Application {
@@ -21,20 +23,26 @@ public class DragAndDropExample extends Application {
             "How many different shapes are called quadrilaterals?",
             "What is 16/4?",
             "How many sides does a triangle have?",
-            "What is 4-2"
+            "What is 4-2?"
     };
-
+    Map<String, String> answers = new HashMap<>();
     Random rand = new Random();
-
-    String randomQuestion = questions[rand.nextInt(questions.length)];
-
-    Pane root2 = new Pane();
-    Scene helpScene = new Scene(root2, 1360, 750);
 
     public void start(Stage stage) throws Exception {
 
-        Pane root = new Pane();
+       /* // Associate questions with answers using a HashMap
+        answers.put("What is 2 + 2?", "4");
+        answers.put("How many different shapes are called quadrilaterals?", "1");
+        answers.put("What is 16/4?", "4");
+        answers.put("How many sides does a triangle have?", "3");
+        answers.put("What is 4-2?", "2");
+        String[] keysAsArray = answers.keySet().toArray(new String[0]);
 
+
+        String randomQuestion = keysAsArray[rand.nextInt(keysAsArray.length)];*/
+
+
+        Pane root = new Pane();
         Scene scene = new Scene(root, 1360, 750);
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -44,6 +52,7 @@ public class DragAndDropExample extends Application {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
+
         /*class YouTubeViewer extends Application {
             public static void main(String[] args) { launch(args); }
 
@@ -57,6 +66,9 @@ public class DragAndDropExample extends Application {
         }
 */
 
+        char k = 'k';
+
+        Questions questions1 = new Questions(k);
 
         //creating toolbar for the reset and exit buttons
         ToolBar toolBar = new ToolBar();
@@ -67,7 +79,7 @@ public class DragAndDropExample extends Application {
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
 
-        Label questionLabel = new Label(randomQuestion);
+        Label questionLabel = new Label(questions1.getQuestion());
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         RadioButton choice1 = new RadioButton("1");
         RadioButton choice2 = new RadioButton("2");
@@ -85,6 +97,9 @@ public class DragAndDropExample extends Application {
 
         submitButton.setOnAction(event -> {
             RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
+            /*
+            right now... it ALWAYS says choice4 is correct
+            */
             if (selectedChoice == choice4) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
@@ -121,7 +136,7 @@ public class DragAndDropExample extends Application {
     }
 
     public Scene getScene(Scene scene){
-        return this.helpScene;
+        return scene;
     }
 
 }

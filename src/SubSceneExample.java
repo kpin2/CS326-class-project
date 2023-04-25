@@ -16,17 +16,13 @@ public class SubSceneExample extends Application {
     public void start(Stage primaryStage) {
 
         BorderPane root = new BorderPane();
-
         ToolBar toolbar = new ToolBar();
         root.setTop(toolbar);
 
-        Scene scene = new Scene(root, 1200, 800);
-
-        // Create the main scene
-        StackPane mainScene = new StackPane();
+        StackPane stackPane = new StackPane();
         Rectangle mainBackground = new Rectangle(1200, 800);
         mainBackground.setFill(Color.LIGHTBLUE);
-        mainScene.getChildren().add(mainBackground);
+        stackPane.getChildren().add(mainBackground);
 
         // Create the overlay scene
         StackPane overlayScene = new StackPane();
@@ -56,10 +52,12 @@ public class SubSceneExample extends Application {
         StackPane.setAlignment(banner, Pos.BOTTOM_CENTER);
         StackPane.setAlignment(bannerText, Pos.BOTTOM_CENTER);
         StackPane.setMargin(bannerText, new Insets(10));
+        StackPane.setAlignment(toolbar, Pos.TOP_CENTER);
+
         overlayScene.getChildren().addAll(toolbar,banner, bannerText);
 
         // Add the main and overlay scenes to the root pane
-        root.setCenter(mainScene);
+        root.setCenter(stackPane);
         root.getChildren().add(overlayScene);
 
 

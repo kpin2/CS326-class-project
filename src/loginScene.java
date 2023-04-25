@@ -74,6 +74,10 @@ public class loginScene extends Scene {
         toolBar.setLayoutY(530);
         toolBar.getItems().add(loginButton);
 
+        landingScene landingScene = new landingScene();
+        exitButton = landingScene.exitButton;
+        toolBar.getItems().add(exitButton);
+
         avatarImage = new ImageView();
         avatarImage.setFitWidth(500);
         avatarImage.setFitHeight(500);
