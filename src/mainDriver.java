@@ -106,6 +106,11 @@ public class mainDriver extends Application {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+
+
+            if (correctLogin(loginScene.username, loginScene.password)) {
+                switchScene(stage, landingScene.getScene());
+            }
         });
 
 
