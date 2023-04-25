@@ -97,9 +97,8 @@ public class DragAndDropExample extends Application {
 
         submitButton.setOnAction(event -> {
             RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
-            /*
-            right now... it ALWAYS says choice4 is correct
-            */
+            //TODO: this should figure out which button is correct and then check and see if selectedChoice is the same as it
+            //right now... it ALWAYS says choice4 is correct
             if (selectedChoice == choice4) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
