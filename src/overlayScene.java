@@ -1,3 +1,4 @@
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,6 +14,7 @@ public class overlayScene extends Scene {
     public overlayScene() {
         super(new Pane(), 1366, 768);
 
+        //Overlay implementation using StackPane as the root, and two panes, one for the overlay, and one for the underlay, and one scene.
         StackPane rootStackPane = new StackPane();
         overlayScene = new Scene(rootStackPane, 1366, 768);
 
@@ -28,17 +30,17 @@ public class overlayScene extends Scene {
 
         Text text = new Text("Overlay");
         text.setFill(Color.WHITE);
-        text.setStyle("-fx-font-size: 30px;");
+        text.setStyle("-fx-font-size: 36px;");
         text.setLayoutX(200);
         text.setLayoutY(200);
         overlayPane.getChildren().add(text);
 
         Text text2 = new Text("Underlay");
         text2.setFill(Color.BLACK);
-        text2.setStyle("-fx-font-size: 38px;");
+        text2.setStyle("-fx-font-size: 48px;");
         text2.setLayoutX(200);
         text2.setLayoutY(200);
-        overlayPane.getChildren().add(text2);
+        underlayPane.getChildren().add(text2);
 
         /*underlayPane.setTranslateX(383);
         underlayPane.setTranslateY(209);*/
@@ -47,15 +49,18 @@ public class overlayScene extends Scene {
             System.out.println("asteroidHomeButton pressed");
 //            rootStackPane.getChildren().remove(overlayPane);
 
-            rootStackPane.getChildren().remove(underlayPane);
-            rootStackPane.getChildren().add(landingScene.getScene().getRoot());
+            if (rootStackPane.getChildren().contains(underlayPane)) {
+                rootStackPane.getChildren().remove(underlayPane);
+                rootStackPane.getChildren().addAll(landingScene.getScene().getRoot(), new landingScene().asteroidHomeButton, new landingScene().helpButton, new landingScene().exitButton);
 
+
+            }
         });
 
 //        underlayPane.toFront();
         overlayPane.toFront();
 
-        underlayPane.setStyle("-fx-background-color: rgb(253,18,18);");
+        underlayPane.setStyle("-fx-background-color: rgb(160,33,0);");
 
 
         rootStackPane.getChildren().addAll(underlayPane, overlayPane);
