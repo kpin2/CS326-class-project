@@ -111,9 +111,9 @@ public class mainDriver extends Application {
                 throw new RuntimeException(ex);
             }
 
-            /*if (correctLogin(loginScene.username, loginScene.password)) {
+            if (correctLogin(loginScene.username, loginScene.password)) {
                 switchScene(stage, landingScene.getScene());
-            }*/
+            }
         });
 
 
