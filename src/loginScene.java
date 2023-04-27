@@ -25,9 +25,7 @@ public class loginScene extends Scene {
     public Button exitButton;
     public TextField username;
     public PasswordField password;
-
     public ImageView avatarImage;
-    public Button exitButton;
 
     //constructor
     public loginScene() {

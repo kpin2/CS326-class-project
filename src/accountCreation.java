@@ -23,9 +23,8 @@ public class accountCreation extends Scene{
     public Button exitButton;
     public TextField username;
     public PasswordField password;
+    public PasswordField confirm;
     public Image avatarImage;
-    public Button exitButton;
-
 
     //constructor
 
@@ -92,7 +91,7 @@ public class accountCreation extends Scene{
         txt3.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 26));
         txt3.setFill(Color.WHITE);
 
-        PasswordField confirm = new PasswordField();
+        confirm = new PasswordField();
         confirm.setPromptText("Confirm Password");
         confirm.setPrefColumnCount(20);
         confirm.setLayoutX(683);

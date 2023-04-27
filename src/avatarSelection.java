@@ -23,6 +23,7 @@ public class avatarSelection extends Scene {
     public Image image3;
     public Image avatar;
     public Button selectI1, selectI2,selectI3;
+    public ImageView imageV1, imageV2, imageV3;
 
     public avatarSelection() {
 
@@ -81,7 +82,7 @@ public class avatarSelection extends Scene {
         image2 = new Image("file:", 100, 100, false, false);
         image3 = new Image("file:", 100, 100, false, false);
 
-        ImageView imageV1 = new ImageView(image1);
+        imageV1 = new ImageView(image1);
 
         selectI1 = new Button("", imageV1);
         selectI1.setLayoutX(453);
@@ -90,7 +91,7 @@ public class avatarSelection extends Scene {
             avatar = image1;
         });
 
-        ImageView imageV2 = new ImageView(image2);
+        imageV2 = new ImageView(image2);
 
         selectI2 = new Button("", imageV2);
         selectI2.setLayoutX(653);
@@ -99,7 +100,7 @@ public class avatarSelection extends Scene {
             avatar = image2;
         });
 
-        ImageView imageV3 = new ImageView(image3);
+        imageV3 = new ImageView(image3);
 
         selectI3 = new Button("", imageV3);
         selectI3.setLayoutX(863);

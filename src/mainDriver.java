@@ -81,9 +81,9 @@ public class mainDriver extends Application {
 
 
         //start at the beginning scene and handle click events
-//        stage.setScene(beginningScene.getScene());
+        stage.setScene(beginningScene.getScene());
 
-        stage.setScene(overlayScene.overlayScene);
+        //stage.setScene(overlayScene.overlayScene);
 
         beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
         beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
@@ -93,10 +93,12 @@ public class mainDriver extends Application {
         //account creation
         accountCreation.register.setOnAction(e -> {
             if (accountCreation.password.getText().length() >= 8) {
-                userN.equals(accountCreation.username.getText());
-                passW.equals(accountCreation.password.getText());
-
-                switchScene(stage, selectionScene.getScene());
+                if(accountCreation.password.getText().equals(accountCreation.confirm.getText()))
+                {
+                    userN.equals(accountCreation.username.getText());
+                    passW.equals(accountCreation.password.getText());
+                    switchScene(stage, selectionScene.getScene());
+                }
             }
         });
 
@@ -120,8 +122,7 @@ public class mainDriver extends Application {
 
         //once login is successful, switch to the landing scene
         loginScene.loginButton.setOnAction(e -> {
-
-
+            /*
             try {
 
                 Image avatar = dbOps.getAvatar(loginScene.username.getText());
@@ -132,10 +133,14 @@ public class mainDriver extends Application {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            */
 
-
-            if (correctLogin(loginScene.username, loginScene.password)) {
+            if (dbOps.verifyLogin(loginScene.username.getText(), loginScene.password.getText())) {
                 switchScene(stage, landingScene.getScene());
+            }
+            else {
+                loginScene.username.setPromptText("Error! Please enter username");
+                loginScene.password.setPromptText("Error! Please enter password");
             }
         });
 
