@@ -24,6 +24,7 @@ public class mainDriver extends Application {
     private final beginningScene beginningScene;
     private final databaseOps dbOps;
     private final overlayScene overlayScene;
+    private final practiceExamScene practiceExamScene;
 
     public mainDriver() {
         //initializing the scenes
@@ -34,6 +35,7 @@ public class mainDriver extends Application {
         this.beginningScene = new beginningScene();
         this.dbOps = new databaseOps();
         this.overlayScene = new overlayScene();
+        practiceExamScene = new practiceExamScene();
     }
 
     //method to switch scenes
@@ -64,6 +66,7 @@ public class mainDriver extends Application {
 
         //overlayScene testing
 //        stage.setScene(overlayScene.overlayScene);
+//        stage.setScene(practiceExamScene.getScene());
 
         beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
         beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
