@@ -7,17 +7,32 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class practiceFITB extends Scene {
 
     private final Scene practiceFITB;
 
+
+
     public practiceFITB() {
 
         super(new Pane(),1366, 768);
         Pane root = new Pane();
         practiceFITB = new Scene(root, 1366, 768);
+
+        Alert difficulty = new Alert(Alert.AlertType.CONFIRMATION);
+        difficulty.setTitle("Select difficulty");
+        difficulty.setHeaderText("Select difficulty");
+        difficulty.setContentText("Choose your option.");
+
+        ButtonType buttonTypeOne = new ButtonType("Easy");
+        ButtonType buttonTypeTwo = new ButtonType("Medium");
+        ButtonType buttonTypeThree = new ButtonType("Hard");
+
+        difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
+//        difficulty.showAndWait();
 
 
         String[] questions = {
