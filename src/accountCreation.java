@@ -1,14 +1,14 @@
-import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
+import java.util.ArrayList;
 
 
 public class accountCreation extends Scene{
@@ -119,11 +119,41 @@ public class accountCreation extends Scene{
             confirmBtn.setLayoutY(530);
             // Create some new text nodes to add to the pane
             root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, confirmBtn);
+
+
+            HBox hbox = new HBox();
+            databaseOps databaseOps = new databaseOps();
+            ArrayList<Image> avatar_images;
+            avatar_images = databaseOps.display_avatars();
+            for (Image avatar_image : avatar_images) {
+                ImageView avatar = new ImageView(avatar_image);
+                avatar.setFitHeight(100);
+                avatar.setFitWidth(100);
+                avatar.setPreserveRatio(true);
+                avatar.setSmooth(true);
+                avatar.setCache(true);
+                hbox.getChildren().add(avatar);
+            }
+            root.getChildren().add(hbox);
         });
 
         root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, username, txt2, password, txt3, confirm, toolBar);
     }
 
+
+    //method to check if the login information is correct
+    public boolean correctLogin(final TextField username, final PasswordField password) {
+        if (username.getText() != null && password.getText() != null) {
+            return username.getText().length() >= 6 && password.getText().length() >= 8;
+        } else {
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Login");
+            alert.setContentText("Please enter a valid username and password.");
+            alert.showAndWait();
+            return false;
+        }
+    }
 
     public Scene getScene() {
         return creationScene;

@@ -1,14 +1,9 @@
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.application.Application;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class beginningScene extends Scene {
 
@@ -19,9 +14,6 @@ public class beginningScene extends Scene {
     public Text login;
 
 
-    public void switchScene(Stage stage, Scene scene) {
-        stage.setScene(scene);
-    }
 
     public beginningScene() {
 
