@@ -7,23 +7,22 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+        import javafx.scene.paint.Color;
+        import javafx.scene.text.Font;
+        import javafx.scene.text.Text;
 
 
 /**
  All the other classes are going to be extensions of Scene and implemented in this same format!!
-*/
+ */
 
 
 public class loginScene extends Scene {
 
     //declare variable
     private final Scene loginScene;
-
     public Button loginButton;
-
+    public Button exitButton;
     public TextField username;
     public PasswordField password;
 
@@ -69,6 +68,10 @@ public class loginScene extends Scene {
 
         ToolBar toolBar = new ToolBar();
 
+        exitButton = new Button("Exit");
+        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        exitButton.setGraphic(new ImageView(exitButtonImage));
+
         loginButton = new Button("Login");
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
@@ -88,7 +91,7 @@ public class loginScene extends Scene {
         Text text = new Text(300, 100, "Mission: Math!");
         text.setFill(Color.rgb(243, 5, 1));
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
-        root.getChildren().addAll(text, txt1, username, txt2, password, toolBar, avatarImage);
+        root.getChildren().addAll(text, txt1, username, txt2, password, exitButton, toolBar, avatarImage);
 
 
 

@@ -13,15 +13,8 @@ import javafx.stage.Stage;
 public class beginningScene extends Scene {
 
     private final Scene beginning;
-    private accountCreation createAccount;
-    private loginScene loginS;
     public Text create;
     public Text login;
-
-
-    public void switchScene(Stage stage, Scene scene) {
-        stage.setScene(scene);
-    }
 
     public beginningScene() {
 

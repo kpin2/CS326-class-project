@@ -2,6 +2,8 @@ import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,6 +20,7 @@ public class accountCreation extends Scene{
     private final Scene creationScene;
 
     public Button register;
+    public Button exitButton;
     public TextField username;
     public PasswordField password;
     public Image avatarImage;
@@ -98,6 +101,10 @@ public class accountCreation extends Scene{
 
         ToolBar toolBar = new ToolBar();
 
+        exitButton = new Button("Exit");
+        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        exitButton.setGraphic(new ImageView(exitButtonImage));
+
         register = new Button("Next");
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
@@ -106,22 +113,7 @@ public class accountCreation extends Scene{
         landingScene landingScene = new landingScene();
         exitButton = landingScene.exitButton;
         toolBar.getItems().add(exitButton);
-
-        avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);
-
-
-        register.setOnAction(e -> {
-            // Remove the existing items from the pane
-            root.getChildren().clear();
-
-            Button confirmBtn = new Button("Next");
-            confirmBtn.setLayoutX(683);
-            confirmBtn.setLayoutY(530);
-            // Create some new text nodes to add to the pane
-            root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, confirmBtn);
-        });
-
-        root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, username, txt2, password, txt3, confirm, toolBar);
+        root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, username, txt2, password, txt3, confirm, exitButton, toolBar);
     }
 
 

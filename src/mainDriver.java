@@ -31,12 +31,14 @@ public class mainDriver extends Application {
     private final beginningScene beginningScene;
     private final databaseOps dbOps;
     private final overlayScene overlayScene;
+    private final avatarSelection selectionScene;
 
     public mainDriver() {
         //initializing the scenes
         loginScene = new loginScene();
         finalResult = new FinalResult();
         practiceExamScene = new practiceExamScene();
+        selectionScene = new avatarSelection();
         landingScene = new landingScene();
         practiceTF = new practiceTF();
         practiceFITB = new practiceFITB();
@@ -50,7 +52,6 @@ public class mainDriver extends Application {
     public void switchScene(Stage stage, Scene scene) {
         stage.setScene(scene);
     }
-
     //method to check if the login information is correct
     public boolean correctLogin(TextField username, PasswordField password) {
         if (username.getText() != null && password.getText() != null) {
@@ -87,16 +88,33 @@ public class mainDriver extends Application {
         beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
         beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
 
+        String userN = "";
+        String passW = "";
         //account creation
         accountCreation.register.setOnAction(e -> {
-            if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
+            if (accountCreation.password.getText().length() >= 8) {
+                userN.equals(accountCreation.username.getText());
+                passW.equals(accountCreation.password.getText());
 
-                dbOps.addUser(accountCreation.username.getText(), accountCreation.password.getText(), accountCreation.avatarImage);
-
-                switchScene(stage, loginScene.getScene());
+                switchScene(stage, selectionScene.getScene());
             }
         });
 
+        selectionScene.nextSelect.setOnAction(e-> {
+
+        });
+
+        selectionScene.prevSelect.setOnAction(e-> {
+
+        });
+
+        selectionScene.confirmBtn.setOnAction(e-> {
+            dbOps.addUser(userN, passW, selectionScene.avatar);
+        });
+
+        selectionScene.exitButton.setOnAction(e-> {
+            switchScene(stage, beginningScene.getScene());
+        });
 
 
 
@@ -131,9 +149,11 @@ public class mainDriver extends Application {
             switchScene(stage, beginningScene.getScene());
         });
 
+        /*
         accountCreation.register.setOnAction(e->{
             switchScene(stage, landingScene.getScene());
         });
+         */
 
         accountCreation.exitButton.setOnAction(e->{
             switchScene(stage, beginningScene.getScene());
