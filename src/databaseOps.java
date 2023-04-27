@@ -1,6 +1,7 @@
 import javafx.scene.image.Image;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class databaseOps {
 
@@ -70,7 +71,27 @@ public class databaseOps {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }*/
+    }
 
+    public ArrayList<Image> display_avatars() {
+
+        ArrayList<Image> avatars = new ArrayList<Image>();
+
+        try {
+            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+            Statement myStatement = myConnection.createStatement();
+            System.out.println("Connection successful");
+            myStatement.execute("SELECT pic FROM avatar_images");
+            try (ResultSet myResult = myStatement.getResultSet()) {
+                while (myResult.next()) {
+                    avatars.add(new Image(myResult.getBlob("pic").getBinaryStream()));
+                    System.out.println("Avatar found and added");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return avatars;
     }
 
     public boolean verifyLogin(String username, String password) {
