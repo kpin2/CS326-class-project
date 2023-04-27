@@ -69,14 +69,15 @@ public class mainDriver extends Application {
         beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
 
         //account creation
-        accountCreation.register.setOnAction(e -> {
+       /* accountCreation.register.setOnAction(e -> {
             if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
+
 
                 dbOps.addUser(accountCreation.username.getText(), accountCreation.password.getText(), accountCreation.avatarImage);
 
                 //switchScene(stage, loginScene.getScene());
             }
-        });
+        });*/
 
 
 
