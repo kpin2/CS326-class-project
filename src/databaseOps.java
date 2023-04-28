@@ -16,8 +16,8 @@ public class databaseOps {
             ;
 
             ResultSet myResult = myStatement.executeQuery("INSERT INTO user_registration (username, password, avatar)" +
-                                                          "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" +
-                                                          "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username +"');");
+                    "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" +
+                    "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');");
 
             /*
              *
@@ -83,8 +83,15 @@ public class databaseOps {
         return avatars;
     }
 
-
+    /**
+     * Method to verify login credentials against database
+     *
+     * @param username username entered by user
+     * @param password password entered by user
+     * @return true if user exists in database, false if not
+     */
     public boolean verifyLogin(String username, String password) {
+        boolean result = false;
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
@@ -94,11 +101,11 @@ public class databaseOps {
             if (myResult.next()) {
                 System.out.println("User found");
                 System.out.println(myResult.getString("username") + " " + myResult.getString("password"));
-                return true;
+                result = true;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return result;
     }
 }
