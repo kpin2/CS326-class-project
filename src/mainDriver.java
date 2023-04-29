@@ -57,17 +57,15 @@ public class mainDriver extends Application {
 
         //start at the beginning scene and handle click events
         stage.setScene(this.beginningScene.getScene());
-
-
 //        stage.setScene(practiceExamScene.getScene());
 
-        this.beginningScene.create.setOnMouseClicked(e -> switchScene(stage, this.accountCreation.getScene()));
-        this.beginningScene.login.setOnMouseClicked(e -> switchScene(stage, this.loginScene.getScene()));
+
+        this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
+        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
 
         //account creation
        /* accountCreation.register.setOnAction(e -> {
             if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
-
 
                 dbOps.addUser(accountCreation.username.getText(), accountCreation.password.getText(), accountCreation.avatarImage);
 
@@ -87,15 +85,15 @@ public class mainDriver extends Application {
                 alert.showAndWait();
             } else {
                 System.out.println("Login Successful");
-                switchScene(stage, this.landingScene.getScene());
+                this.switchScene(stage, this.landingScene.getScene());
             }
         });
 
 
         /* This is the code for the exit button on the login and account creation screens. Both of these screens can only return to the beginning scene.
          */
-        this.loginScene.exitButton.setOnAction(e -> switchScene(stage, this.beginningScene.getScene()));
-        this.accountCreation.exitButton.setOnAction(e -> switchScene(stage, this.beginningScene.getScene()));
+        this.loginScene.exitButton.setOnAction(e -> this.switchScene(stage, this.beginningScene.getScene()));
+        this.accountCreation.exitButton.setOnAction(e -> this.switchScene(stage, this.beginningScene.getScene()));
 
         /* Confirm  */
         this.landingScene.exitButton.setOnAction(e -> {
@@ -107,13 +105,13 @@ public class mainDriver extends Application {
 
             logoutConfirmation.showAndWait().ifPresent(response -> {
                 if (response.getText().equals("OK")) {
-                    switchScene(stage, this.loginScene.getScene());
+                    this.switchScene(stage, this.loginScene.getScene());
                 }
             });
         });
 
 
-        this.landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, this.landingScene.getScene()));
+        this.landingScene.asteroidHomeButton.setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
       /*
       In order to see the different style of questions(for now) you have to comment out the lines that have
       the question types that you DO NOT want to see. Here is a small list to see the question types:
@@ -124,7 +122,7 @@ public class mainDriver extends Application {
 
         // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
-        this.landingScene.helpButton.setOnAction(e -> switchScene(stage, this.practiceFITB.getScene()));
+        this.landingScene.helpButton.setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
 
 
         stage.show();
