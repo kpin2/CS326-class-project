@@ -32,7 +32,7 @@ public class mainDriver extends Application {
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
         this.dbOps = new databaseOps();
-        this.selectionScene = new selectionScene();
+        this.selectionScene = new avatarSelection();
     }
 
     //method to switch scenes
@@ -102,15 +102,14 @@ public class mainDriver extends Application {
                 alert.setHeaderText("Invalid Login");
                 alert.setContentText("Please enter a valid username and password.");
                 alert.showAndWait();
+
+                loginScene.username.setPromptText("Error! Please enter username");
+                loginScene.password.setPromptText("Error! Please enter password");
             } else {
                 System.out.println("Login Successful");
                 this.switchScene(stage, this.landingScene.getScene());
 
 
-            }
-            else {
-                loginScene.username.setPromptText("Error! Please enter username");
-                loginScene.password.setPromptText("Error! Please enter password");
             }
         });
 
