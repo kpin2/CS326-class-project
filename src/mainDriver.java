@@ -71,6 +71,7 @@ public class mainDriver extends Application {
         String userN = "";
         String passW = "";
         //account creation
+
         accountCreation.register.setOnAction(e -> {
             if (accountCreation.password.getText().length() >= 8) {
                 if(accountCreation.password.getText().equals(accountCreation.confirm.getText()))
@@ -81,6 +82,7 @@ public class mainDriver extends Application {
                 }
             }
         });
+
 
         selectionScene.confirmBtn.setOnAction(e-> {
             dbOps.addUser(userN, passW, selectionScene.avatar);
