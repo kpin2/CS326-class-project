@@ -89,8 +89,7 @@ public class accountCreation extends Scene{
         txt3.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 26));
         txt3.setFill(Color.WHITE);
 
-
-        final PasswordField confirm = new PasswordField();
+        this.confirm = new PasswordField();
 
         confirm.setPromptText("Confirm Password");
         confirm.setPrefColumnCount(20);
@@ -103,46 +102,15 @@ public class accountCreation extends Scene{
         exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
-        exitButton.setStyle("-fx-background-color: transparent;");      this.register = new Button("Next");
-        toolBar.setLayoutX(683);
-        toolBar.setLayoutY(530);
-        toolBar.getItems().add(this.register);
-
-        final landingScene landingScene = new landingScene();
-        this.exitButton = landingScene.exitButton;
-        toolBar.getItems().add(this.exitButton);
+        exitButton.setStyle("-fx-background-color: transparent;");
 
         this.avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);
 
+        this.register = new Button("Next");
+        register.setLayoutX(683);
+        register.setLayoutY(530);
 
-        this.register.setOnAction(e -> {
-            // Remove the existing items from the pane
-            root.getChildren().clear();
-
-            final Button confirmBtn = new Button("Next");
-            confirmBtn.setLayoutX(683);
-            confirmBtn.setLayoutY(530);
-            // Create some new text nodes to add to the pane
-            root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, confirmBtn);
-
-
-            final HBox hbox = new HBox();
-            final databaseOps databaseOps = new databaseOps();
-            final ArrayList<Image> avatar_images;
-            avatar_images = databaseOps.display_avatars();
-            for (final Image avatar_image : avatar_images) {
-                final ImageView avatar = new ImageView(avatar_image);
-                avatar.setFitHeight(100);
-                avatar.setFitWidth(100);
-                avatar.setPreserveRatio(true);
-                avatar.setSmooth(true);
-                avatar.setCache(true);
-                hbox.getChildren().add(avatar);
-            }
-            root.getChildren().add(hbox);
-        });
-
-        root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, this.username, txt2, this.password, txt3, confirm, toolBar);
+        root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, this.username, txt2, this.password, txt3, this.confirm, this.exitButton, this.register);
     }
 
 
