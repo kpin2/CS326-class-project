@@ -32,7 +32,7 @@ public class mainDriver extends Application {
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
         this.dbOps = new databaseOps();
-        this.selectionScene = new selectionScene();
+        this.selectionScene = new avatarSelection();
     }
 
     //method to switch scenes
@@ -72,8 +72,17 @@ public class mainDriver extends Application {
         String passW = "";
         //account creation
 
-       /* accountCreation.register.setOnAction(e -> {
-            if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
+        accountCreation.register.setOnAction(e -> {
+            if (accountCreation.password.getText().length() >= 8) {
+                if(accountCreation.password.getText().equals(accountCreation.confirm.getText()))
+                {
+                    userN.equals(accountCreation.username.getText());
+                    passW.equals(accountCreation.password.getText());
+                    switchScene(stage, selectionScene.getScene());
+                }
+            }
+        });
+
 
         selectionScene.confirmBtn.setOnAction(e-> {
             dbOps.addUser(userN, passW, selectionScene.avatar);
@@ -95,15 +104,14 @@ public class mainDriver extends Application {
                 alert.setHeaderText("Invalid Login");
                 alert.setContentText("Please enter a valid username and password.");
                 alert.showAndWait();
+
+                loginScene.username.setPromptText("Error! Please enter username");
+                loginScene.password.setPromptText("Error! Please enter password");
             } else {
                 System.out.println("Login Successful");
                 this.switchScene(stage, this.landingScene.getScene());
 
 
-            }
-            else {
-                loginScene.username.setPromptText("Error! Please enter username");
-                loginScene.password.setPromptText("Error! Please enter password");
             }
         });
 

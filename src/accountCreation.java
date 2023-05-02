@@ -92,7 +92,7 @@ public class accountCreation extends Scene{
 
         final PasswordField confirm = new PasswordField();
 
-confirm.setPromptText("Confirm Password");
+        confirm.setPromptText("Confirm Password");
         confirm.setPrefColumnCount(20);
         confirm.setLayoutX(683);
         confirm.setLayoutY(444);
@@ -103,9 +103,7 @@ confirm.setPromptText("Confirm Password");
         exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
-        exitButton.setStyle("-fx-background-color: transparent;");
-
-        this.register = new Button("Next");
+        exitButton.setStyle("-fx-background-color: transparent;");      this.register = new Button("Next");
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
         toolBar.getItems().add(this.register);
