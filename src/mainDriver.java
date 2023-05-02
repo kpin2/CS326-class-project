@@ -56,8 +56,9 @@ public class mainDriver extends Application {
 
 
         //start at the beginning scene and handle click events
-        stage.setScene(this.beginningScene.getScene());
+//        stage.setScene(this.beginningScene.getScene());
 //        stage.setScene(practiceExamScene.getScene());
+        stage.setScene(practiceFITB.getScene());
 
 
 

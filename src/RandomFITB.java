@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Random;
 
 public class RandomFITB {
@@ -37,6 +38,7 @@ public class RandomFITB {
                 break;
             }
         }
+
 
         // Initialize empty strings
         sequence = "";

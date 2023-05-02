@@ -14,25 +14,11 @@ public class practiceFITB extends Scene {
 
     private final Scene practiceFITB;
     private scoreboard score;
-   public String[] questions = {
-            "What does 2+2 equal?",
-            "How many sides does a quadrilateral have?",
-            "What does 15/3 equal?",
-            "How many sides does a triangle have?",
-            "what does 10-4 equal?"
-    };
-   public String[] answers = {
-            "4",
-            "4",
-            "5",
-            "3",
-            "6"
-    };
+
     public int indx;
 
    public String randomQuestion;
 
-    public Label questionLabel;
 
 
 
@@ -50,6 +36,21 @@ public class practiceFITB extends Scene {
         difficulty.setHeaderText("Select difficulty");
         difficulty.setContentText("Choose your option.");
 
+        char grade = '3';
+        Questions questions1 = new Questions(grade);
+
+        Label questionLabel= new Label(questions1.getQuestion());
+        questionLabel.setLayoutX(580);
+        questionLabel.setLayoutY(300);
+        TextField answerField = new TextField();
+        answerField.setLayoutX(580);
+        answerField.setLayoutY(330);
+        root.getChildren().add(answerField);
+
+
+        questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        root.getChildren().add(questionLabel);
+
         ButtonType buttonTypeOne = new ButtonType("Easy");
         ButtonType buttonTypeTwo = new ButtonType("Medium");
         ButtonType buttonTypeThree = new ButtonType("Hard");
@@ -60,9 +61,7 @@ public class practiceFITB extends Scene {
 
 
 
-         indx =getrandnum(questions.length);
 
-         randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -82,7 +81,8 @@ public class practiceFITB extends Scene {
         questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 
-        TextField a = new TextField();
+//        TextField a = new TextField();
+
 
 
 
@@ -90,10 +90,10 @@ public class practiceFITB extends Scene {
         Button submitButton = new Button("Submit");
 
 
-
+        Label finalQuestionLabel = questionLabel;
         submitButton.setOnAction(event -> {
 
-            String ansString=a.getText();
+           /* String ansString=a.getText();
 
             if (ansString.equals(answers[indx])) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
@@ -109,12 +109,12 @@ public class practiceFITB extends Scene {
            if (score.getTrys() < 5){
                indx = getrandnum(questions.length);
                randomQuestion = questions[indx];
-               questionLabel.setText(randomQuestion);
+               finalQuestionLabel.setText(randomQuestion);
 
             } else {
                randomQuestion = score.getresult();
-               questionLabel.setText(randomQuestion);
-           }
+               finalQuestionLabel.setText(randomQuestion);
+           }*/
 
 
         //    questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
@@ -125,14 +125,14 @@ public class practiceFITB extends Scene {
         });
 
         toolBar.getItems().addAll(resetButton, exitButton);
-        root.getChildren().addAll(toolBar, text, questionLabel, a,  submitButton);
+        root.getChildren().addAll(toolBar, text, questionLabel,  submitButton);
         double sceneWidth = practiceFITB.getWidth();
         double sceneHeight = practiceFITB.getHeight();
 
-        questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
+     /*   questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
         questionLabel.setLayoutY(sceneHeight / 2 - 80);
         a.setLayoutX(sceneWidth / 2 - a.getWidth() / 2);
-        a.setLayoutY(sceneHeight / 2 - 50);
+        a.setLayoutY(sceneHeight / 2 - 50);*/
         submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
         submitButton.setLayoutY(sceneHeight / 2 + 100);
 
