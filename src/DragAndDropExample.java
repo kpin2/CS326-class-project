@@ -30,7 +30,8 @@ public class DragAndDropExample extends Application {
 
         Pane root = new Pane();
         Scene scene = new Scene(root, 1360, 750);
-
+        ImageView andromedaPlanetImage;
+        andromedaPlanetImage = new ImageView("file:resources/assets/planet 200x200.png");
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
@@ -38,19 +39,6 @@ public class DragAndDropExample extends Application {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-
-       /*class YouTubeViewer extends Application {
-           public static void main(String[] args) { launch(args); }
-
-           @Override public void start(Stage stage) throws Exception {
-
-
-
-               stage.setScene(new Scene(webview));
-               stage.show();
-           }
-       }
-*/
 
         char k = 'k';
 
@@ -65,7 +53,7 @@ public class DragAndDropExample extends Application {
 
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
-        String answer =new String(String.valueOf(questions1.getAnswer()));
+        String answer = new String(String.valueOf(questions1.getAnswer()));
 
         Label questionLabel = new Label(questions1.getQuestion());
         // Assuming the correct answer is stored in the variable "correctAnswer"
@@ -137,6 +125,13 @@ public class DragAndDropExample extends Application {
         choice4.setLayoutY(sceneHeight / 2 + 40);
         submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
         submitButton.setLayoutY(sceneHeight / 2 + 100);
+
+
+
+        Questions questions2 = new Questions((char) 3);
+
+
+
         stage.setScene(scene);
         stage.show();
     }
