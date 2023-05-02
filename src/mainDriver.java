@@ -69,7 +69,7 @@ public class mainDriver extends Application {
 //        stage.setScene(practiceExamScene.getScene());
 
         beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
-        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
+        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, landingScene.getScene()));
 
         //account creation
        /* accountCreation.register.setOnAction(e -> {
