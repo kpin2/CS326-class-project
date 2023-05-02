@@ -1,20 +1,16 @@
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.application.Application;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class beginningScene extends Scene {
 
     private final Scene beginning;
     public Text create;
     public Text login;
+
 
     public beginningScene() {
 
