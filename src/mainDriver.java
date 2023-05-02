@@ -71,9 +71,16 @@ public class mainDriver extends Application {
         String userN = "";
         String passW = "";
         //account creation
-
-       /* accountCreation.register.setOnAction(e -> {
-            if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
+        accountCreation.register.setOnAction(e -> {
+            if (accountCreation.password.getText().length() >= 8) {
+                if(accountCreation.password.getText().equals(accountCreation.confirm.getText()))
+                {
+                    userN.equals(accountCreation.username.getText());
+                    passW.equals(accountCreation.password.getText());
+                    switchScene(stage, selectionScene.getScene());
+                }
+            }
+        });
 
         selectionScene.confirmBtn.setOnAction(e-> {
             dbOps.addUser(userN, passW, selectionScene.avatar);
