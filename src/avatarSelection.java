@@ -87,8 +87,6 @@ public class avatarSelection extends Scene {
         image2=(avatar_images.get(id2));
         image3=(avatar_images.get(id3));
 
-
-
         nextSelect = new Button(">");
         nextSelect.setLayoutX(863);
         nextSelect.setLayoutY(530);
@@ -107,7 +105,6 @@ public class avatarSelection extends Scene {
             imageV3.setImage(image3);
         });
 
-        System.out.println(id1);
         prevSelect = new Button("<");
         prevSelect.setLayoutX(543);
         prevSelect.setLayoutY(530);
@@ -115,8 +112,6 @@ public class avatarSelection extends Scene {
                 id1=id1-3;
                 id2=id2-3;
                 id3=id3-3;
-
-                System.out.println(id1);
 
                 image1=(avatar_images.get(id1));
                 imageV1.setImage(image1);

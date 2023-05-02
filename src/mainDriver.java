@@ -91,8 +91,6 @@ public class mainDriver extends Application {
             switchScene(stage, beginningScene.getScene());
         });
 
-
-
         //once login is successful, switch to the landing scene
         this.loginScene.loginButton.setOnAction(e -> {
 
