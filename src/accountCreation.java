@@ -103,6 +103,7 @@ public class accountCreation extends Scene{
         exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
+        exitButton.setStyle("-fx-background-color: transparent;");
 
         register = new Button("Next");
         toolBar.setLayoutX(683);

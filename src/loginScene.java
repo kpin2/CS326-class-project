@@ -77,7 +77,7 @@ public class loginScene extends Scene {
 
         landingScene landingScene = new landingScene();
         exitButton = landingScene.exitButton;
-        toolBar.getItems().add(exitButton);
+        exitButton.setStyle("-fx-background-color: transparent;");
 
         avatarImage = new ImageView();
         avatarImage.setFitWidth(500);

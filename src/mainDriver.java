@@ -102,9 +102,7 @@ public class mainDriver extends Application {
             }
         });
 
-        selectionScene.nextSelect.setOnAction(e-> {
 
-        });
 
         selectionScene.prevSelect.setOnAction(e-> {
 

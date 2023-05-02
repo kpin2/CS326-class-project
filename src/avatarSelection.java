@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class avatarSelection extends Scene {
 
     private final Scene selectionScene;
@@ -65,24 +67,48 @@ public class avatarSelection extends Scene {
         exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
+        exitButton.setStyle("-fx-background-color: transparent;");
 
         confirmBtn = new Button("Confirm");
         confirmBtn.setLayoutX(683);
         confirmBtn.setLayoutY(530);
 
+        databaseOps databaseOps = new databaseOps();
+        ArrayList<Image> avatar_images;
+        avatar_images = databaseOps.display_avatars();
+
+        int id1 = 1;
+        int id2 = 2;
+        int id3 = 3;
+
+        image1=(avatar_images.get(id1));
+        image2=(avatar_images.get(id2));
+        image3=(avatar_images.get(id3));
+
         nextSelect = new Button(">");
         nextSelect.setLayoutX(863);
         nextSelect.setLayoutY(530);
-     
+        nextSelect.setOnAction(e-> {
+            int idNext1 = (id1 + 3)%20;
+            int idNext2 = (id2 + 3)%20;
+            int idNext3 = (id3 + 3)%20;
+            System.out.println(idNext1);
+
+
+
+
+            image1=(avatar_images.get(idNext1));
+            image2=(avatar_images.get(idNext2));
+            image3=(avatar_images.get(idNext3));
+        });
+
         prevSelect = new Button("<");
         prevSelect.setLayoutX(543);
         prevSelect.setLayoutY(530);
-        
-        image1 = new Image("file:", 100, 100, false, false);
-        image2 = new Image("file:", 100, 100, false, false);
-        image3 = new Image("file:", 100, 100, false, false);
 
         imageV1 = new ImageView(image1);
+        imageV1.setFitHeight(100);
+        imageV1.setFitWidth(100);
 
         selectI1 = new Button("", imageV1);
         selectI1.setLayoutX(453);
@@ -92,6 +118,8 @@ public class avatarSelection extends Scene {
         });
 
         imageV2 = new ImageView(image2);
+        imageV2.setFitHeight(100);
+        imageV2.setFitWidth(100);
 
         selectI2 = new Button("", imageV2);
         selectI2.setLayoutX(653);
@@ -101,6 +129,8 @@ public class avatarSelection extends Scene {
         });
 
         imageV3 = new ImageView(image3);
+        imageV3.setFitHeight(100);
+        imageV3.setFitWidth(100);
 
         selectI3 = new Button("", imageV3);
         selectI3.setLayoutX(863);
