@@ -13,6 +13,27 @@ import java.util.Random;
 public class practiceFITB extends Scene {
 
     private final Scene practiceFITB;
+    private scoreboard score;
+   public String[] questions = {
+            "What does 2+2 equal?",
+            "How many sides does a quadrilateral have?",
+            "What does 15/3 equal?",
+            "How many sides does a triangle have?",
+            "what does 10-4 equal?"
+    };
+   public String[] answers = {
+            "4",
+            "4",
+            "5",
+            "3",
+            "6"
+    };
+    public int indx;
+
+   public String randomQuestion;
+
+    public Label questionLabel;
+
 
 
 
@@ -21,6 +42,8 @@ public class practiceFITB extends Scene {
         super(new Pane(),1366, 768);
         Pane root = new Pane();
         practiceFITB = new Scene(root, 1366, 768);
+
+        score = new scoreboard();
 
         Alert difficulty = new Alert(Alert.AlertType.CONFIRMATION);
         difficulty.setTitle("Select difficulty");
@@ -35,24 +58,11 @@ public class practiceFITB extends Scene {
 //        difficulty.showAndWait();
 
 
-        String[] questions = {
-                "What does 2+2 equal?",
-                "How many sides does a quadrilateral have?",
-                "What does 15/3 equal?",
-                "How many sides does a triangle have?",
-                "what does 10-4 equal?"
-        };
-        String[] answers = {
-                "4",
-                "4",
-                "5",
-                "3",
-                "6"
-        };
-        Random rand = new Random();
-        int indx =rand.nextInt(questions.length);
 
-        String randomQuestion = questions[indx];
+
+         indx =getrandnum(questions.length);
+
+         randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -69,7 +79,7 @@ public class practiceFITB extends Scene {
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
 
-        Label questionLabel = new Label(randomQuestion);
+        questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 
         TextField a = new TextField();
@@ -88,10 +98,26 @@ public class practiceFITB extends Scene {
             if (ansString.equals(answers[indx])) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
+                score.addScore();
+                score.addTrys();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
                 alert.showAndWait();
+                score.addTrys();
             }
+          //These lines generate a new random question each time Submit is pressed
+           if (score.getTrys() < 5){
+               indx = getrandnum(questions.length);
+               randomQuestion = questions[indx];
+               questionLabel.setText(randomQuestion);
+
+            } else {
+               randomQuestion = score.getresult();
+               questionLabel.setText(randomQuestion);
+           }
+
+
+        //    questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         });
 
 
@@ -125,8 +151,14 @@ public class practiceFITB extends Scene {
 
     }
 
+
     public Scene getScene(){
         return practiceFITB;
+    }
+    // Gives a random variable
+    public int getrandnum(int num){
+        Random rand = new Random();
+        return (rand.nextInt(num));
     }
 
 
