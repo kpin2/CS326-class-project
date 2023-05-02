@@ -1,6 +1,7 @@
 import javafx.scene.image.Image;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class databaseOps {
 
@@ -10,7 +11,19 @@ public class databaseOps {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
             System.out.println("Connection successful");
-            ResultSet myResult = myStatement.executeQuery("INSERT INTO dbo.user_registration (username, password, avatar) VALUES ('" + username + "', '" + password + "' , '" + avatar + "')");
+            /* ResultSet myResult = myStatement.executeQuery("INSERT INTO dbo.user_registration (username, password, avatar) VALUES ('" + username + "', '" + password + "' , '" + avatar + "')");*/
+
+            ;
+
+            ResultSet myResult = myStatement.executeQuery("INSERT INTO user_registration (username, password, avatar)" +
+                                                          "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" +
+                                                          "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username +"');");
+
+            /*
+             *
+             * returns no result if user already exists
+             *
+             * */
 
             while (myResult.next()) {
                 myResult.getBlob("avatar");
@@ -49,29 +62,27 @@ public class databaseOps {
         }
     }
 
-    public static void main(String[] args) {
+    public ArrayList<Image> display_avatars() {
 
+        ArrayList<Image> avatars = new ArrayList<Image>();
 
-       /* try {
-
+        try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
-
             Statement myStatement = myConnection.createStatement();
-
             System.out.println("Connection successful");
-
-            ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration");
-
-            while (myResult.next()) {
-                System.out.println(myResult.getString("username") + " " + myResult.getString("password"));
+            myStatement.execute("SELECT pic FROM avatar_images");
+            try (ResultSet myResult = myStatement.getResultSet()) {
+                while (myResult.next()) {
+                    avatars.add(new Image(myResult.getBlob("pic").getBinaryStream()));
+                    System.out.println("Avatar found and added");
+                }
             }
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }*/
-
+        }
+        return avatars;
     }
+
 
     public boolean verifyLogin(String username, String password) {
         try {
