@@ -6,6 +6,20 @@ import java.util.ArrayList;
 public class databaseOps {
 
 
+    /**
+     * Method to add a new user to the database if the username is not already taken.
+     *
+     * @param username username of the user to be added - String
+     * @param password password of the user to be added - String
+     * @param avatar   avatar of the user to be added - Image
+     *
+     *                 <p> This method makes a connection to the Mission_Math remote database via JDBC and queries the user_registration table to check if the username already exists. If the username does not exist, the user is added to the user_registration table. If the username already exists, the user is not added to the user_registration table.
+     *                 <p> The method uses the following SQL query:
+     *                 INSERT INTO user_registration (username, password, avatar)" +
+     *                 "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" +
+     *                 "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');
+     * @author Kevin Pinto
+     */
     public void addUser(String username, String password, Image avatar) {
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
@@ -13,18 +27,11 @@ public class databaseOps {
             System.out.println("Connection successful");
             /* ResultSet myResult = myStatement.executeQuery("INSERT INTO dbo.user_registration (username, password, avatar) VALUES ('" + username + "', '" + password + "' , '" + avatar + "')");*/
 
-            ;
-
-            ResultSet myResult = myStatement.executeQuery("INSERT INTO user_registration (username, password, avatar)" +
-                                                          "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" +
-                                                          "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username +"');");
+            ResultSet myResult = myStatement.executeQuery("INSERT INTO user_registration (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" + "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');");
 
             /*
-             *
-             * returns no result if user already exists
-             *
-             * */
-
+             * myResult returns no result if user already exists
+             */
             while (myResult.next()) {
                 myResult.getBlob("avatar");
                 System.out.println("User added");
@@ -62,6 +69,16 @@ public class databaseOps {
         }
     }
 
+    /**
+     * Method to retrieve all the avatar images from the database and store them in an ArrayList of Image objects.
+     *
+     * @return ArrayList of Image objects containing all avatars from the avatar_images table
+     *
+     * <p> This method makes a connection to the Mission_Math remote database via JDBC and queries the avatar_images table to retrieve all the avatar images. The avatar images are stored in an ArrayList of Image objects.
+     * <p> The method uses the following SQL query:
+     *          <p>SELECT pic FROM avatar_images</p>
+     * @author Kevin Pinto
+     */
     public ArrayList<Image> display_avatars() {
 
         ArrayList<Image> avatars = new ArrayList<Image>();
@@ -83,8 +100,16 @@ public class databaseOps {
         return avatars;
     }
 
-
+    /**
+     * Method to verify login credentials against the Mission_Math remote database by making a connection via JDBC and querying the user_registration table for matching username and password.
+     *
+     * @param username username entered by user - String
+     * @param password password entered by user - String
+     * @return true if user exists in database, false if not
+     * @author Kevin Pinto
+     */
     public boolean verifyLogin(String username, String password) {
+        boolean result = false;
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
@@ -94,11 +119,11 @@ public class databaseOps {
             if (myResult.next()) {
                 System.out.println("User found");
                 System.out.println(myResult.getString("username") + " " + myResult.getString("password"));
-                return true;
+                result = true;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return result;
     }
 }
