@@ -75,12 +75,6 @@ public class mainDriver extends Application {
        /* accountCreation.register.setOnAction(e -> {
             if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
 
-
-
-        selectionScene.prevSelect.setOnAction(e-> {
-
-        });
-
         selectionScene.confirmBtn.setOnAction(e-> {
             dbOps.addUser(userN, passW, selectionScene.avatar);
             switchScene(stage,landingScene.getScene());
