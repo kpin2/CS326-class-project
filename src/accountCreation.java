@@ -18,11 +18,11 @@ public class accountCreation extends Scene{
     private final Scene creationScene;
 
     public Button register;
+    public Button exitButton;
     public TextField username;
     public PasswordField password;
+    public PasswordField confirm;
     public Image avatarImage;
-    public Button exitButton;
-
 
     //constructor
 
@@ -89,14 +89,21 @@ public class accountCreation extends Scene{
         txt3.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 26));
         txt3.setFill(Color.WHITE);
 
+
         final PasswordField confirm = new PasswordField();
-        confirm.setPromptText("Confirm Password");
+
+confirm.setPromptText("Confirm Password");
         confirm.setPrefColumnCount(20);
         confirm.setLayoutX(683);
         confirm.setLayoutY(444);
         confirm.getText();
 
         final ToolBar toolBar = new ToolBar();
+
+        exitButton = new Button("Exit");
+        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        exitButton.setGraphic(new ImageView(exitButtonImage));
+        exitButton.setStyle("-fx-background-color: transparent;");
 
         this.register = new Button("Next");
         toolBar.setLayoutX(683);

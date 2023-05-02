@@ -8,11 +8,8 @@ import javafx.scene.text.Text;
 public class beginningScene extends Scene {
 
     private final Scene beginning;
-    private accountCreation createAccount;
-    private loginScene loginS;
     public Text create;
     public Text login;
-
 
 
     public beginningScene() {
