@@ -50,7 +50,7 @@ public class Questions {
 
         if(actualOp == '/')
         {
-            if(operation=='/'&&b>a)
+            if(b>a)
                 b=ran.nextInt(a);//this makes b smaller than a
 
             //TODO: We need integer values for division
@@ -64,7 +64,7 @@ public class Questions {
 
     }
 
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("What grade are you in?");
