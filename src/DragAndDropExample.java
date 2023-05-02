@@ -13,9 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.web.WebView;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class DragAndDropExample extends Application {
     String[] questions = {
@@ -30,18 +28,6 @@ public class DragAndDropExample extends Application {
 
     public void start(Stage stage) throws Exception {
 
-       /* // Associate questions with answers using a HashMap
-        answers.put("What is 2 + 2?", "4");
-        answers.put("How many different shapes are called quadrilaterals?", "1");
-        answers.put("What is 16/4?", "4");
-        answers.put("How many sides does a triangle have?", "3");
-        answers.put("What is 4-2?", "2");
-        String[] keysAsArray = answers.keySet().toArray(new String[0]);
-
-
-        String randomQuestion = keysAsArray[rand.nextInt(keysAsArray.length)];*/
-
-
         Pane root = new Pane();
         Scene scene = new Scene(root, 1360, 750);
 
@@ -53,22 +39,23 @@ public class DragAndDropExample extends Application {
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
 
-        /*class YouTubeViewer extends Application {
-            public static void main(String[] args) { launch(args); }
+       /*class YouTubeViewer extends Application {
+           public static void main(String[] args) { launch(args); }
 
-            @Override public void start(Stage stage) throws Exception {
+           @Override public void start(Stage stage) throws Exception {
 
 
 
-                stage.setScene(new Scene(webview));
-                stage.show();
-            }
-        }
+               stage.setScene(new Scene(webview));
+               stage.show();
+           }
+       }
 */
 
         char k = 'k';
 
         Questions questions1 = new Questions(k);
+
 
         //creating toolbar for the reset and exit buttons
         ToolBar toolBar = new ToolBar();
@@ -78,13 +65,33 @@ public class DragAndDropExample extends Application {
 
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
+        String answer =new String(String.valueOf(questions1.getAnswer()));
 
         Label questionLabel = new Label(questions1.getQuestion());
+        // Assuming the correct answer is stored in the variable "correctAnswer"
+        // Create a Random object
+        Random random = new Random();
+
+// Generate three random incorrect answers
+        int incorrect1 = random.nextInt(10) + 1; // generates a random number between 1 and 10
+        int incorrect2 = random.nextInt(10) + 1; // generates a different random number between 1 and 10
+        while (incorrect2 == incorrect1) { // make sure the second incorrect answer is different from the first
+            incorrect2 = random.nextInt(10) + 1;
+        }
+        int incorrect3 = random.nextInt(10) + 1; // generates a third different random number between 1 and 10
+        while (incorrect3 == incorrect1 || incorrect3 == incorrect2) { // make sure the third answer is different from the first two
+            incorrect3 = random.nextInt(10) + 1;
+        }
+
+// Add the correct and incorrect answers to the radio buttons
+        RadioButton choice1 = new RadioButton(answer);
+        RadioButton choice2 = new RadioButton(String.valueOf(incorrect1));
+        RadioButton choice3 = new RadioButton(String.valueOf(incorrect2));
+        RadioButton choice4 = new RadioButton(String.valueOf(incorrect3));
+
+
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        RadioButton choice1 = new RadioButton("1");
-        RadioButton choice2 = new RadioButton("2");
-        RadioButton choice3 = new RadioButton("3");
-        RadioButton choice4 = new RadioButton("4");
+
         ToggleGroup choicesGroup = new ToggleGroup();
         choicesGroup.getToggles().addAll(choice1, choice2, choice3, choice4);
         Button submitButton = new Button("Submit");
@@ -99,7 +106,7 @@ public class DragAndDropExample extends Application {
             RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
             //TODO: this should figure out which button is correct and then check and see if selectedChoice is the same as it
             //right now... it ALWAYS says choice4 is correct
-            if (selectedChoice == choice4) {
+            if (selectedChoice == selectedChoice) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
             } else {

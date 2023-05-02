@@ -8,63 +8,41 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.sql.SQLException;
 
 
 public class mainDriver extends Application {
 
     private final loginScene loginScene;
     private final accountCreation accountCreation;
-    private final FinalResult finalResult;
-    private final practiceExamScene practiceExamScene;
     private final landingScene landingScene;
-    private final practiceTF practiceTF;
     private final practiceFITB practiceFITB;
     private final beginningScene beginningScene;
     private final databaseOps dbOps;
-    private final overlayScene overlayScene;
     private final avatarSelection selectionScene;
+
 
     public mainDriver() {
         //initializing the scenes
-        loginScene = new loginScene();
-        finalResult = new FinalResult();
-        practiceExamScene = new practiceExamScene();
-        selectionScene = new avatarSelection();
-        landingScene = new landingScene();
-        practiceTF = new practiceTF();
-        practiceFITB = new practiceFITB();
-        accountCreation = new accountCreation();
-        beginningScene = new beginningScene();
-        dbOps = new databaseOps();
-        overlayScene = new overlayScene();
+        this.loginScene = new loginScene();
+        this.landingScene = new landingScene();
+        this.practiceFITB = new practiceFITB();
+        this.accountCreation = new accountCreation();
+        this.beginningScene = new beginningScene();
+        this.dbOps = new databaseOps();
+        this.selectionScene = new selectionScene();
     }
 
     //method to switch scenes
-    public void switchScene(Stage stage, Scene scene) {
+    public void switchScene(final Stage stage, final Scene scene) {
         stage.setScene(scene);
     }
-    //method to check if the login information is correct
-    public boolean correctLogin(TextField username, PasswordField password) {
-        if (username.getText() != null && password.getText() != null) {
-            return username.getText().length() >= 6 && password.getText().length() >= 8;
-        } else {
-            loginScene.username.setPromptText("Error! Please enter username");
-            loginScene.password.setPromptText("Error! Please enter password");
-            return false;
-        }
-    }
+
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(final Stage stage) {
 
         //stage is the top level container, setting title displays the title in the title bar
         stage.setTitle("Mission: Math!");
@@ -74,33 +52,28 @@ public class mainDriver extends Application {
         Font.loadFont("file:resources/font/SpaceMission.otf", 32);
 
         //adding different size ship icons to the stage
-        Image smShip = new Image("file:resources/assets/smallSpaceship.png");
-        Image px64Ship = new Image("file:resources/assets/64pxsmallSpaceship.png");
-        Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
+        final Image smShip = new Image("file:resources/assets/smallSpaceship.png");
+        final Image px64Ship = new Image("file:resources/assets/64pxsmallSpaceship.png");
+        final Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
         stage.getIcons().addAll(smShip, px64Ship, px48Ship);
 
 
         //start at the beginning scene and handle click events
-        stage.setScene(beginningScene.getScene());
+        stage.setScene(this.beginningScene.getScene());
+//        stage.setScene(practiceExamScene.getScene());
 
-        //stage.setScene(overlayScene.overlayScene);
 
-        beginningScene.create.setOnMouseClicked(e -> switchScene(stage, accountCreation.getScene()));
-        beginningScene.login.setOnMouseClicked(e -> switchScene(stage, loginScene.getScene()));
+
+        this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
+        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
+
 
         String userN = "";
         String passW = "";
         //account creation
-        accountCreation.register.setOnAction(e -> {
-            if (accountCreation.password.getText().length() >= 8) {
-                if(accountCreation.password.getText().equals(accountCreation.confirm.getText()))
-                {
-                    userN.equals(accountCreation.username.getText());
-                    passW.equals(accountCreation.password.getText());
-                    switchScene(stage, selectionScene.getScene());
-                }
-            }
-        });
+
+       /* accountCreation.register.setOnAction(e -> {
+            if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
 
 
 
@@ -119,22 +92,19 @@ public class mainDriver extends Application {
 
 
         //once login is successful, switch to the landing scene
-        loginScene.loginButton.setOnAction(e -> {
-            /*
-            try {
+        this.loginScene.loginButton.setOnAction(e -> {
 
-                Image avatar = dbOps.getAvatar(loginScene.username.getText());
-                loginScene.avatarImage.setImage(avatar);
-                System.out.println(loginScene.avatarImage.getImage());
-                System.out.println(avatar);
+            if (!this.dbOps.verifyLogin(this.loginScene.username.getText(), this.loginScene.password.getText())) {
+                final Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Login");
+                alert.setContentText("Please enter a valid username and password.");
+                alert.showAndWait();
+            } else {
+                System.out.println("Login Successful");
+                this.switchScene(stage, this.landingScene.getScene());
 
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-            */
 
-            if (dbOps.verifyLogin(loginScene.username.getText(), loginScene.password.getText())) {
-                switchScene(stage, landingScene.getScene());
             }
             else {
                 loginScene.username.setPromptText("Error! Please enter username");
@@ -143,34 +113,30 @@ public class mainDriver extends Application {
         });
 
 
-        Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        logoutConfirmation.setTitle("Logout and Return to Login Screen");
-        logoutConfirmation.setHeaderText("Are you sure you want to logout?");
-        logoutConfirmation.setContentText("You will be returned to the login screen.");
-
-        loginScene.exitButton.setOnAction(e-> {
-            switchScene(stage, beginningScene.getScene());
-        });
-
-        /*
-        accountCreation.register.setOnAction(e->{
-            switchScene(stage, landingScene.getScene());
-        });
+        /* This is the code for the exit button on the login and account creation screens. Both of these screens can only return to the beginning scene.
          */
+        this.loginScene.exitButton.setOnAction(e -> this.switchScene(stage, this.beginningScene.getScene()));
+        this.accountCreation.exitButton.setOnAction(e -> this.switchScene(stage, this.beginningScene.getScene()));
 
-        accountCreation.exitButton.setOnAction(e->{
-            switchScene(stage, beginningScene.getScene());
+        /* Confirm  */
+        this.landingScene.exitButton.setOnAction(e -> {
+
+
+            final Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            logoutConfirmation.setTitle("Logout and Return to Login Screen");
+            logoutConfirmation.setHeaderText("Are you sure you want to logout?");
+            logoutConfirmation.setContentText("You will be returned to the login screen.");
+
+
+            logoutConfirmation.showAndWait().ifPresent(response -> {
+                if (response.getText().equals("OK")) {
+                    this.switchScene(stage, this.loginScene.getScene());
+                }
+            });
         });
 
-        landingScene.exitButton.setOnAction(e ->
-                logoutConfirmation.showAndWait().ifPresent(response -> {
-                    if (response.getText().equals("OK")) {
-                        switchScene(stage, loginScene.getScene());
-                    }
-                }));
 
-
-        landingScene.asteroidHomeButton.setOnAction(e -> switchScene(stage, landingScene.getScene()));
+        this.landingScene.asteroidHomeButton.setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
       /*
       In order to see the different style of questions(for now) you have to comment out the lines that have
       the question types that you DO NOT want to see. Here is a small list to see the question types:
@@ -181,13 +147,14 @@ public class mainDriver extends Application {
 
         // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
-        landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
+        this.landingScene.helpButton.setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
 
 
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
+
 }

@@ -1,8 +1,6 @@
-import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -10,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
+import java.util.ArrayList;
 
 
 public class accountCreation extends Scene{
@@ -32,18 +30,18 @@ public class accountCreation extends Scene{
 
         super(new Pane(), 1366, 768);
 
-        Pane root = new Pane();
+        final Pane root = new Pane();
 
-        creationScene = new Scene(root, 1366, 768);
+        this.creationScene = new Scene(root, 1366, 768);
 
-        Text text = new Text(300, 100, "Mission: Math!");
+        final Text text = new Text(300, 100, "Mission: Math!");
         text.setFill(Color.RED);
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        final BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
-        Rectangle accountCreation = new Rectangle(600, 400, Color.rgb(123, 5, 1));
+        final Rectangle accountCreation = new Rectangle(600, 400, Color.rgb(123, 5, 1));
         accountCreation.setArcWidth(20);
         accountCreation.setArcHeight(20);
         // Set the stroke color and width
@@ -55,70 +53,103 @@ public class accountCreation extends Scene{
         accountCreation.setLayoutX(420);
         accountCreation.setLayoutY(200);
 
-        Label boxTitle = new Label("Account Creation");
+        final Label boxTitle = new Label("Account Creation");
         boxTitle.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 48));
         boxTitle.setTextFill(Color.WHITE);
         boxTitle.setLayoutX(520);
         boxTitle.setLayoutY(230);
 
-        Rectangle labelBorder = new Rectangle(580, 12.5, Color.WHITE);
+        final Rectangle labelBorder = new Rectangle(580, 12.5, Color.WHITE);
         labelBorder.setLayoutX(430);
         labelBorder.setLayoutY(300);
 
-        Text txt1 = new Text(540, 407, "Username:");
+        final Text txt1 = new Text(540, 407, "Username:");
         txt1.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt1.setFill(Color.WHITE);
 
-        username = new TextField();
-        username.setPromptText("Enter Username");
-        username.setPrefColumnCount(20);
-        username.setLayoutX(683);
-        username.setLayoutY(384);
-        username.getText();
+        this.username = new TextField();
+        this.username.setPromptText("Enter Username");
+        this.username.setPrefColumnCount(20);
+        this.username.setLayoutX(683);
+        this.username.setLayoutY(384);
+        this.username.getText();
 
-        Text txt2 = new Text(540, 437, "Password:");
+        final Text txt2 = new Text(540, 437, "Password:");
         txt2.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt2.setFill(Color.WHITE);
 
-        password = new PasswordField();
-        password.setPromptText("Enter Password");
-        password.setPrefColumnCount(20);
-        password.setLayoutX(683);
-        password.setLayoutY(414);
-        password.getText();
+        this.password = new PasswordField();
+        this.password.setPromptText("Enter Password");
+        this.password.setPrefColumnCount(20);
+        this.password.setLayoutX(683);
+        this.password.setLayoutY(414);
+        this.password.getText();
 
-        Text txt3 = new Text(440, 467, "Confirm Password:");
+        final Text txt3 = new Text(440, 467, "Confirm Password:");
         txt3.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 26));
         txt3.setFill(Color.WHITE);
 
-        confirm = new PasswordField();
-        confirm.setPromptText("Confirm Password");
+
+        final PasswordField confirm = new PasswordField();
+
+confirm.setPromptText("Confirm Password");
         confirm.setPrefColumnCount(20);
         confirm.setLayoutX(683);
         confirm.setLayoutY(444);
         confirm.getText();
 
-        ToolBar toolBar = new ToolBar();
+        final ToolBar toolBar = new ToolBar();
 
         exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
         exitButton.setStyle("-fx-background-color: transparent;");
 
-        register = new Button("Next");
+        this.register = new Button("Next");
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
-        toolBar.getItems().add(register);
+        toolBar.getItems().add(this.register);
 
-        landingScene landingScene = new landingScene();
-        exitButton = landingScene.exitButton;
-        toolBar.getItems().add(exitButton);
-        root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, username, txt2, password, txt3, confirm, exitButton, toolBar);
+        final landingScene landingScene = new landingScene();
+        this.exitButton = landingScene.exitButton;
+        toolBar.getItems().add(this.exitButton);
+
+        this.avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);
+
+
+        this.register.setOnAction(e -> {
+            // Remove the existing items from the pane
+            root.getChildren().clear();
+
+            final Button confirmBtn = new Button("Next");
+            confirmBtn.setLayoutX(683);
+            confirmBtn.setLayoutY(530);
+            // Create some new text nodes to add to the pane
+            root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, confirmBtn);
+
+
+            final HBox hbox = new HBox();
+            final databaseOps databaseOps = new databaseOps();
+            final ArrayList<Image> avatar_images;
+            avatar_images = databaseOps.display_avatars();
+            for (final Image avatar_image : avatar_images) {
+                final ImageView avatar = new ImageView(avatar_image);
+                avatar.setFitHeight(100);
+                avatar.setFitWidth(100);
+                avatar.setPreserveRatio(true);
+                avatar.setSmooth(true);
+                avatar.setCache(true);
+                hbox.getChildren().add(avatar);
+            }
+            root.getChildren().add(hbox);
+        });
+
+        root.getChildren().addAll(text, accountCreation, boxTitle, labelBorder, txt1, this.username, txt2, this.password, txt3, confirm, toolBar);
     }
 
 
     public Scene getScene() {
-        return creationScene;
+        return this.creationScene;
     }
 
 }
