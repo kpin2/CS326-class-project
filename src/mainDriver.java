@@ -102,12 +102,6 @@ public class mainDriver extends Application {
             }
         });
 
-
-
-        selectionScene.prevSelect.setOnAction(e-> {
-
-        });
-
         selectionScene.confirmBtn.setOnAction(e-> {
             dbOps.addUser(userN, passW, selectionScene.avatar);
             switchScene(stage,landingScene.getScene());
