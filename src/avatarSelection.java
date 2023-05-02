@@ -27,6 +27,8 @@ public class avatarSelection extends Scene {
     public Button selectI1, selectI2,selectI3;
     public ImageView imageV1, imageV2, imageV3;
 
+    private int id1, id2, id3;
+
     public avatarSelection() {
 
         super(new Pane(), 1366, 768);
@@ -77,34 +79,56 @@ public class avatarSelection extends Scene {
         ArrayList<Image> avatar_images;
         avatar_images = databaseOps.display_avatars();
 
-        int id1 = 1;
-        int id2 = 2;
-        int id3 = 3;
+        id1 = 1;
+        id2 = 2;
+        id3 = 3;
 
         image1=(avatar_images.get(id1));
         image2=(avatar_images.get(id2));
         image3=(avatar_images.get(id3));
 
+
+
         nextSelect = new Button(">");
         nextSelect.setLayoutX(863);
         nextSelect.setLayoutY(530);
         nextSelect.setOnAction(e-> {
-            int idNext1 = (id1 + 3)%20;
-            int idNext2 = (id2 + 3)%20;
-            int idNext3 = (id3 + 3)%20;
-            System.out.println(idNext1);
+            id1+=3;
+            id2+=3;
+            id3+=3;
 
+            image1=(avatar_images.get(id1));
+            imageV1.setImage(image1);
 
+            image2=(avatar_images.get(id2));
+            imageV2.setImage(image2);
 
-
-            image1=(avatar_images.get(idNext1));
-            image2=(avatar_images.get(idNext2));
-            image3=(avatar_images.get(idNext3));
+            image3=(avatar_images.get(id3));
+            imageV3.setImage(image3);
         });
+
 
         prevSelect = new Button("<");
         prevSelect.setLayoutX(543);
         prevSelect.setLayoutY(530);
+        prevSelect.setOnAction(e-> {
+            if(id1 > 0){
+                id1=id1-3;
+                id2=id2-3;
+                id3=id3-3;
+
+                System.out.println(id1);
+
+                image1=(avatar_images.get(id1));
+                imageV1.setImage(image1);
+
+                image2=(avatar_images.get(id2));
+                imageV2.setImage(image2);
+
+                image3=(avatar_images.get(id3));
+                imageV3.setImage(image3);
+            }
+        });
 
         imageV1 = new ImageView(image1);
         imageV1.setFitHeight(100);
