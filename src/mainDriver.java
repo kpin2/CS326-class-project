@@ -21,6 +21,8 @@ public class mainDriver extends Application {
     private final practiceFITB practiceFITB;
     private final beginningScene beginningScene;
     private final databaseOps dbOps;
+    private final avatarSelection selectionScene;
+
 
     public mainDriver() {
         //initializing the scenes
@@ -30,6 +32,7 @@ public class mainDriver extends Application {
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
         this.dbOps = new databaseOps();
+        this.selectionScene = new selectionScene();
     }
 
     //method to switch scenes
@@ -65,15 +68,27 @@ public class mainDriver extends Application {
         this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
 
 
+        String userN = "";
+        String passW = "";
         //account creation
+
        /* accountCreation.register.setOnAction(e -> {
             if ((accountCreation.username.getText().length() >= 8) && (accountCreation.password.getText().length() >= 8)) {
 
-                dbOps.addUser(accountCreation.username.getText(), accountCreation.password.getText(), accountCreation.avatarImage);
 
-                //switchScene(stage, loginScene.getScene());
-            }
-        });*/
+
+        selectionScene.prevSelect.setOnAction(e-> {
+
+        });
+
+        selectionScene.confirmBtn.setOnAction(e-> {
+            dbOps.addUser(userN, passW, selectionScene.avatar);
+        });
+
+        selectionScene.exitButton.setOnAction(e-> {
+            switchScene(stage, beginningScene.getScene());
+        });
+
 
 
         //once login is successful, switch to the landing scene
@@ -88,6 +103,12 @@ public class mainDriver extends Application {
             } else {
                 System.out.println("Login Successful");
                 this.switchScene(stage, this.landingScene.getScene());
+
+
+            }
+            else {
+                loginScene.username.setPromptText("Error! Please enter username");
+                loginScene.password.setPromptText("Error! Please enter password");
             }
         });
 
@@ -100,10 +121,12 @@ public class mainDriver extends Application {
         /* Confirm  */
         this.landingScene.exitButton.setOnAction(e -> {
 
+
             final Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
             logoutConfirmation.setTitle("Logout and Return to Login Screen");
             logoutConfirmation.setHeaderText("Are you sure you want to logout?");
             logoutConfirmation.setContentText("You will be returned to the login screen.");
+
 
             logoutConfirmation.showAndWait().ifPresent(response -> {
                 if (response.getText().equals("OK")) {
