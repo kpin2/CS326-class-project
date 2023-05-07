@@ -109,7 +109,7 @@ public class accountCreation extends Scene{
         toolBar.getItems().add(this.register);
 
         final landingScene landingScene = new landingScene();
-        this.exitButton = landingScene.exitButton;
+        this.exitButton = landingScene.getExitButton();
         toolBar.getItems().add(this.exitButton);
 
         this.avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);

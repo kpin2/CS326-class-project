@@ -20,26 +20,32 @@ public class databaseOps {
      *                 "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');
      * @author Kevin Pinto
      */
-    public void addUser(String username, String password, Image avatar) {
+    public boolean addUser(String username, String password, Image avatar) {
+        boolean userExists = false;
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
             System.out.println("Connection successful");
-            /* ResultSet myResult = myStatement.executeQuery("INSERT INTO dbo.user_registration (username, password, avatar) VALUES ('" + username + "', '" + password + "' , '" + avatar + "')");*/
+            if (username == null || password == null || avatar == null) {
+                System.out.println("Invalid input");
+            } else {
+                /* ResultSet myResult = myStatement.executeQuery("INSERT INTO dbo.user_registration (username, password, avatar) VALUES ('" + username + "', '" + password + "' , '" + avatar + "')");*/
 
-            ResultSet myResult = myStatement.executeQuery("INSERT INTO user_registration (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" + "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');");
+                if (myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" + "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "')")) {
+                    System.out.println("User added");
+                    userExists = true;
+                } else {
+                    System.out.println("User already exists");
 
-            /*
-             * myResult returns no result if user already exists
-             */
-            while (myResult.next()) {
-                myResult.getBlob("avatar");
-                System.out.println("User added");
-                System.out.println(myResult.getString("username") + " " + myResult.getString("password") + " " + myResult.getString("avatar"));
+                }
+
+
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return userExists;
     }
 
     public Image getAvatar(String username) throws SQLException {
@@ -76,10 +82,10 @@ public class databaseOps {
      *
      * <p> This method makes a connection to the Mission_Math remote database via JDBC and queries the avatar_images table to retrieve all the avatar images. The avatar images are stored in an ArrayList of Image objects.
      * <p> The method uses the following SQL query:
-     *          <p>SELECT pic FROM avatar_images</p>
+     * <p>SELECT pic FROM avatar_images</p>
      * @author Kevin Pinto
      */
-    public ArrayList<Image> display_avatars() {
+    protected ArrayList<Image> display_avatars() {
 
         ArrayList<Image> avatars = new ArrayList<Image>();
 
