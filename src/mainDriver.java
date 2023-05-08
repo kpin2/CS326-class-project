@@ -59,9 +59,8 @@ public class mainDriver extends Application {
 
 
         //start at the beginning scene and handle click events
-//        stage.setScene(this.beginningScene.getScene());
-//        stage.setScene(practiceExamScene.getScene());
-        stage.setScene(practiceFITB.getScene());
+        stage.setScene(this.beginningScene.getScene());
+//        stage.setScene(this.landingScene.getScene());
 
 
 
@@ -69,29 +68,36 @@ public class mainDriver extends Application {
         this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
 
 
-        String userN = "";
-        String passW = "";
+        final String[] userN = {""};
+        final String[] passW = {""};
         //account creation
 
-        accountCreation.register.setOnAction(e -> {
-            if (accountCreation.password.getText().length() >= 8) {
-                if(accountCreation.password.getText().equals(accountCreation.confirm.getText()))
+        this.accountCreation.register.setOnAction(e -> {
+            if (this.accountCreation.password.getText().length() >= 8) {
                 {
-                    userN.equals(accountCreation.username.getText());
-                    passW.equals(accountCreation.password.getText());
-                    switchScene(stage, selectionScene.getScene());
+                    userN[0] = this.accountCreation.username.getText();
+                    passW[0] = this.accountCreation.password.getText();
+                    this.switchScene(stage, this.selectionScene.getScene());
                 }
             }
         });
 
 
-        selectionScene.confirmBtn.setOnAction(e-> {
-            dbOps.addUser(userN, passW, selectionScene.avatar);
-            switchScene(stage,landingScene.getScene());
+        this.selectionScene.confirmBtn.setOnAction(e-> {
+            if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
+                this.switchScene(stage, this.landingScene.getScene());
+            }
+            else {
+                final Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Account Creation Error");
+                alert.setHeaderText("Account Creation Error");
+                alert.setContentText("An account with this username already exists. Please try again.");
+                alert.showAndWait();
+            }
         });
 
-        selectionScene.exitButton.setOnAction(e-> {
-            switchScene(stage, beginningScene.getScene());
+        this.selectionScene.exitButton.setOnAction(e-> {
+            this.switchScene(stage, this.beginningScene.getScene());
         });
 
         //once login is successful, switch to the landing scene
@@ -104,8 +110,8 @@ public class mainDriver extends Application {
                 alert.setContentText("Please enter a valid username and password.");
                 alert.showAndWait();
 
-                loginScene.username.setPromptText("Error! Please enter username");
-                loginScene.password.setPromptText("Error! Please enter password");
+                this.loginScene.username.setPromptText("Error! Please enter username");
+                this.loginScene.password.setPromptText("Error! Please enter password");
             } else {
                 System.out.println("Login Successful");
                 this.switchScene(stage, this.landingScene.getScene());
@@ -121,7 +127,7 @@ public class mainDriver extends Application {
         this.accountCreation.exitButton.setOnAction(e -> this.switchScene(stage, this.beginningScene.getScene()));
 
         /* Confirm  */
-        this.landingScene.exitButton.setOnAction(e -> {
+        this.landingScene.getExitButton().setOnAction(e -> {
 
 
             final Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -138,18 +144,12 @@ public class mainDriver extends Application {
         });
 
 
-        this.landingScene.asteroidHomeButton.setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
-      /*
-      In order to see the different style of questions(for now) you have to comment out the lines that have
-      the question types that you DO NOT want to see. Here is a small list to see the question types:
-      Multiple choice:  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
-      True/False: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
-      Fill in the Blank: landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceFITB.getScene()));
-      */
+        this.landingScene.getAsteroidHomeButton().setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
+
 
         // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
-        this.landingScene.helpButton.setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
+        this.landingScene.getHelpButton().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
 
 
         stage.show();

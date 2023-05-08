@@ -1,4 +1,3 @@
-import com.sun.javafx.menu.MenuItemBase;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -76,7 +75,7 @@ public class loginScene extends Scene {
         toolBar.getItems().add(loginButton);
 
         landingScene landingScene = new landingScene();
-        exitButton = landingScene.exitButton;
+        exitButton = landingScene.getExitButton();
         exitButton.setStyle("-fx-background-color: transparent;");
 
         avatarImage = new ImageView();

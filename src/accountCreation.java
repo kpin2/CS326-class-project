@@ -102,7 +102,16 @@ public class accountCreation extends Scene{
         exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
-        exitButton.setStyle("-fx-background-color: transparent;");
+
+        exitButton.setStyle("-fx-background-color: transparent;");      this.register = new Button("Next");
+        toolBar.setLayoutX(683);
+        toolBar.setLayoutY(530);
+        toolBar.getItems().add(this.register);
+
+        final landingScene landingScene = new landingScene();
+        this.exitButton = landingScene.getExitButton();
+        toolBar.getItems().add(this.exitButton);
+
 
         this.avatarImage = new Image("file:resources/assets/Astronaut Cat 500px removebg.png", 500, 500, false, true);
 
