@@ -29,7 +29,6 @@ public class databaseOps {
             if (username == null || password == null || avatar == null) {
                 System.out.println("Invalid input");
             } else {
-                /* ResultSet myResult = myStatement.executeQuery("INSERT INTO dbo.user_registration (username, password, avatar) VALUES ('" + username + "', '" + password + "' , '" + avatar + "')");*/
 
                 if (myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" + "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "')")) {
                     System.out.println("User added");
