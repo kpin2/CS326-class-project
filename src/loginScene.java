@@ -45,7 +45,7 @@ public class loginScene extends Scene {
         txt1.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt1.setFill(Color.RED);
 
-        /*TextField*/ username = new TextField();
+        TextField username = new TextField();
         username.setPromptText("Enter username");
         username.setPrefColumnCount(20);
         username.setLayoutX(683);
