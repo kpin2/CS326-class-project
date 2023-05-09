@@ -6,6 +6,25 @@ import java.util.ArrayList;
 
 public class databaseOps {
 
+    public boolean userExists(String username) {
+        boolean existence = false;
+        try {
+            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+            Statement myStatement = myConnection.createStatement();
+            System.out.println("Connection successful");
+
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
+            if (myResult.next()) {
+                System.out.println("Username Exists");
+                existence = true;
+            }
+            else System.out.println("Username Doesn't Exist");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return existence;
+    }
 
     /**
      * Method to add a new user to the database if the username is not already taken. If the username is taken return false. Returns true only if the user is added to the database.
@@ -21,6 +40,7 @@ public class databaseOps {
      *                  "INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatarPic + "'"
      * @author Kevin Pinto
      */
+
     public boolean addUser(String username, String password, Image avatarPic) throws SQLException {
         boolean b = false;
 
@@ -49,6 +69,7 @@ public class databaseOps {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return b;
     }
 

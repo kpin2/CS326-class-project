@@ -84,8 +84,8 @@ public class mainDriver extends Application {
             }
         });
 
-
         this.selectionScene.confirmBtn.setOnAction(e-> {
+
             try {
                 if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
                     this.switchScene(stage, this.landingScene.getScene());
@@ -102,13 +102,19 @@ public class mainDriver extends Application {
             }
         });
 
+        selectionScene.back.setOnAction(e-> {
+            userN[0] = "";
+            passW[0] = "";
+            selectionScene.avatar = null;
+            switchScene(stage, accountCreation.getScene());
+        });
+
         this.selectionScene.exitButton.setOnAction(e-> {
             this.switchScene(stage, this.beginningScene.getScene());
         });
 
         //once login is successful, switch to the landing scene
         this.loginScene.loginButton.setOnAction(e -> {
-
             if (!this.dbOps.verifyLogin(this.loginScene.username.getText(), this.loginScene.password.getText())) {
                 final Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
