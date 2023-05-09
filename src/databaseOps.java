@@ -5,6 +5,25 @@ import java.util.ArrayList;
 
 public class databaseOps {
 
+    public boolean userExists(String username) {
+        boolean existence = false;
+        try {
+            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+            Statement myStatement = myConnection.createStatement();
+            System.out.println("Connection successful");
+
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
+            if (myResult.next()) {
+                System.out.println("Username Exists");
+                existence = true;
+            }
+            else System.out.println("Username Doesn't Exist");
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return existence;
+    }
 
     /**
      * Method to add a new user to the database if the username is not already taken.
@@ -20,8 +39,8 @@ public class databaseOps {
      *                 "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');
      * @author Kevin Pinto
      */
-    public boolean addUser(String username, String password, Image avatar) {
-        boolean userExists = false;
+    public void addUser(String username, String password, Image avatar) {
+        ///boolean userExists = false;
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
@@ -32,10 +51,9 @@ public class databaseOps {
 
                 if (myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" + "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "')")) {
                     System.out.println("User added");
-                    userExists = true;
+                    ///userExists = true;
                 } else {
                     System.out.println("User already exists");
-
                 }
 
 
@@ -44,7 +62,7 @@ public class databaseOps {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return userExists;
+        ///return userExists;
     }
 
     public Image getAvatar(String username) throws SQLException {
