@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 
 public class mainDriver extends Application {
 
@@ -84,15 +86,19 @@ public class mainDriver extends Application {
 
 
         this.selectionScene.confirmBtn.setOnAction(e-> {
-            if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
-                this.switchScene(stage, this.landingScene.getScene());
-            }
-            else {
-                final Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Account Creation Error");
-                alert.setHeaderText("Account Creation Error");
-                alert.setContentText("An account with this username already exists. Please try again.");
-                alert.showAndWait();
+            try {
+                if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
+                    this.switchScene(stage, this.landingScene.getScene());
+                }
+                else {
+                    final Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Account Creation Error");
+                    alert.setHeaderText("Account Creation Error");
+                    alert.setContentText("An account with this username already exists. Please try again.");
+                    alert.showAndWait();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         });
 
@@ -114,6 +120,8 @@ public class mainDriver extends Application {
                 this.loginScene.password.setPromptText("Error! Please enter password");
             } else {
                 System.out.println("Login Successful");
+                Image avatar = this.dbOps.getAvatar(this.loginScene.username.getText());
+                this.landingScene.setProfileAvatar(avatar);
                 this.switchScene(stage, this.landingScene.getScene());
 
 

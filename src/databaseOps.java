@@ -1,5 +1,6 @@
 import javafx.scene.image.Image;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -7,56 +8,68 @@ public class databaseOps {
 
 
     /**
-     * Method to add a new user to the database if the username is not already taken.
+     * Method to add a new user to the database if the username is not already taken. If the username is taken return false. Returns true only if the user is added to the database.
      *
-     * @param username username of the user to be added - String
-     * @param password password of the user to be added - String
-     * @param avatar   avatar of the user to be added - Image
+     * @return boolean value indicating if the user was added to the database
+     * @param username  username of the user to be added - String
+     * @param password  password of the user to be added - String
+     * @param avatarPic avatar of the user to be added - Image
      *
-     *                 <p> This method makes a connection to the Mission_Math remote database via JDBC and queries the user_registration table to check if the username already exists. If the username does not exist, the user is added to the user_registration table. If the username already exists, the user is not added to the user_registration table.
-     *                 <p> The method uses the following SQL query:
-     *                 INSERT INTO user_registration (username, password, avatar)" +
-     *                 "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" +
-     *                 "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "');
+     *                  <p> This method makes a connection to the Mission_Math remote database via JDBC and queries the user_registration table to check if the username already exists. If the username does not exist, the user is added to the user_registration table. If the username already exists, the user is not added to the user_registration table and the method returns false.
+     *                  <p> The method uses the following two SQL queries:
+     *                  "SELECT * FROM [user_registration] WHERE username = '" + username + "'"
+     *                  "INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatarPic + "'"
      * @author Kevin Pinto
      */
-    public boolean addUser(String username, String password, Image avatar) {
-        boolean userExists = false;
+    public boolean addUser(String username, String password, Image avatarPic) throws SQLException {
+        boolean b = false;
+
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
             System.out.println("Connection successful");
-            if (username == null || password == null || avatar == null) {
+            //all fields are necessary
+            if (username == null || password == null || avatarPic == null) {
                 System.out.println("Invalid input");
             } else {
-
-                if (myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatar + "'" + "WHERE NOT EXISTS (SELECT username FROM user_registration WHERE username = '" + username + "')")) {
-                    System.out.println("User added");
-                    userExists = true;
-                } else {
+                //check if username already exists, close connection and return if it does
+                ResultSet myResult = myStatement.executeQuery("SELECT * FROM [user_registration] WHERE username = '" + username + "'");
+                if (myResult.next()) {
                     System.out.println("User already exists");
-
+                    myResult.close();
+                    return b;
                 }
-
-
-
+                //add user to database
+                if (!myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatarPic + "'") ) {
+                    System.out.println("User added");
+                    b = true;
+                    return b;
+                }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return userExists;
+        return b;
     }
 
-    public Image getAvatar(String username) throws SQLException {
-        Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
-        Statement myStatement = myConnection.createStatement();
-        System.out.println("Connection successful");
-        ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
+    public Image getAvatar(String username) {
 
-        if (myResult.next()) {
-            return new Image(myResult.getBlob("avatar").getBinaryStream());
+        Image avatar = null;
+        try {
+            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+
+            Statement myStatement = myConnection.createStatement();
+            System.out.println("Connection successful");
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
+
+            if (myResult.next()) {
+                avatar = new Image(myResult.getBlob("avatar").getBinaryStream());
+                return avatar;
+            }
+            return avatar;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public void getUserList() {
