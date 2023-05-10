@@ -27,16 +27,16 @@ public class FinalResult extends Scene {
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
-
+        FinalResult.getStylesheets().add(("styles/stylesheet.css"));
 
         Image image = new Image("file:resources/assets/Astronaut_Finish transparent bgpng.png");
         ImageView imageView = new ImageView(image);
 
         Scale scaleTransformation = new Scale();
-        scaleTransformation.setX(0.40);
-        scaleTransformation.setY(0.40);
-        scaleTransformation.setPivotX(600);
-        scaleTransformation.setPivotY(980);
+        scaleTransformation.setX(0.90);
+        scaleTransformation.setY(0.90);
+        scaleTransformation.setPivotX(4000);
+        scaleTransformation.setPivotY(6000);
 
         imageView.getTransforms().add(scaleTransformation);
 
@@ -47,10 +47,10 @@ public class FinalResult extends Scene {
         Timeline timeline = new Timeline(keyFrame);
 
 
-        Text text = new Text(75, 30, "Mission Complete!");
+        Text text = new Text(250, 100, "Mission Complete!");
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setId("title");
 
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 36));
-        text.setFill(Color.RED);
 
 
 

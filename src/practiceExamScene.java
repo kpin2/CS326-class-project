@@ -96,10 +96,6 @@ public class practiceExamScene extends Scene {
         submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
         submitButton.setLayoutY(sceneHeight / 2 + 100);
 
-
-
-        practiceExamScene = new loginScene().getScene();
-
     }
 
     public Scene getScene(){
