@@ -13,6 +13,7 @@ import java.util.Random;
 public class practiceFITB extends Scene {
 
     private final Scene practiceFITB;
+    private Pane root;
     private scoreboard score;
 
     public int indx;
@@ -25,11 +26,12 @@ public class practiceFITB extends Scene {
     private String finalQuestion, finalAnswer;
 
     private Button exitButton;
+    private Button resetButton;
     Label questionLabel;
     public practiceFITB() {
 
         super(new Pane(),1366, 768);
-        Pane root = new Pane();
+        root = new Pane();
         practiceFITB = new Scene(root, 1366, 768);
 
         score = new scoreboard();
@@ -43,17 +45,11 @@ public class practiceFITB extends Scene {
         questions1 = new Questions(grade);
         randomQuestion = questions1.getQuestion();
         System.out.println("practiceFITB constructor and question is : " + randomQuestion);
-        //Label questionLabel= new Label(finalQuestion);
-        //questionLabel.setLayoutX(580);
-        //questionLabel.setLayoutY(300);
+
         TextField answerField = new TextField();
         answerField.setLayoutX(580);
         answerField.setLayoutY(330);
         root.getChildren().add(answerField);
-
-
-        //questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        //root.getChildren().add(questionLabel);
 
         ButtonType buttonTypeOne = new ButtonType("Easy");
         ButtonType buttonTypeTwo = new ButtonType("Medium");
@@ -77,7 +73,7 @@ public class practiceFITB extends Scene {
         ToolBar toolBar = new ToolBar();
 
         exitButton = new Button("Exit");
-        //Button resetButton = new Button("Reset");
+        resetButton = new Button("Reset");
 
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
@@ -87,10 +83,6 @@ public class practiceFITB extends Scene {
         questionLabel.setText(randomQuestion);
         questionLabel.setLayoutX(580);
         questionLabel.setLayoutY(300);
-        //TextField a = new TextField();
-
-
-
 
 
         Button submitButton = new Button("Submit");
@@ -122,10 +114,7 @@ public class practiceFITB extends Scene {
           //These lines generate a new random question each time Submit is pressed
            if (score.getTrys() < 5){
                questions1 = new Questions(grade);
-               //questions1.generateQuestionAnswer();
                randomQuestion = questions1.getQuestion();
-               //newAnswer = questions1.getAnswer();
-               //questionLabel.setText(randomQuestion);
                finalQuestionLabel.setText(randomQuestion);
                answerField.clear();
 
@@ -138,14 +127,22 @@ public class practiceFITB extends Scene {
         });
 
 
-        exitButton.setOnAction(e -> {
+        resetButton.setOnAction(e -> {
+            score.setScore(0);
+            score.setTrys(0);
+            questions1 = new Questions(grade);
+            randomQuestion = questions1.getQuestion();
+            finalQuestionLabel.setText(randomQuestion);
+            finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            answerField.clear();
+            root.getChildren().addAll(submitButton,answerField);
         });
 
         finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         finalQuestionLabel.setLayoutX(580);
         finalQuestionLabel.setLayoutY(300);
 
-        toolBar.getItems().addAll(exitButton);
+        toolBar.getItems().addAll(resetButton,exitButton);
         root.getChildren().addAll(toolBar, text,  submitButton);
         double sceneWidth = practiceFITB.getWidth();
         double sceneHeight = practiceFITB.getHeight();
@@ -176,11 +173,28 @@ public class practiceFITB extends Scene {
     public Scene getScene(){
         return practiceFITB;
     }
+
+    public int getScore() {
+        return score.getScore();
+    }
     // Gives a random variable
     public Button getExitButton(){
 
         return exitButton;
     }
 
+    public Button getResetButton(){
+
+        return resetButton;
+    }
+
+    public String getScoreResult() {
+        if(score.getTrys() > 0) {
+            return "Result : " + score.getScore() + " / " + score.getTrys();
+        }
+        else {
+            return "";
+        }
+    }
 
 }

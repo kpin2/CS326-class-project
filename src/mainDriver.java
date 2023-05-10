@@ -22,6 +22,7 @@ public class mainDriver extends Application {
     private final practiceTF practiceTF;
     private final practiceExamScene practiceExamScene;
     private final beginningScene beginningScene;
+    private final FinalResult finalResult;
     private final databaseOps dbOps;
     //private final avatarSelection selectionScene;
 
@@ -35,6 +36,7 @@ public class mainDriver extends Application {
         this.practiceExamScene = new practiceExamScene();
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
+        this.finalResult = new FinalResult();
         this.dbOps = new databaseOps();
         //this.selectionScene = new avatarSelection();
     }
@@ -148,7 +150,11 @@ public class mainDriver extends Application {
         });
 
 
-        this.landingScene.getAsteroidHomeButton().setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
+        this.landingScene.getAsteroidHomeButton().setOnAction(e -> {
+            this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
+            this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+            this.switchScene(stage, this.landingScene.getScene());
+        });
         this.landingScene.getIntergalacticAlgebra().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
         this.landingScene.getCosmicCountingButton().setOnAction(e -> this.switchScene(stage, this.practiceTF.getScene()));
         this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
@@ -156,11 +162,26 @@ public class mainDriver extends Application {
         // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
         this.landingScene.getHelpButton().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
-        this.practiceFITB.getExitButton().setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
+        this.practiceFITB.getExitButton().setOnAction(e -> {
+            answerExitButtonAction(stage);
+        });
+        this.practiceTF.getExitButton().setOnAction(e -> {
+            answerExitButtonAction(stage);
+        });
 
         stage.show();
     }
 
+    public void answerExitButtonAction(final Stage stage) {
+        if(this.practiceFITB.getScore() == 5) {  //TODO: Add other planets score also
+            this.switchScene(stage, this.finalResult.getScene());
+        }
+        else {
+            this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
+            this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+            this.switchScene(stage, this.landingScene.getScene());
+        }
+    }
     public static void main(final String[] args) {
         launch(args);
     }

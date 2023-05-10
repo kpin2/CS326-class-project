@@ -31,6 +31,9 @@ public class landingScene extends Scene {
     private Image profileAvatar;
     private Rectangle avatarDisplay;
 
+    private Text cosmicCountingResultText;
+    private Text andromedaResultText;
+    private Text intergalacticAlgebraResultText;
 
 
     public landingScene() {
@@ -154,6 +157,12 @@ public class landingScene extends Scene {
         andromedaText.setId("andromedaText");
         Tooltip andromeda = new Tooltip("Andromeda Arithmetic");
         getAndromedaArithmetic().setTooltip(andromeda);
+        andromedaResultText = new Text(300, 200, "");
+        andromedaResultText.setFill(Color.RED);
+        andromedaResultText.setStyle("-fx-font-size: 20px;");
+        andromedaResultText.setLayoutX(250);
+        andromedaResultText.setLayoutY(400);
+        andromedaResultText.setId("andromedaResultText");
         getAndromedaArithmetic().setOnAction(e -> {
             System.out.println("Andromeda Arithmetic button pressed");
 //            andromedaArithmetic.setDisable(true);
@@ -174,6 +183,12 @@ public class landingScene extends Scene {
         getIntergalacticAlgebra().setStyle("-fx-background-color: transparent;");
         Tooltip intergalacticTooltip = new Tooltip("Intergalactic Algebra");
         getIntergalacticAlgebra().setTooltip(intergalacticTooltip);
+        intergalacticAlgebraResultText = new Text(300, 200, "");
+        intergalacticAlgebraResultText.setFill(Color.RED);
+        intergalacticAlgebraResultText.setStyle("-fx-font-size: 20px;");
+        intergalacticAlgebraResultText.setLayoutX(200);
+        intergalacticAlgebraResultText.setLayoutY(110);
+        intergalacticAlgebraResultText.setId("intergalacticAlgebraResultText");
 
         getIntergalacticAlgebra().setOnAction(e -> {
             System.out.println("Intergalactic Algebra button pressed");
@@ -192,19 +207,28 @@ public class landingScene extends Scene {
         cosmicCountingText.setId("cosmicCountingText");
         Tooltip cosmicCounting = new Tooltip("Cosmic Counting");
         getCosmicCountingButton().setTooltip(cosmicCounting);
+        cosmicCountingResultText = new Text(300, 200, "");
+        cosmicCountingResultText.setFill(Color.RED);
+        cosmicCountingResultText.setStyle("-fx-font-size: 20px;");
+        cosmicCountingResultText.setLayoutX(620);
+        cosmicCountingResultText.setLayoutY(400);
+        cosmicCountingResultText.setId("cosmicCountingResultText");
 
         getCosmicCountingButton().setOnAction(e -> {
             System.out.println("Cosmic Counting button pressed");
         });
 
         //adding all the nodes to the root
-        root.getChildren().addAll(getExitButton(), text, getHelpButton(), smallShipImageView, getAsteroidHomeButton(), getCosmicCountingButton(), getAndromedaArithmetic(), andromedaText, getIntergalacticAlgebra(), intergalacticAlgebraText, cosmicCountingText,avatarDisplay);
+        root.getChildren().addAll(getExitButton(), text, getHelpButton(), smallShipImageView, getAsteroidHomeButton(), getCosmicCountingButton(), getAndromedaArithmetic(), andromedaText, getIntergalacticAlgebra(), intergalacticAlgebraText, cosmicCountingText,avatarDisplay,intergalacticAlgebraResultText,andromedaResultText,cosmicCountingResultText);
 
 
     }
 
 
     public Scene getScene() {
+        cosmicCountingResultText.setText(cosmicCountingResultText.getText());
+        andromedaResultText.setText(andromedaResultText.getText());
+        intergalacticAlgebraResultText.setText(intergalacticAlgebraResultText.getText());
         return landingScene;
     }
 
@@ -271,4 +295,17 @@ public class landingScene extends Scene {
     public void setAvatarDisplay(Rectangle avatarDisplay) {
         this.avatarDisplay = avatarDisplay;
     }
+
+    public void setCosmicCountingResultTxt(String msg) {
+        this.cosmicCountingResultText.setText(msg);
+    }
+
+    public void setAnrdomedaResultTxt(String msg) {
+        this.andromedaResultText.setText(msg);
+    }
+
+    public void setIntergalacticAlgebraResultText(String msg) {
+        this.intergalacticAlgebraResultText.setText(msg);
+    }
+
 }

@@ -12,13 +12,17 @@ import java.util.Random;
 public class practiceTF extends Scene {
 
     private final Scene practiceTF;
+    private Pane root;
+    private scoreboard score;
+    private Button exitButton;
+    private Button resetButton;
 
     public practiceTF() {
 
         super(new Pane(),1366, 768);
-        Pane root = new Pane();
+        root = new Pane();
         practiceTF = new Scene(root, 1366, 768);
-
+        score = new scoreboard();
 
         String[] questions = {
                 "2 + 2 equals 4",
@@ -48,8 +52,8 @@ public class practiceTF extends Scene {
         text.setFill(Color.RED);
         ToolBar toolBar = new ToolBar();
 
-        Button exitButton = new Button("Exit");
-        Button resetButton = new Button("Reset");
+        exitButton = new Button("Exit");
+        resetButton = new Button("Reset");
 
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
@@ -77,9 +81,12 @@ public class practiceTF extends Scene {
             if (ansString.equals(answers[indx])) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
+                score.addScore();
+                score.addTrys();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
                 alert.showAndWait();
+                score.addTrys();
             }
         });
 
@@ -118,6 +125,24 @@ public class practiceTF extends Scene {
 
     public Scene getScene(){
         return practiceTF;
+    }
+    public Button getExitButton(){
+
+        return exitButton;
+    }
+
+    public Button getResetButton(){
+
+        return resetButton;
+    }
+
+    public String getScoreResult() {
+        if(score.getTrys() > 0) {
+            return "Result : " + score.getScore() + " / " + score.getTrys();
+        }
+        else {
+            return "";
+        }
     }
 
 
