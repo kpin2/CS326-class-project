@@ -1,8 +1,10 @@
 /* CSCI362 Software Engineering
  * Class Project - Mission: Math!
- * mainDriver.java - Driver program for the tutoring software/game of Mission: Math! Calls the JavaFX application start method and launches the software.
+ * mainDriver.java - Main driver class for the Mission: Math! application. This class handles all scene switching and
+ * event handling for the application, as well as the main method.
+ * Produced: 3/25/2023
  *
- * @author Kevin Pinto - Wrote initial code with a basic setup for the main driver.
+ * @author Kevin Pinto
  * */
 
 import javafx.application.Application;
@@ -17,6 +19,7 @@ import java.sql.SQLException;
 
 public class mainDriver extends Application {
 
+    //declaring all the scenes and database operations
     private final loginScene loginScene;
     private final accountCreation accountCreation;
     private final landingScene landingScene;
@@ -28,9 +31,8 @@ public class mainDriver extends Application {
     private final databaseOps dbOps;
     //private final avatarSelection selectionScene;
 
-
+    //constructor to initialize all the scenes and dbOps
     public mainDriver() {
-        //initializing the scenes
         this.loginScene = new loginScene();
         this.landingScene = new landingScene();
         this.practiceFITB = new practiceFITB();
@@ -48,28 +50,32 @@ public class mainDriver extends Application {
         stage.setScene(scene);
     }
 
-
+    //main method of JavaFX application
     @Override
     public void start(final Stage stage) {
 
-        //stage is the top level container, setting title displays the title in the title bar
+
+        //fixed size for the stage and title
         stage.setTitle("Mission: Math!");
         stage.setResizable(false);
 
         //loading our custom font first so the rest of the program can use it
         Font.loadFont("file:resources/font/SpaceMission.otf", 32);
 
-        //adding different size ship icons to the stage
+        //adding different size ship icons to the stage for the window icon, mouse cursor, and taskbar icon
         final Image smShip = new Image("file:resources/assets/smallSpaceship.png");
         final Image px64Ship = new Image("file:resources/assets/64pxsmallSpaceship.png");
         final Image px48Ship = new Image("file:resources/assets/48pxsmallSpaceship.png");
-        stage.getIcons().addAll(smShip, px64Ship, px48Ship);
+        final Image asteroid = new Image("file:resources/assets/asteroid2.png");
+        final Image asteroidSmall = new Image("file:resources/assets/Asteroid2-100x100.png");
+        final Image comet = new Image("file:resources/assets/Comet-PNG2.png");
+        final Image comet2 = new Image("file:resources/assets/Comet-PNG-File.png");
+        stage.getIcons().addAll(smShip, px64Ship, px48Ship, asteroid, asteroidSmall, comet, comet2);
 
 
         //start at the beginning scene and handle click events
         stage.setScene(this.beginningScene.getScene());
-//        stage.setScene(this.landingScene.getScene());
-
+//        stage.setScene(this.practiceFITB.getScene());
 
 
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
@@ -92,13 +98,11 @@ public class mainDriver extends Application {
         });
 
 
-        this.selectionScene.confirmBtn.setOnAction(e-> {
-
+        this.selectionScene.confirmBtn.setOnAction(e -> {
             try {
                 if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
                     this.switchScene(stage, this.landingScene.getScene());
-                }
-                else {
+                } else {
                     final Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Account Creation Error");
                     alert.setHeaderText("Account Creation Error");
@@ -109,6 +113,7 @@ public class mainDriver extends Application {
                 throw new RuntimeException(ex);
             }
         });
+
 
         selectionScene.back.setOnAction(e-> {
             userN[0] = "";
@@ -134,13 +139,14 @@ public class mainDriver extends Application {
                 this.loginScene.password.setPromptText("Error! Please enter password");
             } else {
                 System.out.println("Login Successful");
-                Image avatar = this.dbOps.getAvatar(this.loginScene.username.getText());
-                this.landingScene.setProfileAvatar(avatar);
+                Image avatar = dbOps.getAvatar(this.loginScene.username.getText());
+                this.landingScene.setAvatarImage(avatar);
                 this.switchScene(stage, this.landingScene.getScene());
 
 
             }
         });
+
 
 
         /* This is the code for the exit button on the login and account creation screens. Both of these screens can only return to the beginning scene.

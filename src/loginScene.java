@@ -1,3 +1,11 @@
+/* CSCI362 Software Engineering
+ * Mission: Math! application
+ * loginScene.java - Login scene for the Mission: Math! application. This scene is the second scene that the user will see when they launch the application, after beginningScene.
+ * Produced: 4/5/2023 - Originally converted from LoginScreen.java to Scene format by Kevin Pinto
+ *
+ * @authors: Kevin Pinto, Greg Rigot
+ */
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -6,14 +14,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-        import javafx.scene.paint.Color;
-        import javafx.scene.text.Font;
-        import javafx.scene.text.Text;
-
-
-/**
- All the other classes are going to be extensions of Scene and implemented in this same format!!
- */
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 public class loginScene extends Scene {
@@ -45,7 +48,7 @@ public class loginScene extends Scene {
         txt1.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt1.setFill(Color.RED);
 
-        TextField username = new TextField();
+        username = new TextField();
         username.setPromptText("Enter username");
         username.setPrefColumnCount(20);
         username.setLayoutX(683);
@@ -56,7 +59,7 @@ public class loginScene extends Scene {
         txt2.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 28));
         txt2.setFill(Color.RED);
 
-        /*PasswordField*/ password = new PasswordField();
+        password = new PasswordField();
         password.setPromptText("Enter password");
         password.setPrefColumnCount(20);
         password.setLayoutX(683);
@@ -89,7 +92,6 @@ public class loginScene extends Scene {
         text.setFill(Color.rgb(243, 5, 1));
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
         root.getChildren().addAll(text, txt1, username, txt2, password, exitButton, toolBar, avatarImage);
-
 
 
     }

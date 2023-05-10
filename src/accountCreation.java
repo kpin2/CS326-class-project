@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 
 
-public class accountCreation extends Scene{
+public class accountCreation extends Scene {
 
     //declare variable
 
@@ -98,12 +98,15 @@ public class accountCreation extends Scene{
         confirm.getText();
 
         final ToolBar toolBar = new ToolBar();
-
-        exitButton = new Button("Exit");
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
-        exitButton.setGraphic(new ImageView(exitButtonImage));
-
-        exitButton.setStyle("-fx-background-color: transparent;");      this.register = new Button("Next");
+        ImageView exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
+        exitButton = new Button("", exitButtonImageView);
+        exitButton.setLayoutX(-5);
+        exitButton.setLayoutY(-5);
+        exitButton.setStyle("-fx-background-color: transparent;");
+        this.register = new Button("Next");
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
         toolBar.getItems().add(this.register);

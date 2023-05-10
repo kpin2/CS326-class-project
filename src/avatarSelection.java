@@ -1,4 +1,3 @@
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,14 +7,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class avatarSelection extends Scene {
 
     private final Scene selectionScene;
-    
+
     public Button confirmBtn;
     public Button nextSelect;
     public Button prevSelect;
@@ -52,9 +51,7 @@ public class avatarSelection extends Scene {
         // Set the stroke color and width
         avatarSelector.setStroke(Color.WHITE);
         avatarSelector.setStrokeWidth(2);
-
         avatarSelector.setOpacity(0.75);
-
         avatarSelector.setLayoutX(420);
         avatarSelector.setLayoutY(200);
 
@@ -80,6 +77,7 @@ public class avatarSelection extends Scene {
         databaseOps databaseOps = new databaseOps();
         ArrayList<Image> avatar_images;
         avatar_images = databaseOps.display_avatars();
+        HashMap<String, Image> avatarMap = databaseOps.avatarMap();
 
         id1 = 1;
         id2 = 2;

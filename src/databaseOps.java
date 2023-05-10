@@ -1,8 +1,19 @@
+/* CSCI362 Software Engineering
+ * Mission: Math! application
+ * databaseOps.java - Class to handle all database operations for the Mission: Math! application. Connects
+ * via JDBC to the Mission_Math database hosted on the remote Azure server.
+ * Produced: 4/10/2023
+ *
+ * @author: Kevin Pinto
+ */
+
 import javafx.scene.image.Image;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
 
 public class databaseOps {
 
@@ -29,7 +40,6 @@ public class databaseOps {
     /**
      * Method to add a new user to the database if the username is not already taken. If the username is taken return false. Returns true only if the user is added to the database.
      *
-     * @return boolean value indicating if the user was added to the database
      * @param username  username of the user to be added - String
      * @param password  password of the user to be added - String
      * @param avatarPic avatar of the user to be added - Image
@@ -38,6 +48,7 @@ public class databaseOps {
      *                  <p> The method uses the following two SQL queries:
      *                  "SELECT * FROM [user_registration] WHERE username = '" + username + "'"
      *                  "INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatarPic + "'"
+     * @return boolean value indicating if the user was added to the database
      * @author Kevin Pinto
      */
 
@@ -60,7 +71,7 @@ public class databaseOps {
                     return b;
                 }
                 //add user to database
-                if (!myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatarPic + "'") ) {
+                if (!myStatement.execute("INSERT INTO [user_registration] (username, password, avatar)" + "SELECT '" + username + "', '" + password + "' , '" + avatarPic + "'")) {
                     System.out.println("User added");
                     b = true;
                     return b;
@@ -80,17 +91,27 @@ public class databaseOps {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
 
             Statement myStatement = myConnection.createStatement();
-            System.out.println("Connection successful");
-            ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
+            try (myStatement) {
+                System.out.println("Connection successful");
+                myStatement.execute("SELECT * FROM user_registration WHERE username = '" + username + "'");
+                ResultSet myResult = myStatement.getResultSet();
+                if (myResult.next()) {
+                    avatar = new Image(myResult.getBlob("avatar").getBinaryStream());
+                    return avatar;
+                }
+            }
+            /*ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
 
             if (myResult.next()) {
                 avatar = new Image(myResult.getBlob("avatar").getBinaryStream());
                 return avatar;
             }
             return avatar;
+        }*/
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return avatar;
     }
 
     public void getUserList() {
@@ -118,25 +139,53 @@ public class databaseOps {
      * <p>SELECT pic FROM avatar_images</p>
      * @author Kevin Pinto
      */
-    protected ArrayList<Image> display_avatars() {
+    public ArrayList<Image> display_avatars() {
 
         ArrayList<Image> avatars = new ArrayList<Image>();
+
+        //maps the name of the avatar to the image
+        HashMap<String, Image> avatarMap = new HashMap<String, Image>();
+
 
         try {
             Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
             System.out.println("Connection successful");
-            myStatement.execute("SELECT pic FROM avatar_images");
+            myStatement.execute("SELECT * FROM avatar_images");
             try (ResultSet myResult = myStatement.getResultSet()) {
                 while (myResult.next()) {
+                    avatarMap.put(myResult.getString("name"), new Image(myResult.getBlob("pic").getBinaryStream()));
                     avatars.add(new Image(myResult.getBlob("pic").getBinaryStream()));
-                    System.out.println("Avatar found and added");
+//                    System.out.println("Avatar found and added");
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println(avatarMap.keySet());
+        System.out.println(avatarMap.values());
         return avatars;
+    }
+
+    public HashMap<String, Image> avatarMap() {
+
+        //maps the name of the avatar to the image
+        HashMap<String, Image> avatarMap = new HashMap<String, Image>();
+
+        try {
+            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+            Statement myStatement = myConnection.createStatement();
+            System.out.println("Connection successful");
+            myStatement.execute("SELECT * FROM avatar_images");
+            try (ResultSet myResult = myStatement.getResultSet()) {
+                while (myResult.next()) {
+                    avatarMap.put(myResult.getString("name"), new Image(myResult.getBlob("pic").getBinaryStream()));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return avatarMap;
     }
 
     /**
