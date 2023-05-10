@@ -1,17 +1,13 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.web.WebView;
 
 import java.util.*;
 
@@ -25,11 +21,12 @@ public class DragAndDropExample extends Application {
     };
     Map<String, String> answers = new HashMap<>();
     Random rand = new Random();
+    private Scene scene;
 
     public void start(Stage stage) throws Exception {
 
         Pane root = new Pane();
-        Scene scene = new Scene(root, 1360, 750);
+        scene = new Scene(root, 1360, 750);
         ImageView andromedaPlanetImage;
         andromedaPlanetImage = new ImageView("file:resources/assets/planet 200x200.png");
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1360, 800, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -136,8 +133,8 @@ public class DragAndDropExample extends Application {
         stage.show();
     }
 
-    public Scene getScene(Scene scene){
-        return scene;
+    public Scene getScene(){
+        return this.scene;
     }
 
 }
