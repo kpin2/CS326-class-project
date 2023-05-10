@@ -73,6 +73,7 @@ public class mainDriver extends Application {
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
         //this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
         this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.landingScene.getScene()));
+       // this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.finalResult.getScene()));
 
         final String[] userN = {""};
         final String[] passW = {""};
