@@ -19,9 +19,11 @@ public class mainDriver extends Application {
     private final accountCreation accountCreation;
     private final landingScene landingScene;
     private final practiceFITB practiceFITB;
+    private final practiceTF practiceTF;
+    private final practiceExamScene practiceExamScene;
     private final beginningScene beginningScene;
     private final databaseOps dbOps;
-    private final avatarSelection selectionScene;
+    //private final avatarSelection selectionScene;
 
 
     public mainDriver() {
@@ -29,10 +31,12 @@ public class mainDriver extends Application {
         this.loginScene = new loginScene();
         this.landingScene = new landingScene();
         this.practiceFITB = new practiceFITB();
+        this.practiceTF = new practiceTF();
+        this.practiceExamScene = new practiceExamScene();
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
         this.dbOps = new databaseOps();
-        this.selectionScene = new avatarSelection();
+        //this.selectionScene = new avatarSelection();
     }
 
     //method to switch scenes
@@ -65,8 +69,8 @@ public class mainDriver extends Application {
 
 
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
-        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
-
+        //this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
+        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.landingScene.getScene()));
 
         final String[] userN = {""};
         final String[] passW = {""};
@@ -77,12 +81,12 @@ public class mainDriver extends Application {
                 {
                     userN[0] = this.accountCreation.username.getText();
                     passW[0] = this.accountCreation.password.getText();
-                    this.switchScene(stage, this.selectionScene.getScene());
+                    //this.switchScene(stage, this.selectionScene.getScene());
                 }
             }
         });
 
-
+/*
         this.selectionScene.confirmBtn.setOnAction(e-> {
             if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
                 this.switchScene(stage, this.landingScene.getScene());
@@ -99,7 +103,7 @@ public class mainDriver extends Application {
         this.selectionScene.exitButton.setOnAction(e-> {
             this.switchScene(stage, this.beginningScene.getScene());
         });
-
+*/
         //once login is successful, switch to the landing scene
         this.loginScene.loginButton.setOnAction(e -> {
 
@@ -145,12 +149,14 @@ public class mainDriver extends Application {
 
 
         this.landingScene.getAsteroidHomeButton().setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
-
+        this.landingScene.getIntergalacticAlgebra().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
+        this.landingScene.getCosmicCountingButton().setOnAction(e -> this.switchScene(stage, this.practiceTF.getScene()));
+        this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
 
         // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
         //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
         this.landingScene.getHelpButton().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
-
+        this.practiceFITB.getExitButton().setOnAction(e -> this.switchScene(stage, this.landingScene.getScene()));
 
         stage.show();
     }

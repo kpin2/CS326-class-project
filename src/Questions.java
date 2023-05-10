@@ -4,12 +4,12 @@ import java.util.Scanner;
 public class Questions {
 
     static char grade;
-    static int a,b;
+    private int a,b;
     static char operation;
     static int answer;
-    static Random ran = new Random();
+    private Random ran = new Random();
     static char [] ops = {'+','-','*','/'};
-    static char actualOp;
+    private char actualOp;
 
     public Questions(char grade)
     {
@@ -57,10 +57,6 @@ public class Questions {
 
             answer = a / b;
         }
-
-
-
-
 
     }
 
@@ -124,7 +120,6 @@ public class Questions {
     {
         return answer;
     }
-
 
 }
 

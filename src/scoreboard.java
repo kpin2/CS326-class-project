@@ -38,10 +38,28 @@ public class scoreboard {
         trys++;
     }
     public String getresult() {
-
-        return results[score];
+        String msg = "Try Again!";
+        if(score == 3) {
+            msg = "You got a Bronze Medal!";
+        }
+        else if (score == 4)  {
+            msg = "You got a Silver Medal!";
+        }
+        else if (score == 5) {
+            msg = "You got a Gold Medal!";
+        }
+        return "You got " + score + " / " + trys + "\n" + msg;
     }
 
-
+    public String getPlanetResult () {
+        String msg;
+        if (trys == 0) {
+            msg="";
+        }
+        else {
+            msg="RESULTS: " + score + " / " + trys;
+        }
+        return msg;
+    }
 
 }
