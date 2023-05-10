@@ -26,6 +26,7 @@ public class practiceFITB extends Scene {
     private Button exitButton;
     private Button resetButton;
     Label questionLabel;
+    Alert difficulty;
     public practiceFITB() {
 
         super(new Pane(),1366, 768);
@@ -34,7 +35,8 @@ public class practiceFITB extends Scene {
 
         score = new scoreboard();
 
-        Alert difficulty = new Alert(Alert.AlertType.CONFIRMATION);
+
+        difficulty = new Alert(Alert.AlertType.CONFIRMATION);
         difficulty.setTitle("Select difficulty");
         difficulty.setHeaderText("Select difficulty");
         difficulty.setContentText("Choose your option.");
@@ -68,12 +70,14 @@ public class practiceFITB extends Scene {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-        ToolBar toolBar = new ToolBar();
+//        ToolBar toolBar = new ToolBar();
 
 
         resetButton = new Button("Reset");
+        resetButton.setLayoutX(110);
+        resetButton.setLayoutY(10);
 
-        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        Image exitButtonImage = new Image("file:resources/assets/exit.png");
         ImageView exitButtonImageView = new ImageView(exitButtonImage);
         exitButtonImageView.setFitHeight(96);
         exitButtonImageView.setFitWidth(96);
@@ -81,6 +85,7 @@ public class practiceFITB extends Scene {
         exitButton.setLayoutX(-5);
         exitButton.setLayoutY(-5);
         exitButton.setStyle("-fx-background-color: transparent;");
+//        resetButton.setStyle("-fx-background-color: transparent;");
 
         Label questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
@@ -139,16 +144,17 @@ public class practiceFITB extends Scene {
             finalQuestionLabel.setText(randomQuestion);
             finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             answerField.clear();
-            root.getChildren().addAll(submitButton,answerField);
+
         });
+
 
 
         finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         finalQuestionLabel.setLayoutX(580);
         finalQuestionLabel.setLayoutY(300);
 
-        toolBar.getItems().addAll(resetButton,exitButton);
-        root.getChildren().addAll(toolBar, text,  submitButton);
+//        toolBar.getItems().addAll(resetButton,exitButton);
+        root.getChildren().addAll(resetButton, exitButton, text,  submitButton);
 
         double sceneWidth = practiceFITB.getWidth();
         double sceneHeight = practiceFITB.getHeight();
@@ -194,6 +200,10 @@ public class practiceFITB extends Scene {
         else {
             return "";
         }
+    }
+
+    public void setGrade(char grade) {
+        this.grade = grade;
     }
 
 }

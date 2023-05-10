@@ -30,6 +30,7 @@ public class mainDriver extends Application {
     private final FinalResult finalResult;
     private final databaseOps dbOps;
     private final avatarSelection selectionScene;
+    private final DragAndDropExample dragAndDropExample;
 
     //constructor to initialize all the scenes and dbOps
     public mainDriver() {
@@ -43,6 +44,7 @@ public class mainDriver extends Application {
         this.finalResult = new FinalResult();
         this.dbOps = new databaseOps();
         this.selectionScene = new avatarSelection();
+        this.dragAndDropExample = new DragAndDropExample();
     }
 
     //method to switch scenes
@@ -175,7 +177,22 @@ public class mainDriver extends Application {
             this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
             this.switchScene(stage, this.landingScene.getScene());
         });
-        this.landingScene.getIntergalacticAlgebra().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
+
+
+        this.landingScene.getIntergalacticAlgebra().setOnAction(e -> {
+            this.practiceFITB.difficulty.showAndWait().ifPresent(response -> {
+                if (response.getText().equals("Easy")) {
+                    this.practiceFITB.setGrade((char) 1);
+                } else if (response.getText().equals("Medium")) {
+                    this.practiceFITB.setGrade((char) 2);
+                } else if (response.getText().equals("Hard")) {
+                    this.practiceFITB.setGrade((char) 3);
+                }
+            });
+            this.switchScene(stage, this.practiceFITB.getScene());
+        });
+
+
         this.landingScene.getCosmicCountingButton().setOnAction(e -> this.switchScene(stage, this.practiceTF.getScene()));
         this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
 
