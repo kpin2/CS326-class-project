@@ -200,16 +200,6 @@ public class mainDriver extends Application {
         stage.show();
     }
 
-    /*    public void answerExitButtonAction(final Stage stage) {
-            if(this.practiceFITB.getScore() == 5) {  //TODO: Add other planets score also
-                this.switchScene(stage, this.finalResult.getScene());
-            }
-            else {
-                this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
-                this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
-                this.switchScene(stage, this.landingScene.getScene());
-            }
-        }*/
     public static void main(final String[] args) {
         launch(args);
     }
