@@ -6,9 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-import java.util.Optional;
-import java.util.Random;
+import javafx.scene.web.WebView;
 
 public class practiceFITB extends Scene {
 
@@ -72,11 +70,15 @@ public class practiceFITB extends Scene {
         text.setFill(Color.RED);
         ToolBar toolBar = new ToolBar();
 
-        Button exitButton = new Button("Exit");
-        Button resetButton = new Button("Reset");
 
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
-        exitButton.setGraphic(new ImageView(exitButtonImage));
+        ImageView exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
+        Button exitButton = new Button("", exitButtonImageView);
+        exitButton.setLayoutX(-5);
+        exitButton.setLayoutY(-5);
+        exitButton.setStyle("-fx-background-color: transparent;");
 
         questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
@@ -124,7 +126,7 @@ public class practiceFITB extends Scene {
         exitButton.setOnAction(e -> {
         });
 
-        toolBar.getItems().addAll(resetButton, exitButton);
+        toolBar.getItems().addAll(exitButton);
         root.getChildren().addAll(toolBar, text, questionLabel,  submitButton);
         double sceneWidth = practiceFITB.getWidth();
         double sceneHeight = practiceFITB.getHeight();
@@ -137,16 +139,8 @@ public class practiceFITB extends Scene {
         submitButton.setLayoutY(sceneHeight / 2 + 100);
 
 
-   /*     WebView webview = new WebView();
-        webview.getEngine().load(
 
-                "https://www.youtube.com/embed/lBCIGY3dWXQ" //be sure to get the YouTube embed URL
-        );
-        webview.setPrefSize(640, 390);
-        webview.setLayoutX(0);
-        webview.setLayoutY(0);
-        root2.getChildren().add(webview);
-        scene.setRoot(root2);*/
+
 
 
     }
@@ -154,11 +148,6 @@ public class practiceFITB extends Scene {
 
     public Scene getScene(){
         return practiceFITB;
-    }
-    // Gives a random variable
-    public int getrandnum(int num){
-        Random rand = new Random();
-        return (rand.nextInt(num));
     }
 
 

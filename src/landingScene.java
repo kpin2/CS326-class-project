@@ -1,9 +1,11 @@
 /* CSCI362 Software Engineering
  * Mission: Math! application
- * landingScene.java - Separate class for the landing scene to allow the mainDriver more functionality in scene switching
- * and to allow implementation of an overlay/Heads Up Display (HUD) for the game.
+ * landingScene.java - Landing scene for the Mission: Math! application. This scene is the main menu
+ * for the application and allows the user to select a math standard to play and then a difficulty level.
+ * Each of the planets is a button that allows the user to travel to the planet and begin play.
+ * Produced: 4/8/2023
  *
- * @author: Kevin Pinto - Wrote the entire landing scene and all functionality within, initially as part of mainDriver, then separated it into its own class.
+ * @author: Kevin Pinto
  */
 
 
@@ -22,16 +24,16 @@ public class landingScene extends Scene {
 
     //declaring class variables
     private final Scene landingScene;
+    private String username;
     private Button exitButton;
     private Button helpButton;
     private Button asteroidHomeButton;
     private Button andromedaArithmetic;
     private Button cosmicCountingButton;
     private Button intergalacticAlgebra;
-    private Image profileAvatar;
-    private Rectangle avatarDisplay;
+    private Image avatarImage;
+    private ImageView avatarImageView;
     private Button avatarButton;
-
 
     public landingScene() {
 
@@ -60,7 +62,7 @@ public class landingScene extends Scene {
         text.setId("title");
 
         //creating the rectangle for the avatar display
-        avatarDisplay = new Rectangle(250, 275, Color.rgb(0, 0, 0));
+        Rectangle avatarDisplay = new Rectangle(250, 275, Color.rgb(0, 0, 0));
         avatarDisplay.setArcWidth(20);
         avatarDisplay.setArcHeight(20);
         avatarDisplay.setStroke(Color.rgb(160, 33, 0));
@@ -69,14 +71,27 @@ public class landingScene extends Scene {
         avatarDisplay.setLayoutX(1100);
         avatarDisplay.setLayoutY(15);
 
-        //creating the image view for the avatar and adding the user's avatar to it
-        ImageView avatarImageView = new ImageView();
+        avatarImage = new Image("file:resources/assets/avatars/Astronaut Cat 500px removebg.png");
+        avatarImageView = new ImageView(avatarImage);
         avatarImageView.setFitHeight(250);
         avatarImageView.setFitWidth(250);
         avatarImageView.setLayoutX(1100);
         avatarImageView.setLayoutY(15);
-        avatarImageView.setImage(profileAvatar);
 
+
+        //creating the avatar button
+        avatarButton = new Button("", avatarImageView);
+        avatarButton.setLayoutX(1100);
+        avatarButton.setLayoutY(15);
+        avatarButton.setStyle("-fx-background-color: transparent");
+        avatarButton.setOnAction(e -> {
+            System.out.println("Avatar button pressed");
+        });
+
+        //creating the text for the username
+        Text usernameText = new Text(1100, 300, username);
+        usernameText.setFill(Color.rgb(243, 5, 1));
+        usernameText.setId("username");
 
 
         //loading images for buttons and other assets and creating image views
@@ -164,7 +179,6 @@ public class landingScene extends Scene {
         getAndromedaArithmetic().setTooltip(andromeda);
         getAndromedaArithmetic().setOnAction(e -> {
             System.out.println("Andromeda Arithmetic button pressed");
-//            andromedaArithmetic.setDisable(true);
 
         });
 
@@ -206,8 +220,7 @@ public class landingScene extends Scene {
         });
 
         //adding all the nodes to the root
-        root.getChildren().addAll(getExitButton(), text, getHelpButton(), smallShipImageView, getAsteroidHomeButton(), getCosmicCountingButton(), getAndromedaArithmetic(), andromedaText, getIntergalacticAlgebra(), intergalacticAlgebraText, cosmicCountingText, avatarDisplay, avatarImageView);
-
+        root.getChildren().addAll(getExitButton(), text, getHelpButton(), smallShipImageView, getAsteroidHomeButton(), getCosmicCountingButton(), getAndromedaArithmetic(), andromedaText, getIntergalacticAlgebra(), intergalacticAlgebraText, cosmicCountingText, avatarDisplay, avatarImageView, avatarButton);
     }
 
 
@@ -263,26 +276,12 @@ public class landingScene extends Scene {
         this.intergalacticAlgebra = intergalacticAlgebra;
     }
 
-    public Image getProfileAvatar() {
-        return profileAvatar;
+    public Image getAvatarImage() {
+        return avatarImage;
     }
 
-    public void setProfileAvatar(Image profileAvatar) {
-        this.profileAvatar = profileAvatar;
+    public void setAvatarImage(Image avatarImage) {
+        this.avatarImage = avatarImage;
     }
 
-    public Rectangle getAvatarDisplay() {
-        return avatarDisplay;
-    }
-
-    public void setAvatarDisplay(Rectangle avatarDisplay) {
-        this.avatarDisplay = avatarDisplay;
-    }
-    public Button getAvatarButton() {
-        return avatarButton;
-    }
-
-    public void setAvatarButton(Button avatarButton) {
-        this.avatarButton = avatarButton;
-    }
 }
