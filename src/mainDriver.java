@@ -29,7 +29,7 @@ public class mainDriver extends Application {
     private final beginningScene beginningScene;
     private final FinalResult finalResult;
     private final databaseOps dbOps;
-    //private final avatarSelection selectionScene;
+    private final avatarSelection selectionScene;
 
     //constructor to initialize all the scenes and dbOps
     public mainDriver() {
@@ -42,7 +42,7 @@ public class mainDriver extends Application {
         this.beginningScene = new beginningScene();
         this.finalResult = new FinalResult();
         this.dbOps = new databaseOps();
-        //this.selectionScene = new avatarSelection();
+        this.selectionScene = new avatarSelection();
     }
 
     //method to switch scenes
@@ -75,13 +75,11 @@ public class mainDriver extends Application {
 
         //start at the beginning scene and handle click events
         stage.setScene(this.beginningScene.getScene());
-//        stage.setScene(this.practiceFITB.getScene());
 
 
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
-        //this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
-        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.landingScene.getScene()));
-       // this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.finalResult.getScene()));
+        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
+
 
         final String[] userN = {""};
         final String[] passW = {""};
@@ -92,7 +90,7 @@ public class mainDriver extends Application {
                 {
                     userN[0] = this.accountCreation.username.getText();
                     passW[0] = this.accountCreation.password.getText();
-                    //this.switchScene(stage, this.selectionScene.getScene());
+                    this.switchScene(stage, this.selectionScene.getScene());
                 }
             }
         });
@@ -115,14 +113,14 @@ public class mainDriver extends Application {
         });
 
 
-        selectionScene.back.setOnAction(e-> {
+        selectionScene.back.setOnAction(e -> {
             userN[0] = "";
             passW[0] = "";
             selectionScene.avatar = null;
             switchScene(stage, accountCreation.getScene());
         });
 
-        this.selectionScene.exitButton.setOnAction(e-> {
+        this.selectionScene.exitButton.setOnAction(e -> {
             this.switchScene(stage, this.beginningScene.getScene());
         });
 
@@ -181,29 +179,27 @@ public class mainDriver extends Application {
         this.landingScene.getCosmicCountingButton().setOnAction(e -> this.switchScene(stage, this.practiceTF.getScene()));
         this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
 
-        // landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceExamScene.getScene()));
-        //  landingScene.helpButton.setOnAction(e -> switchScene(stage, practiceTF.getScene()));
+
         this.landingScene.getHelpButton().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
+
         this.practiceFITB.getExitButton().setOnAction(e -> {
-            answerExitButtonAction(stage);
+
+            if (this.practiceFITB.getScore() == 5) {
+                this.switchScene(stage, this.finalResult.getScene());
+            } else {
+                this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
+                this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+                this.switchScene(stage, this.landingScene.getScene());
+            }
+
         });
-        this.practiceTF.getExitButton().setOnAction(e -> {
-            answerExitButtonAction(stage);
-        });
+
+
+
 
         stage.show();
     }
 
-    public void answerExitButtonAction(final Stage stage) {
-        if(this.practiceFITB.getScore() == 5) {  //TODO: Add other planets score also
-            this.switchScene(stage, this.finalResult.getScene());
-        }
-        else {
-            this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
-            this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
-            this.switchScene(stage, this.landingScene.getScene());
-        }
-    }
     public static void main(final String[] args) {
         launch(args);
     }
