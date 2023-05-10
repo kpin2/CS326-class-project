@@ -11,20 +11,25 @@ import javafx.scene.web.WebView;
 public class practiceFITB extends Scene {
 
     private final Scene practiceFITB;
+    private Pane root;
     private scoreboard score;
 
     public int indx;
 
    public String randomQuestion;
 
+    private Questions questions1;
+    private char grade;
+    //private Label questionLabel;
+    private String finalQuestion, finalAnswer;
 
-
-
-
+    private Button exitButton;
+    private Button resetButton;
+    Label questionLabel;
     public practiceFITB() {
 
         super(new Pane(),1366, 768);
-        Pane root = new Pane();
+        root = new Pane();
         practiceFITB = new Scene(root, 1366, 768);
 
         score = new scoreboard();
@@ -34,20 +39,15 @@ public class practiceFITB extends Scene {
         difficulty.setHeaderText("Select difficulty");
         difficulty.setContentText("Choose your option.");
 
-        char grade = '3';
-        Questions questions1 = new Questions(grade);
+        grade = 'k';
+        questions1 = new Questions(grade);
+        randomQuestion = questions1.getQuestion();
+        System.out.println("practiceFITB constructor and question is : " + randomQuestion);
 
-        Label questionLabel= new Label(questions1.getQuestion());
-        questionLabel.setLayoutX(580);
-        questionLabel.setLayoutY(300);
         TextField answerField = new TextField();
         answerField.setLayoutX(580);
         answerField.setLayoutY(330);
         root.getChildren().add(answerField);
-
-
-        questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        root.getChildren().add(questionLabel);
 
         ButtonType buttonTypeOne = new ButtonType("Easy");
         ButtonType buttonTypeTwo = new ButtonType("Medium");
@@ -71,6 +71,8 @@ public class practiceFITB extends Scene {
         ToolBar toolBar = new ToolBar();
 
 
+        resetButton = new Button("Reset");
+
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         ImageView exitButtonImageView = new ImageView(exitButtonImage);
         exitButtonImageView.setFitHeight(96);
@@ -80,24 +82,30 @@ public class practiceFITB extends Scene {
         exitButton.setLayoutY(-5);
         exitButton.setStyle("-fx-background-color: transparent;");
 
-        questionLabel = new Label(randomQuestion);
+        Label questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-
-//        TextField a = new TextField();
-
-
-
+        questionLabel.setText(randomQuestion);
+        questionLabel.setLayoutX(580);
+        questionLabel.setLayoutY(300);
 
 
         Button submitButton = new Button("Submit");
 
 
-        Label finalQuestionLabel = questionLabel;
+        //Label finalQuestionLabel = questionLabel;
+        Label finalQuestionLabel = new Label(randomQuestion);
+        finalQuestionLabel.setText(randomQuestion);
+        finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        finalQuestionLabel.setLayoutX(580);
+        finalQuestionLabel.setLayoutY(300);
+
+        root.getChildren().add(finalQuestionLabel);
         submitButton.setOnAction(event -> {
 
-           /* String ansString=a.getText();
+            String ansString=answerField.getText();
+            Integer newAnswer = questions1.getAnswer();
 
-            if (ansString.equals(answers[indx])) {
+            if (ansString.equals(newAnswer.toString())) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
                 score.addScore();
@@ -109,25 +117,39 @@ public class practiceFITB extends Scene {
             }
           //These lines generate a new random question each time Submit is pressed
            if (score.getTrys() < 5){
-               indx = getrandnum(questions.length);
-               randomQuestion = questions[indx];
+               questions1 = new Questions(grade);
+               randomQuestion = questions1.getQuestion();
                finalQuestionLabel.setText(randomQuestion);
+               answerField.clear();
 
             } else {
                randomQuestion = score.getresult();
                finalQuestionLabel.setText(randomQuestion);
-           }*/
-
-
-        //    questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+               finalQuestionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
+               root.getChildren().removeAll(submitButton,answerField);
+           }
         });
 
 
-        exitButton.setOnAction(e -> {
+        resetButton.setOnAction(e -> {
+            score.setScore(0);
+            score.setTrys(0);
+            questions1 = new Questions(grade);
+            randomQuestion = questions1.getQuestion();
+            finalQuestionLabel.setText(randomQuestion);
+            finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            answerField.clear();
+            root.getChildren().addAll(submitButton,answerField);
         });
 
-        toolBar.getItems().addAll(exitButton);
-        root.getChildren().addAll(toolBar, text, questionLabel,  submitButton);
+
+        finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        finalQuestionLabel.setLayoutX(580);
+        finalQuestionLabel.setLayoutY(300);
+
+        toolBar.getItems().addAll(resetButton,exitButton);
+        root.getChildren().addAll(toolBar, text,  submitButton);
+
         double sceneWidth = practiceFITB.getWidth();
         double sceneHeight = practiceFITB.getHeight();
 
@@ -150,5 +172,28 @@ public class practiceFITB extends Scene {
         return practiceFITB;
     }
 
+
+    public int getScore() {
+        return score.getScore();
+    }
+    // Gives a random variable
+    public Button getExitButton(){
+
+        return exitButton;
+    }
+
+    public Button getResetButton(){
+
+        return resetButton;
+    }
+
+    public String getScoreResult() {
+        if(score.getTrys() > 0) {
+            return "Result : " + score.getScore() + " / " + score.getTrys();
+        }
+        else {
+            return "";
+        }
+    }
 
 }
