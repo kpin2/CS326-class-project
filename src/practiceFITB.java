@@ -42,7 +42,7 @@ public class practiceFITB extends Scene {
         grade = 'k';
         questions1 = new Questions(grade);
         randomQuestion = questions1.getQuestion();
-        System.out.println("practiceFITB constructor and question is : " + randomQuestion);
+//        System.out.println("practiceFITB constructor and question is : " + randomQuestion);
 
         TextField answerField = new TextField();
         answerField.setLayoutX(580);
@@ -77,7 +77,7 @@ public class practiceFITB extends Scene {
         ImageView exitButtonImageView = new ImageView(exitButtonImage);
         exitButtonImageView.setFitHeight(96);
         exitButtonImageView.setFitWidth(96);
-        Button exitButton = new Button("", exitButtonImageView);
+        exitButton = new Button("", exitButtonImageView);
         exitButton.setLayoutX(-5);
         exitButton.setLayoutY(-5);
         exitButton.setStyle("-fx-background-color: transparent;");
