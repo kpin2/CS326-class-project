@@ -25,6 +25,8 @@ public class avatarSelection extends Scene {
     public Image image3;
     public Image avatar;
     public Button selectI1, selectI2,selectI3;
+
+    public Button back;
     public ImageView imageV1, imageV2, imageV3;
 
     private int id1, id2, id3;
@@ -156,10 +158,13 @@ public class avatarSelection extends Scene {
             avatar = image3;
         });
 
-        root.getChildren().addAll(text, avatarSelector, boxTitle, labelBorder, confirmBtn, exitButton, prevSelect, nextSelect, selectI1, selectI2, selectI3);
+        back = new Button("Go Back");
+        back.setLayoutX(433);
+        back.setLayoutY(239);
+
+        root.getChildren().addAll(text, avatarSelector, boxTitle, labelBorder, confirmBtn, exitButton, back, prevSelect, nextSelect, selectI1, selectI2, selectI3);
     }
 
 
     public Scene getScene(){return selectionScene;}
-
 }

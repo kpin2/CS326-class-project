@@ -31,9 +31,13 @@ public class landingScene extends Scene {
     private Image profileAvatar;
     private Rectangle avatarDisplay;
 
+
     private Text cosmicCountingResultText;
     private Text andromedaResultText;
     private Text intergalacticAlgebraResultText;
+
+    private Button avatarButton;
+
 
 
     public landingScene() {
@@ -62,7 +66,7 @@ public class landingScene extends Scene {
         text.setFill(Color.rgb(243, 5, 1));
         text.setId("title");
 
-
+        //creating the rectangle for the avatar display
         avatarDisplay = new Rectangle(250, 275, Color.rgb(0, 0, 0));
         avatarDisplay.setArcWidth(20);
         avatarDisplay.setArcHeight(20);
@@ -71,6 +75,14 @@ public class landingScene extends Scene {
         avatarDisplay.setOpacity(.6);
         avatarDisplay.setLayoutX(1100);
         avatarDisplay.setLayoutY(15);
+
+        //creating the image view for the avatar and adding the user's avatar to it
+        ImageView avatarImageView = new ImageView();
+        avatarImageView.setFitHeight(250);
+        avatarImageView.setFitWidth(250);
+        avatarImageView.setLayoutX(1100);
+        avatarImageView.setLayoutY(15);
+        avatarImageView.setImage(profileAvatar);
 
 
 
@@ -203,7 +215,7 @@ public class landingScene extends Scene {
         getCosmicCountingButton().setLayoutY(430);
         getCosmicCountingButton().setStyle("-fx-background-color: transparent;");
         Text cosmicCountingText = new Text(850, 715, "Cosmic Counting");
-        cosmicCountingText.setFill(Color.rgb(224,171,76));
+        cosmicCountingText.setFill(Color.rgb(224, 171, 76));
         cosmicCountingText.setId("cosmicCountingText");
         Tooltip cosmicCounting = new Tooltip("Cosmic Counting");
         getCosmicCountingButton().setTooltip(cosmicCounting);
@@ -219,7 +231,9 @@ public class landingScene extends Scene {
         });
 
         //adding all the nodes to the root
+
         root.getChildren().addAll(getExitButton(), text, getHelpButton(), smallShipImageView, getAsteroidHomeButton(), getCosmicCountingButton(), getAndromedaArithmetic(), andromedaText, getIntergalacticAlgebra(), intergalacticAlgebraText, cosmicCountingText,avatarDisplay,intergalacticAlgebraResultText,andromedaResultText,cosmicCountingResultText);
+
 
 
     }
@@ -296,6 +310,7 @@ public class landingScene extends Scene {
         this.avatarDisplay = avatarDisplay;
     }
 
+
     public void setCosmicCountingResultTxt(String msg) {
         this.cosmicCountingResultText.setText(msg);
     }
@@ -306,6 +321,15 @@ public class landingScene extends Scene {
 
     public void setIntergalacticAlgebraResultText(String msg) {
         this.intergalacticAlgebraResultText.setText(msg);
+    }
+
+
+    public Button getAvatarButton() {
+        return avatarButton;
+    }
+
+    public void setAvatarButton(Button avatarButton) {
+        this.avatarButton = avatarButton;
     }
 
 }

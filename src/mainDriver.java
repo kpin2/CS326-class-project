@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 
 public class mainDriver extends Application {
 
@@ -89,27 +91,38 @@ public class mainDriver extends Application {
             }
         });
 
-/*
+
         this.selectionScene.confirmBtn.setOnAction(e-> {
-            if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
-                this.switchScene(stage, this.landingScene.getScene());
+
+            try {
+                if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
+                    this.switchScene(stage, this.landingScene.getScene());
+                }
+                else {
+                    final Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Account Creation Error");
+                    alert.setHeaderText("Account Creation Error");
+                    alert.setContentText("An account with this username already exists. Please try again.");
+                    alert.showAndWait();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
-            else {
-                final Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Account Creation Error");
-                alert.setHeaderText("Account Creation Error");
-                alert.setContentText("An account with this username already exists. Please try again.");
-                alert.showAndWait();
-            }
+        });
+
+        selectionScene.back.setOnAction(e-> {
+            userN[0] = "";
+            passW[0] = "";
+            selectionScene.avatar = null;
+            switchScene(stage, accountCreation.getScene());
         });
 
         this.selectionScene.exitButton.setOnAction(e-> {
             this.switchScene(stage, this.beginningScene.getScene());
         });
-*/
+
         //once login is successful, switch to the landing scene
         this.loginScene.loginButton.setOnAction(e -> {
-
             if (!this.dbOps.verifyLogin(this.loginScene.username.getText(), this.loginScene.password.getText())) {
                 final Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -121,6 +134,8 @@ public class mainDriver extends Application {
                 this.loginScene.password.setPromptText("Error! Please enter password");
             } else {
                 System.out.println("Login Successful");
+                Image avatar = this.dbOps.getAvatar(this.loginScene.username.getText());
+                this.landingScene.setProfileAvatar(avatar);
                 this.switchScene(stage, this.landingScene.getScene());
 
 
