@@ -5,6 +5,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ Name: Gregory Rigot
+ Date Created: 3/23/23
+ Purpose: To act as the beginning scene where users can choose between logging into their accounts or creating their own accounts
+ */
+
 public class beginningScene extends Scene {
 
     private final Scene beginning;
