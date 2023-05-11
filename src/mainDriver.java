@@ -74,7 +74,7 @@ public class mainDriver extends Application {
         stage.getIcons().addAll(smShip, px64Ship, px48Ship, asteroid, asteroidSmall, comet, comet2);
 
         //setting the stage to the beginning scene
-        stage.setScene(this.cosmicScene.getScene());
+        stage.setScene(this.finalResult.getScene());
 
         //event handling for beginning scene
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
