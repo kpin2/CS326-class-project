@@ -28,16 +28,10 @@ public class CosmicCountingScene extends Scene {
     private RadioButton choice1, choice2;
     private Label questionLabel;
     private String randomQuestion;
+    private String formattedQuestion;
     private char grade;
+    private Questions questions1;
 
-
-    private String[] questions = {
-            "2 + 2 equals 4",
-            "A quadrilateral has 3 sides",
-            "16/4 equals 4",
-            "A triangle has 3 sides",
-            "4 - 2 equals 6"
-    };
     private String[] answers = {
             "True",
             "False",
@@ -70,9 +64,25 @@ public class CosmicCountingScene extends Scene {
         ButtonType buttonTypeThree = new ButtonType("Hard");
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
-        indx = rand.nextInt(questions.length);
+        //code to generate random True or False question
+        grade = 'k';
+        questions1 = new Questions(grade);
+        randomQuestion = questions1.getTFQuestion();
+        int newAns = questions1.getAnswer();
+        int incorrectAns = rand.nextInt(10) + 1; // generates a different random number between 1 and 10
+        while (incorrectAns == newAns) { // make sure the second incorrect answer is different from the first
+            incorrectAns = rand.nextInt(10) + 1;
+        }
 
-        randomQuestion = questions[indx];
+        indx = rand.nextInt(2);
+        if(indx == 1) {
+            formattedQuestion = randomQuestion.concat(String.valueOf(incorrectAns));
+        }
+        else {
+            formattedQuestion = randomQuestion.concat(String.valueOf(newAns));
+        }
+
+        //randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -100,7 +110,7 @@ public class CosmicCountingScene extends Scene {
         resetButton.setLayoutY(10);
 
 
-        questionLabel = new Label(randomQuestion);
+        questionLabel = new Label(formattedQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         choice1 = new RadioButton("True");
         choice2 = new RadioButton("False");
@@ -226,9 +236,24 @@ public class CosmicCountingScene extends Scene {
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
         if (score.getTrys() < 5) {
-            indx = getrandnum(questions.length);
-            randomQuestion = questions[indx];
-            questionLabel.setText(randomQuestion);
+            Random rand = new Random();
+            indx = getrandnum(2);
+            questions1 = new Questions(grade);
+            randomQuestion = questions1.getTFQuestion();
+            int newAns = questions1.getAnswer();
+            int incorrectAns = rand.nextInt(10) + 1; // generates a different random number between 1 and 10
+            while (incorrectAns == newAns) { // make sure the second incorrect answer is different from the first
+                incorrectAns = rand.nextInt(10) + 1;
+            }
+
+            indx = rand.nextInt(2);
+            if(indx == 1) {
+                formattedQuestion = randomQuestion.concat(String.valueOf(incorrectAns));
+            }
+            else {
+                formattedQuestion = randomQuestion.concat(String.valueOf(newAns));
+            }
+            questionLabel.setText(formattedQuestion);
             questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             choice1.setSelected(false);
             choice2.setSelected(false);
