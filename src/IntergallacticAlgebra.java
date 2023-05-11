@@ -6,6 +6,7 @@
  * Produced: 4/10/2023
  *
  * @author Zakaria Lazzouni
+ * @author Khalid Ibrahim
  * */
 import javafx.scene.Scene;
 import javafx.scene.control.*;

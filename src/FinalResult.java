@@ -6,6 +6,7 @@
  * Produced: 4/1/2023
  *
  * @author Zakaria Lazzouni
+ * @author Khalid Ibrahim
  * */
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
