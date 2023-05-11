@@ -10,6 +10,11 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
+/**
+ Name: Gregory Rigot
+ Date Created: 3/23/23
+ Purpose: Serves to allow the user to create an account by first choosing and inputting their own username and password, and then confirming that the password is correct
+ */
 
 public class accountCreation extends Scene {
 

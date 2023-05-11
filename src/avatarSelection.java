@@ -10,6 +10,11 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ Name: Gregory Rigot
+ Date Created: 4/9/23
+ Purpose: Serves as an extension of the account creation process where the user will be able to select their avatar based on what image they had clicked on and selected
+ */
 public class avatarSelection extends Scene {
 
     private final Scene selectionScene;
