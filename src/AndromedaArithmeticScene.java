@@ -78,7 +78,7 @@ public class AndromedaArithmeticScene extends Scene {
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_2.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
         //imageView to hold medals image
@@ -98,9 +98,14 @@ public class AndromedaArithmeticScene extends Scene {
         text.setFill(Color.RED);
 
 
-        resetButton = new Button("Reset");
-        resetButton.setLayoutX(110);
-        resetButton.setLayoutY(10);
+        Image resetImage = new Image("file:resources/assets/reset1-removebg-preview.png");
+        ImageView resetImageView = new ImageView(resetImage);
+        resetImageView.setFitHeight(96);
+        resetImageView.setFitWidth(96);
+        resetButton = new Button("", resetImageView);
+        resetButton.setLayoutX(250);
+        resetButton.setLayoutY(5);
+        resetButton.setStyle("-fx-background-color: transparent;");
 
         Image exitButtonImage = new Image("file:resources/assets/exit.png");
         ImageView exitButtonImageView = new ImageView(exitButtonImage);
@@ -110,7 +115,6 @@ public class AndromedaArithmeticScene extends Scene {
         exitButton.setLayoutX(-5);
         exitButton.setLayoutY(-5);
         exitButton.setStyle("-fx-background-color: transparent;");
-//        resetButton.setStyle("-fx-background-color: transparent;");
 
         //Setup to get random question
         grade = 'k';

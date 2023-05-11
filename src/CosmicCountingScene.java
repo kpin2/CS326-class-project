@@ -96,7 +96,7 @@ public class CosmicCountingScene extends Scene {
 
         //randomQuestion = questions[indx];
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_1.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
 
@@ -117,9 +117,14 @@ public class CosmicCountingScene extends Scene {
         text.setFill(Color.RED);
 
 
-        resetButton = new Button("Reset");
+        Image resetImage = new Image("file:resources/assets/reset1-removebg-preview.png");
+        ImageView resetImageView = new ImageView(resetImage);
+        resetImageView.setFitHeight(96);
+        resetImageView.setFitWidth(96);
+        resetButton = new Button("", resetImageView);
         resetButton.setLayoutX(250);
-        resetButton.setLayoutY(10);
+        resetButton.setLayoutY(5);
+        resetButton.setStyle("-fx-background-color: transparent;");
 
 
         questionLabel = new Label(formattedQuestion);
