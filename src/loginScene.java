@@ -1,7 +1,7 @@
 /* CSCI362 Software Engineering
  * Mission: Math! application
  * loginScene.java - Login scene for the Mission: Math! application. This scene is the second scene that the user will see when they launch the application, after beginningScene.
- * Produced: 4/5/2023 - Originally converted from LoginScreen.java to Scene format by Kevin Pinto
+ * Produced: 4/5/2023 - Originally converted from LoginScreen.java to Scene format by Kevin Pinto, worked on by Greg Rigot thereafter.
  *
  * @authors: Kevin Pinto, Greg Rigot
  */

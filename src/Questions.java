@@ -1,3 +1,8 @@
+//CSCI 362 Software engineering
+//Mission:Math! application
+//questions.java-contains the constraints for grade levels along with math operations for each planet
+//Produced 4/30/23
+//author Khalid Ibrahim
 import java.util.Random;
 import java.util.Scanner;
 
@@ -114,6 +119,10 @@ public class Questions {
     public String getQuestion()
     {
         return "What is " + a + operation + b + " equal to?\n";
+    }
+    public String getTFQuestion()
+    {
+        return " " + a + operation + b + " is equal to  ";
     }
 
     public int getAnswer()

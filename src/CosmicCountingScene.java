@@ -1,3 +1,13 @@
+/* CSCI362 Software Engineering
+ * Class Project - Mission: Math!
+ * CosmicCountingScene.java - This is the main class for Cosmic counting.
+ * It impliments the True and False Questions
+ *
+ * Produced: 4/25/2023
+ *
+ * @author Zakaria Lazzouni
+ * @author Khalid Ibrahim
+ * */
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -6,11 +16,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 import java.util.Random;
 /**
  * Class: CosmicCountingScene
- * Generates the scene for Fill in the blank Questions
+ * Generates the scene for True and False questions
  */
 
 public class CosmicCountingScene extends Scene {
@@ -20,23 +31,17 @@ public class CosmicCountingScene extends Scene {
     // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
     // Toolbar buttons to exit or reset the scene
-    private Button exitButton;
+    private Button exitButton, helpButton;
     private Button resetButton;
     // Button used to indicate response is ready
     private Button submitButton;
     private RadioButton choice1, choice2;
     private Label questionLabel;
     private String randomQuestion;
+    private String formattedQuestion;
     private char grade;
+    private Questions questions1;
 
-
-    private String[] questions = {
-            "2 + 2 equals 4",
-            "A quadrilateral has 3 sides",
-            "16/4 equals 4",
-            "A triangle has 3 sides",
-            "4 - 2 equals 6"
-    };
     private String[] answers = {
             "True",
             "False",
@@ -48,7 +53,11 @@ public class CosmicCountingScene extends Scene {
     private int indx;
 
     public Alert difficulty;
-
+    ImageView imageView;
+    /**
+     * This is the constructor for Cosmic counting scene class
+     * This class impliments the True and False questions
+     */
     public CosmicCountingScene() {
 
         super(new Pane(), 1366, 768);
@@ -68,25 +77,59 @@ public class CosmicCountingScene extends Scene {
         ButtonType buttonTypeThree = new ButtonType("Hard");
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
-        indx = rand.nextInt(questions.length);
+        //code to generate random True or False question
+        grade = 'k';
+        questions1 = new Questions(grade);
+        randomQuestion = questions1.getTFQuestion();
+        int newAns = questions1.getAnswer();
+        int incorrectAns = rand.nextInt(10) + 1; // generates a different random number between 1 and 10
+        while (incorrectAns == newAns) { // make sure the second incorrect answer is different from the first
+            incorrectAns = rand.nextInt(10) + 1;
+        }
 
-        randomQuestion = questions[indx];
+        indx = rand.nextInt(2);
+        if(indx == 1) {
+            formattedQuestion = randomQuestion.concat(String.valueOf(incorrectAns));
+        }
+        else {
+            formattedQuestion = randomQuestion.concat(String.valueOf(newAns));
+        }
+
+        //randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_1.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
+
+        //imageView to hold medals image
+        imageView = new ImageView();
+        Scale scaleTransformation = new Scale();
+        scaleTransformation.setX(0.70);
+        scaleTransformation.setY(0.70);
+        scaleTransformation.setPivotX(600);
+        scaleTransformation.setPivotY(400);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
+
         //Setting the font
-        Text text = new Text(375, 130, "Mission: Math!");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
-        text.setFill(Color.RED);
+        Text text = new Text(250, 100, "Mission: Math!");
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setStyle("-fx-font-weight: bold;");
 
 
-        resetButton = new Button("Reset");
-        resetButton.setLayoutX(250);
-        resetButton.setLayoutY(10);
+        Image resetImage = new Image("file:resources/assets/reset1-removebg-preview.png");
+        ImageView resetImageView = new ImageView(resetImage);
+        resetImageView.setFitHeight(96);
+        resetImageView.setFitWidth(96);
+        resetButton = new Button("", resetImageView);
+        resetButton.setLayoutX(96);
+        resetButton.setLayoutY(0);
+        resetButton.setStyle("-fx-background-color: transparent;");
 
 
-        questionLabel = new Label(randomQuestion);
+        questionLabel = new Label(formattedQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         choice1 = new RadioButton("True");
         choice2 = new RadioButton("False");
@@ -153,8 +196,8 @@ public class CosmicCountingScene extends Scene {
         ImageView helpButtonImageView = new ImageView(helpButtonImage);
         helpButtonImageView.setFitHeight(96);
         helpButtonImageView.setFitWidth(96);
-        Button helpButton = new Button("", helpButtonImageView);
-        helpButton.setLayoutX(96);
+        helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(196);
         helpButton.setLayoutY(5);
         helpButton.setStyle("-fx-background-color: transparent;");
         helpButton.setVisible(false);
@@ -163,21 +206,33 @@ public class CosmicCountingScene extends Scene {
 
 
     }
-
+    /**
+     * Helper method to get handle to the scene
+     * @return Scene handle to fill in the blank scene
+     */
     public Scene getScene() {
         return cosmicScene;
     }
-
+    /**
+     * Helper method to get handle to exit button
+     * @return Button handle to exit button
+     */
     public Button getExitButton() {
 
         return exitButton;
     }
-
+    /**
+     * Helper method to get handle to reset button
+     * @return handle to reset button
+     */
     public Button getResetButton() {
 
         return resetButton;
     }
-
+    /**
+     * Method returning a String showing the Result/Progress of player
+     * @return String to be placed beside the planets
+     */
     public String getScoreResult() {
         if (score.getTrys() > 0) {
             return "Result : " + score.getScore() + " / " + score.getTrys();
@@ -185,7 +240,10 @@ public class CosmicCountingScene extends Scene {
             return "";
         }
     }
-
+    /**
+     * Helper method to find the score of player
+     * @return Integer showing how many questions answered were correct
+     */
     public int getScore() {
         return score.getScore();
     }
@@ -195,7 +253,11 @@ public class CosmicCountingScene extends Scene {
         Random rand = new Random();
         return (rand.nextInt(num));
     }
-
+    /**
+     * Method to check if the answer provided is correct
+     * Updates the scoreboard with information
+     * @param ans : User provided answer
+     */
     public void checkAns(String ans) {
         if (ans.equals(answers[indx])) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
@@ -208,13 +270,30 @@ public class CosmicCountingScene extends Scene {
             score.addTrys();
         }
     }
-
+    /**
+     * Method to generate a new question and update the questionLabel Text node
+     */
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
         if (score.getTrys() < 5) {
-            indx = getrandnum(questions.length);
-            randomQuestion = questions[indx];
-            questionLabel.setText(randomQuestion);
+            Random rand = new Random();
+            indx = getrandnum(2);
+            questions1 = new Questions(grade);
+            randomQuestion = questions1.getTFQuestion();
+            int newAns = questions1.getAnswer();
+            int incorrectAns = rand.nextInt(10) + 1; // generates a different random number between 1 and 10
+            while (incorrectAns == newAns) { // make sure the second incorrect answer is different from the first
+                incorrectAns = rand.nextInt(10) + 1;
+            }
+
+            indx = rand.nextInt(2);
+            if(indx == 1) {
+                formattedQuestion = randomQuestion.concat(String.valueOf(incorrectAns));
+            }
+            else {
+                formattedQuestion = randomQuestion.concat(String.valueOf(newAns));
+            }
+            questionLabel.setText(formattedQuestion);
             questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             choice1.setSelected(false);
             choice2.setSelected(false);
@@ -227,15 +306,50 @@ public class CosmicCountingScene extends Scene {
             if(!root.getChildren().contains(choice2)) {
                 root.getChildren().add(choice2);
             }
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
 
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
+            questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
             //hide the submit button and true/false buttons once we have reached 5 trys
             root.getChildren().removeAll(choice1, choice2, submitButton);
+
+            //The lines below are for showing the medals once the results are displayed
+
+            Image medalBronze = new Image("file:resources/assets/medalbronze.png");
+            //ImageView imageViewBronze = new ImageView(medalBronze);
+
+            Image medalSilver = new Image("file:resources/assets/medalsilver.png");
+            //ImageView imageViewSilver = new ImageView(medalSilver);
+
+            Image medalGold = new Image("file:resources/assets/medalgold.png");
+
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
+
+            if(score.getScore() == 3){
+                imageView.setImage(medalBronze);
+                root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 4){
+                imageView.setImage(medalSilver);
+                root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 5){
+                imageView.setImage(medalGold);
+                root.getChildren().add(imageView);
+            }
+
         }
     }
-
+    /**
+     * Helper method to set grade variable
+     * @param gr charater for grade level
+     */
     public void setGrade(char gr) {
         this.grade = gr;
     }
