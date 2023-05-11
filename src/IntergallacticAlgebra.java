@@ -40,6 +40,8 @@ public class IntergallacticAlgebra extends Scene {
 
     private Button exitButton;
     private Button resetButton;
+
+    private Button homeButton;
     private Button submitButton;
     private TextField answerField;
     private Label questionLabel;
@@ -120,7 +122,7 @@ public class IntergallacticAlgebra extends Scene {
         submitButton = new Button("Submit");
 
         landingScene landingScene = new landingScene();
-        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton = landingScene.getAsteroidHomeButton();
         homeButton.setLayoutX(-100);
         homeButton.setLayoutY(200);
         homeButton.setStyle("-fx-background-color: transparent;");
@@ -317,6 +319,10 @@ public class IntergallacticAlgebra extends Scene {
             }
 
         }
+    }
+
+    public Button getHomeButton() {
+        return homeButton;
     }
 
 

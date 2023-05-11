@@ -41,7 +41,15 @@ public class AndromedaArithmeticScene extends Scene {
     private char grade;
 
     // Toolbar buttons to exit or reset the scene
-    private Button exitButton, resetButton, helpButton;
+    private Button exitButton;
+    private Button resetButton;
+    private Button helpButton;
+
+    public Button getHomeButton() {
+        return homeButton;
+    }
+
+    private Button homeButton;
     // Button used to indicate response is ready
     private Button submitButton;
     //  Radio Buttons to capture the answers
@@ -131,7 +139,7 @@ public class AndromedaArithmeticScene extends Scene {
         helpButton.setVisible(false);
 
         landingScene landingScene = new landingScene();
-        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton = landingScene.getAsteroidHomeButton();
         homeButton.setLayoutX(-100);
         homeButton.setLayoutY(200);
         homeButton.setStyle("-fx-background-color: transparent;");

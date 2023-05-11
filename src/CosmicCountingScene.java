@@ -31,7 +31,7 @@ public class CosmicCountingScene extends Scene {
     // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
     // Toolbar buttons to exit or reset the scene
-    private Button exitButton, helpButton;
+    private Button exitButton, helpButton, homeButton;
     private Button resetButton;
     // Button used to indicate response is ready
     private Button submitButton;
@@ -54,6 +54,9 @@ public class CosmicCountingScene extends Scene {
 
     public Alert difficulty;
     ImageView imageView;
+
+
+
     /**
      * This is the constructor for Cosmic counting scene class
      * This class impliments the True and False questions
@@ -173,7 +176,7 @@ public class CosmicCountingScene extends Scene {
 
 
         landingScene landingScene = new landingScene();
-        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton = landingScene.getAsteroidHomeButton();
         homeButton.setLayoutX(-100);
         homeButton.setLayoutY(200);
         homeButton.setStyle("-fx-background-color: transparent;");
@@ -354,5 +357,8 @@ public class CosmicCountingScene extends Scene {
         this.grade = gr;
     }
 
+    public Button getHomeButton() {
+        return homeButton;
+    }
 }
 
