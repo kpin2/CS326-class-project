@@ -58,7 +58,6 @@ public class Questions {
             if(b>a)
                 b=ran.nextInt(a);//this makes b smaller than a
 
-            //TODO: We need integer values for division
 
             answer = a / b;
         }
