@@ -1,3 +1,12 @@
+/* CSCI362 Software Engineering
+ * Class Project - Mission: Math!
+ * FinalResult.java - This is the main class for FinalResult
+ * It impliments the Scene that will show only when a perfect score is achieved on all planets
+ *
+ * Produced: 4/1/2023
+ *
+ * @author Zakaria Lazzouni
+ * */
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -11,7 +20,11 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
-
+/**
+ * Class: Final Result
+ * Displays a final winning scene after all planets have a perfect score
+ * Also plays an animation
+ */
 public class FinalResult extends Scene {
 
     //declare Scene variable to allow getScene() to return the scene
