@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 import java.util.Random;
 /**
@@ -27,16 +28,10 @@ public class CosmicCountingScene extends Scene {
     private RadioButton choice1, choice2;
     private Label questionLabel;
     private String randomQuestion;
+    private String formattedQuestion;
     private char grade;
+    private Questions questions1;
 
-
-    private String[] questions = {
-            "2 + 2 equals 4",
-            "A quadrilateral has 3 sides",
-            "16/4 equals 4",
-            "A triangle has 3 sides",
-            "4 - 2 equals 6"
-    };
     private String[] answers = {
             "True",
             "False",
@@ -48,6 +43,7 @@ public class CosmicCountingScene extends Scene {
     private int indx;
 
     public Alert difficulty;
+    ImageView imageView;
 
     public CosmicCountingScene() {
 
@@ -68,12 +64,40 @@ public class CosmicCountingScene extends Scene {
         ButtonType buttonTypeThree = new ButtonType("Hard");
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
-        indx = rand.nextInt(questions.length);
+        //code to generate random True or False question
+        grade = 'k';
+        questions1 = new Questions(grade);
+        randomQuestion = questions1.getTFQuestion();
+        int newAns = questions1.getAnswer();
+        int incorrectAns = rand.nextInt(10) + 1; // generates a different random number between 1 and 10
+        while (incorrectAns == newAns) { // make sure the second incorrect answer is different from the first
+            incorrectAns = rand.nextInt(10) + 1;
+        }
 
-        randomQuestion = questions[indx];
+        indx = rand.nextInt(2);
+        if(indx == 1) {
+            formattedQuestion = randomQuestion.concat(String.valueOf(incorrectAns));
+        }
+        else {
+            formattedQuestion = randomQuestion.concat(String.valueOf(newAns));
+        }
+
+        //randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_1.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
+
+
+        //imageView to hold medals image
+        imageView = new ImageView();
+        Scale scaleTransformation = new Scale();
+        scaleTransformation.setX(0.70);
+        scaleTransformation.setY(0.70);
+        scaleTransformation.setPivotX(600);
+        scaleTransformation.setPivotY(400);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
 
         //Setting the font
         Text text = new Text(375, 130, "Mission: Math!");
@@ -86,7 +110,7 @@ public class CosmicCountingScene extends Scene {
         resetButton.setLayoutY(10);
 
 
-        questionLabel = new Label(randomQuestion);
+        questionLabel = new Label(formattedQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         choice1 = new RadioButton("True");
         choice2 = new RadioButton("False");
@@ -212,9 +236,24 @@ public class CosmicCountingScene extends Scene {
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
         if (score.getTrys() < 5) {
-            indx = getrandnum(questions.length);
-            randomQuestion = questions[indx];
-            questionLabel.setText(randomQuestion);
+            Random rand = new Random();
+            indx = getrandnum(2);
+            questions1 = new Questions(grade);
+            randomQuestion = questions1.getTFQuestion();
+            int newAns = questions1.getAnswer();
+            int incorrectAns = rand.nextInt(10) + 1; // generates a different random number between 1 and 10
+            while (incorrectAns == newAns) { // make sure the second incorrect answer is different from the first
+                incorrectAns = rand.nextInt(10) + 1;
+            }
+
+            indx = rand.nextInt(2);
+            if(indx == 1) {
+                formattedQuestion = randomQuestion.concat(String.valueOf(incorrectAns));
+            }
+            else {
+                formattedQuestion = randomQuestion.concat(String.valueOf(newAns));
+            }
+            questionLabel.setText(formattedQuestion);
             questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             choice1.setSelected(false);
             choice2.setSelected(false);
@@ -227,12 +266,42 @@ public class CosmicCountingScene extends Scene {
             if(!root.getChildren().contains(choice2)) {
                 root.getChildren().add(choice2);
             }
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
 
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
+            questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
             //hide the submit button and true/false buttons once we have reached 5 trys
             root.getChildren().removeAll(choice1, choice2, submitButton);
+
+            Image medalBronze = new Image("file:resources/assets/medalbronze.png");
+            //ImageView imageViewBronze = new ImageView(medalBronze);
+
+            Image medalSilver = new Image("file:resources/assets/medalsilver.png");
+            //ImageView imageViewSilver = new ImageView(medalSilver);
+
+            Image medalGold = new Image("file:resources/assets/medalgold.png");
+
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
+
+            if(score.getScore() == 3){
+                imageView.setImage(medalBronze);
+                root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 4){
+                imageView.setImage(medalSilver);
+                root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 5){
+                imageView.setImage(medalGold);
+                root.getChildren().add(imageView);
+            }
+
         }
     }
 

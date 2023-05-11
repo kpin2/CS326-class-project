@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class AndromedaArithmeticScene extends Scene {
     public Alert difficulty;
     //Container to hold 4 answers to the question
     Map<String, String> answers;
+    ImageView imageView;
 
     /**
      * Medthod: Class constructor.
@@ -69,6 +71,17 @@ public class AndromedaArithmeticScene extends Scene {
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_2.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
+
+        //imageView to hold medals image
+        imageView = new ImageView();
+        Scale scaleTransformation = new Scale();
+        scaleTransformation.setX(0.70);
+        scaleTransformation.setY(0.70);
+        scaleTransformation.setPivotX(600);
+        scaleTransformation.setPivotY(400);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
 
         //Setting the font
         Text text = new Text(375, 130, "Mission: Math!");
@@ -298,13 +311,42 @@ public class AndromedaArithmeticScene extends Scene {
             if(!root.getChildren().contains(choice4)) {
                 root.getChildren().add(choice4);
             }
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
 
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
             root.getChildren().removeAll(submitButton, choice1, choice2, choice3, choice4);
+
+            Image medalBronze = new Image("file:resources/assets/medalbronze.png");
+            //ImageView imageViewBronze = new ImageView(medalBronze);
+
+            Image medalSilver = new Image("file:resources/assets/medalsilver.png");
+            //ImageView imageViewSilver = new ImageView(medalSilver);
+
+            Image medalGold = new Image("file:resources/assets/medalgold.png");
+            //ImageView imageViewGold = new ImageView(medalGold);
+
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
+
+
+            if(score.getScore() == 3){
+                imageView.setImage(medalBronze);
+                root.getChildren().add(imageView);
+            }
+             if(score.getScore() == 4){
+                 imageView.setImage(medalSilver);
+                 root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 5){
+                imageView.setImage(medalGold);
+                root.getChildren().add(imageView);
+            }
         }
     }
-
 }
