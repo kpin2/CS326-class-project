@@ -21,7 +21,7 @@ public class CosmicCountingScene extends Scene {
     // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
     // Toolbar buttons to exit or reset the scene
-    private Button exitButton;
+    private Button exitButton, helpButton;
     private Button resetButton;
     // Button used to indicate response is ready
     private Button submitButton;
@@ -110,8 +110,8 @@ public class CosmicCountingScene extends Scene {
         resetImageView.setFitHeight(96);
         resetImageView.setFitWidth(96);
         resetButton = new Button("", resetImageView);
-        resetButton.setLayoutX(250);
-        resetButton.setLayoutY(5);
+        resetButton.setLayoutX(196);
+        resetButton.setLayoutY(0);
         resetButton.setStyle("-fx-background-color: transparent;");
 
 
@@ -182,7 +182,7 @@ public class CosmicCountingScene extends Scene {
         ImageView helpButtonImageView = new ImageView(helpButtonImage);
         helpButtonImageView.setFitHeight(96);
         helpButtonImageView.setFitWidth(96);
-        Button helpButton = new Button("", helpButtonImageView);
+        helpButton = new Button("", helpButtonImageView);
         helpButton.setLayoutX(96);
         helpButton.setLayoutY(5);
         helpButton.setStyle("-fx-background-color: transparent;");
