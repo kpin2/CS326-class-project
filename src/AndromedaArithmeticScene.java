@@ -40,7 +40,7 @@ public class AndromedaArithmeticScene extends Scene {
     private char grade;
 
     // Toolbar buttons to exit or reset the scene
-    private Button exitButton, resetButton;
+    private Button exitButton, resetButton, helpButton;
     // Button used to indicate response is ready
     private Button submitButton;
     //  Radio Buttons to capture the answers
@@ -60,7 +60,7 @@ public class AndromedaArithmeticScene extends Scene {
      */
     public AndromedaArithmeticScene() {
 
-        super(new Pane(),1366, 768);
+        super(new Pane(), 1366, 768);
         root = new Pane();
         andromedaScene = new Scene(root, 1366, 768);
         answers = new HashMap<>();
@@ -103,8 +103,8 @@ public class AndromedaArithmeticScene extends Scene {
         resetImageView.setFitHeight(96);
         resetImageView.setFitWidth(96);
         resetButton = new Button("", resetImageView);
-        resetButton.setLayoutX(250);
-        resetButton.setLayoutY(5);
+        resetButton.setLayoutX(196);
+        resetButton.setLayoutY(0);
         resetButton.setStyle("-fx-background-color: transparent;");
 
         Image exitButtonImage = new Image("file:resources/assets/exit.png");
@@ -115,6 +115,27 @@ public class AndromedaArithmeticScene extends Scene {
         exitButton.setLayoutX(-5);
         exitButton.setLayoutY(-5);
         exitButton.setStyle("-fx-background-color: transparent;");
+
+        Image helpButtonImage = new Image("file:resources/assets/help2.png");
+        ImageView helpButtonImageView = new ImageView(helpButtonImage);
+        helpButtonImageView.setFitHeight(96);
+        helpButtonImageView.setFitWidth(96);
+        helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(96);
+        helpButton.setLayoutY(5);
+        helpButton.setStyle("-fx-background-color: transparent;");
+//        helpButton.setVisible(false);
+
+        landingScene landingScene = new landingScene();
+        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton.setLayoutX(-100);
+        homeButton.setLayoutY(200);
+        homeButton.setStyle("-fx-background-color: transparent;");
+
+        ImageView smallShip = landingScene.getSmallShipImageView();
+        smallShip.setLayoutX(95);
+        smallShip.setLayoutY(152);
+        smallShip.setRotate(-25);
 
         //Setup to get random question
         grade = 'k';
@@ -167,7 +188,7 @@ public class AndromedaArithmeticScene extends Scene {
         //Generate a new question
         submitButton.setOnAction(event -> {
             RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
-            String ansString=selectedChoice.getText();
+            String ansString = selectedChoice.getText();
             Integer newAnswer = questions1.getAnswer();
             checkAns(ansString, newAnswer.toString());
             updateQuestionLabel();
@@ -183,7 +204,7 @@ public class AndromedaArithmeticScene extends Scene {
         });
 
         //add buttons and header text to scene
-        root.getChildren().addAll(resetButton, exitButton, text,  choice1, choice2, choice3, choice4, submitButton);
+        root.getChildren().addAll(resetButton, exitButton, text, choice1, choice2, choice3, choice4, submitButton, helpButton, smallShip, homeButton);
 
         double sceneWidth = andromedaScene.getWidth();
         double sceneHeight = andromedaScene.getHeight();
@@ -207,14 +228,16 @@ public class AndromedaArithmeticScene extends Scene {
 
     /**
      * Helper method to get handle to the scene
+     *
      * @return Scene handle to fill in the blank scene
      */
-    public Scene getScene(){
+    public Scene getScene() {
         return andromedaScene;
     }
 
     /**
      * Helper method to find the score of player
+     *
      * @return Integer showing how many questions answered were correct
      */
     public int getScore() {
@@ -223,37 +246,40 @@ public class AndromedaArithmeticScene extends Scene {
 
     /**
      * Helper method to get handle to exit button
+     *
      * @return Button handle to exit button
      */
-    public Button getExitButton(){
+    public Button getExitButton() {
 
         return exitButton;
     }
 
     /**
      * Helper method to get handle to reset button
+     *
      * @return handle to reset button
      */
-    public Button getResetButton(){
+    public Button getResetButton() {
 
         return resetButton;
     }
 
     /**
      * Method returning a String showing the Result/Progress of player
+     *
      * @return String to be placed beside the planets
      */
     public String getScoreResult() {
-        if(score.getTrys() > 0) {
+        if (score.getTrys() > 0) {
             return "Result : " + score.getScore() + " / " + score.getTrys();
-        }
-        else {
+        } else {
             return "";
         }
     }
 
     /**
      * Helper method to set grade variable
+     *
      * @param gr charater for grade level
      */
     public void setGrade(char gr) {
@@ -263,7 +289,8 @@ public class AndromedaArithmeticScene extends Scene {
     /**
      * Method to check if the answer provided is correct
      * Updates the scoreboard with information
-     * @param ans : User provided answer
+     *
+     * @param ans    : User provided answer
      * @param newAns : Actual correct answer
      */
     public void checkAns(String ans, String newAns) {
@@ -284,7 +311,7 @@ public class AndromedaArithmeticScene extends Scene {
      */
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
-        if (score.getTrys() < 5){
+        if (score.getTrys() < 5) {
             Random random = new Random();
             Questions newQuestion = new Questions(grade);
             randomQuestion = newQuestion.getQuestion();
@@ -309,22 +336,22 @@ public class AndromedaArithmeticScene extends Scene {
             choice2.setSelected(false);
             choice3.setSelected(false);
             choice4.setSelected(false);
-            if(!root.getChildren().contains(submitButton)) {
+            if (!root.getChildren().contains(submitButton)) {
                 root.getChildren().add(submitButton);
             }
-            if(!root.getChildren().contains(choice1)) {
+            if (!root.getChildren().contains(choice1)) {
                 root.getChildren().add(choice1);
             }
-            if(!root.getChildren().contains(choice2)) {
+            if (!root.getChildren().contains(choice2)) {
                 root.getChildren().add(choice2);
             }
-            if(!root.getChildren().contains(choice3)) {
+            if (!root.getChildren().contains(choice3)) {
                 root.getChildren().add(choice3);
             }
-            if(!root.getChildren().contains(choice4)) {
+            if (!root.getChildren().contains(choice4)) {
                 root.getChildren().add(choice4);
             }
-            if(root.getChildren().contains(imageView)) {
+            if (root.getChildren().contains(imageView)) {
                 root.getChildren().remove(imageView);
             }
 
@@ -345,20 +372,20 @@ public class AndromedaArithmeticScene extends Scene {
             Image medalGold = new Image("file:resources/assets/medalgold.png");
             //ImageView imageViewGold = new ImageView(medalGold);
 
-            if(root.getChildren().contains(imageView)) {
+            if (root.getChildren().contains(imageView)) {
                 root.getChildren().remove(imageView);
             }
 
 
-            if(score.getScore() == 3){
+            if (score.getScore() == 3) {
                 imageView.setImage(medalBronze);
                 root.getChildren().add(imageView);
             }
-             if(score.getScore() == 4){
-                 imageView.setImage(medalSilver);
-                 root.getChildren().add(imageView);
+            if (score.getScore() == 4) {
+                imageView.setImage(medalSilver);
+                root.getChildren().add(imageView);
             }
-            if(score.getScore() == 5){
+            if (score.getScore() == 5) {
                 imageView.setImage(medalGold);
                 root.getChildren().add(imageView);
             }
