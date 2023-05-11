@@ -6,6 +6,7 @@
  * Produced: 4/25/2023
  *
  * @author Zakaria Lazzouni
+ * @author Khalid Ibrahim
  * */
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -30,7 +31,7 @@ public class CosmicCountingScene extends Scene {
     // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
     // Toolbar buttons to exit or reset the scene
-    private Button exitButton;
+    private Button exitButton, helpButton;
     private Button resetButton;
     // Button used to indicate response is ready
     private Button submitButton;
@@ -96,7 +97,7 @@ public class CosmicCountingScene extends Scene {
 
         //randomQuestion = questions[indx];
 
-        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_1.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
 
 
@@ -112,14 +113,20 @@ public class CosmicCountingScene extends Scene {
         imageView.getTransforms().add(scaleTransformation);
 
         //Setting the font
-        Text text = new Text(375, 130, "Mission: Math!");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
-        text.setFill(Color.RED);
+        Text text = new Text(250, 100, "Mission: Math!");
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setStyle("-fx-font-weight: bold;");
 
 
-        resetButton = new Button("Reset");
-        resetButton.setLayoutX(250);
-        resetButton.setLayoutY(10);
+        Image resetImage = new Image("file:resources/assets/reset1-removebg-preview.png");
+        ImageView resetImageView = new ImageView(resetImage);
+        resetImageView.setFitHeight(96);
+        resetImageView.setFitWidth(96);
+        resetButton = new Button("", resetImageView);
+        resetButton.setLayoutX(96);
+        resetButton.setLayoutY(0);
+        resetButton.setStyle("-fx-background-color: transparent;");
 
 
         questionLabel = new Label(formattedQuestion);
@@ -189,8 +196,8 @@ public class CosmicCountingScene extends Scene {
         ImageView helpButtonImageView = new ImageView(helpButtonImage);
         helpButtonImageView.setFitHeight(96);
         helpButtonImageView.setFitWidth(96);
-        Button helpButton = new Button("", helpButtonImageView);
-        helpButton.setLayoutX(96);
+        helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(196);
         helpButton.setLayoutY(5);
         helpButton.setStyle("-fx-background-color: transparent;");
         helpButton.setVisible(false);
