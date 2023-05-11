@@ -90,7 +90,6 @@ public class IntergallacticAlgebra extends Scene {
         resetImageView.setFitHeight(96);
         resetImageView.setFitWidth(96);
         resetButton = new Button("", resetImageView);
-//        resetButton = new Button("Reset");
         resetButton.setLayoutX(250);
         resetButton.setLayoutY(10);
         resetButton.setStyle("-fx-background-color: transparent;");
