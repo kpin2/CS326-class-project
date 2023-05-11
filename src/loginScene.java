@@ -19,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
+ Class: CSCI 362 Software Engineering
+ Project: Mission Math
  Name: Gregory Rigot
  Date Created: 3/19/23
  Purpose: To function as a login screen that would allow users to input their usernames and passwords so that they may be verified if their account exists and be logged into their account

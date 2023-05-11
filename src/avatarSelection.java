@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ Class: CSCI 362 Software Engineering
+ Project: Mission Math
  Name: Gregory Rigot
  Date Created: 4/9/23
  Purpose: Serves as an extension of the account creation process where the user will be able to select their avatar based on what image they had clicked on and selected

@@ -6,6 +6,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
+ Class: CSCI 362 Software Engineering
+ Project: Mission Math
  Name: Gregory Rigot
  Date Created: 3/23/23
  Purpose: To act as the beginning scene where users can choose between logging into their accounts or creating their own accounts

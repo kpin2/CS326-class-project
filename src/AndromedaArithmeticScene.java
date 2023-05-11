@@ -80,6 +80,7 @@ public class AndromedaArithmeticScene extends Scene {
 
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/planet_background_2.jpg", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
         root.setBackground(new Background(myBI));
 
         //imageView to hold medals image
@@ -146,7 +147,7 @@ public class AndromedaArithmeticScene extends Scene {
         randomQuestion = questions1.getQuestion();
 
         questionLabel = new Label(randomQuestion);
-        questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: black;");
         questionLabel.setText(randomQuestion);
         questionLabel.setLayoutX(580);
         questionLabel.setLayoutY(300);
@@ -175,10 +176,10 @@ public class AndromedaArithmeticScene extends Scene {
         choicesGroup.getToggles().addAll(choice1, choice2, choice3, choice4);
 
         // Setting the font and color for the answers
-        choice1.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        choice2.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        choice3.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        choice4.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        choice1.setStyle("-fx-font-size: 20px; -fx-text-fill: black;");
+        choice2.setStyle("-fx-font-size: 20px; -fx-text-fill: black;");
+        choice3.setStyle("-fx-font-size: 20px; -fx-text-fill: black;");
+        choice4.setStyle("-fx-font-size: 20px; -fx-text-fill: black;");
 
         //add questionLabel to scene
         root.getChildren().add(questionLabel);
@@ -319,7 +320,7 @@ public class AndromedaArithmeticScene extends Scene {
             Questions newQuestion = new Questions(grade);
             randomQuestion = newQuestion.getQuestion();
             questionLabel.setText(randomQuestion);
-            questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: black;");
             // Generate three random incorrect answers
             int incorrect1 = random.nextInt(10) + 1; // generates a random number between 1 and 10
             int incorrect2 = random.nextInt(10) + 1; // generates a different random number between 1 and 10
@@ -361,7 +362,7 @@ public class AndromedaArithmeticScene extends Scene {
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
-            questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
+            questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: black;");
             root.getChildren().removeAll(submitButton, choice1, choice2, choice3, choice4);
 
            //The lines below are for showing the medals once the results are displayed
