@@ -8,6 +8,7 @@
  * @author Zakaria Lazzouni
  * @author Khalid Ibrahim
  * */
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -94,9 +95,10 @@ public class IntergallacticAlgebra extends Scene {
         imageView.getTransforms().add(scaleTransformation);
 
         //Setting the font
-        Text text = new Text(375, 130, "Mission: Math!");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
-        text.setFill(Color.RED);
+        Text text = new Text(250, 100, "Mission: Math!");
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setStyle("-fx-font-weight: bold;");
 
 
         Image resetImage = new Image("file:resources/assets/reset1-removebg-preview.png");
@@ -104,8 +106,8 @@ public class IntergallacticAlgebra extends Scene {
         resetImageView.setFitHeight(96);
         resetImageView.setFitWidth(96);
         resetButton = new Button("", resetImageView);
-        resetButton.setLayoutX(250);
-        resetButton.setLayoutY(10);
+        resetButton.setLayoutX(96);
+        resetButton.setLayoutY(0);
         resetButton.setStyle("-fx-background-color: transparent;");
 
 
@@ -142,13 +144,12 @@ public class IntergallacticAlgebra extends Scene {
         helpButtonImageView.setFitHeight(96);
         helpButtonImageView.setFitWidth(96);
         Button helpButton = new Button("", helpButtonImageView);
-        helpButton.setLayoutX(96);
+        helpButton.setLayoutX(196);
         helpButton.setLayoutY(5);
         helpButton.setStyle("-fx-background-color: transparent;");
         helpButton.setVisible(false);
 
         root.getChildren().addAll(smallShip, homeButton, helpButton);
-
 
 
         root.getChildren().add(questionLabel);
@@ -182,6 +183,7 @@ public class IntergallacticAlgebra extends Scene {
 
     /**
      * Helper method to get handle to the scene
+     *
      * @return Scene handle to fill in the blank scene
      */
     public Scene getScene() {
@@ -190,6 +192,7 @@ public class IntergallacticAlgebra extends Scene {
 
     /**
      * Helper method to find the score of player
+     *
      * @return Integer showing how many questions answered were correct
      */
     public int getScore() {
@@ -198,20 +201,25 @@ public class IntergallacticAlgebra extends Scene {
 
     /**
      * Helper method to get handle to exit button
+     *
      * @return Button handle to exit button
      */
     public Button getExitButton() {
         return exitButton;
     }
+
     /**
      * Helper method to get handle to reset button
+     *
      * @return handle to reset button
      */
     public Button getResetButton() {
         return resetButton;
     }
+
     /**
      * Method returning a String showing the Result/Progress of player
+     *
      * @return String to be placed beside the planets
      */
     public String getScoreResult() {
@@ -221,8 +229,10 @@ public class IntergallacticAlgebra extends Scene {
             return "";
         }
     }
+
     /**
      * Helper method to set grade variable
+     *
      * @param gr charater for grade level
      */
     public void setGrade(char gr) {
@@ -232,7 +242,8 @@ public class IntergallacticAlgebra extends Scene {
     /**
      * Method to check if the answer provided is correct
      * Updates the scoreboard with information
-     * @param ans : User provided answer
+     *
+     * @param ans    : User provided answer
      * @param newAns : Actual correct answer
      */
     public void checkAns(String ans, String newAns) {
@@ -247,6 +258,7 @@ public class IntergallacticAlgebra extends Scene {
             score.addTrys();
         }
     }
+
     /**
      * Method to generate a new question and update the questionLabel Text node
      */
@@ -258,13 +270,13 @@ public class IntergallacticAlgebra extends Scene {
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             answerField.clear();
-            if(!root.getChildren().contains(submitButton)) {
+            if (!root.getChildren().contains(submitButton)) {
                 root.getChildren().add(submitButton);
             }
-            if(!root.getChildren().contains(answerField)) {
+            if (!root.getChildren().contains(answerField)) {
                 root.getChildren().add(answerField);
             }
-            if(root.getChildren().contains(imageView)) {
+            if (root.getChildren().contains(imageView)) {
                 root.getChildren().remove(imageView);
             }
             //root.getChildren().addAll(submitButton, answerField);
@@ -286,21 +298,20 @@ public class IntergallacticAlgebra extends Scene {
             //ImageView imageViewGold = new ImageView(medalGold);
 
 
-
-            if(root.getChildren().contains(imageView)) {
+            if (root.getChildren().contains(imageView)) {
                 root.getChildren().remove(imageView);
             }
 
 
-            if(score.getScore() == 3){
+            if (score.getScore() == 3) {
                 imageView.setImage(medalBronze);
                 root.getChildren().add(imageView);
             }
-            if(score.getScore() == 4){
+            if (score.getScore() == 4) {
                 imageView.setImage(medalSilver);
                 root.getChildren().add(imageView);
             }
-            if(score.getScore() == 5){
+            if (score.getScore() == 5) {
                 imageView.setImage(medalGold);
                 root.getChildren().add(imageView);
             }
