@@ -93,9 +93,11 @@ public class AndromedaArithmeticScene extends Scene {
         imageView.getTransforms().add(scaleTransformation);
 
         //Setting the font
-        Text text = new Text(375, 130, "Mission: Math!");
-        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
-        text.setFill(Color.RED);
+        Text text = new Text(250, 100, "Mission: Math!");
+        text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 120));
+        text.setFill(Color.rgb(243, 5, 1));
+        text.setStyle("-fx-font-weight: bold;");
+
 
 
         Image resetImage = new Image("file:resources/assets/reset1-removebg-preview.png");
@@ -103,7 +105,7 @@ public class AndromedaArithmeticScene extends Scene {
         resetImageView.setFitHeight(96);
         resetImageView.setFitWidth(96);
         resetButton = new Button("", resetImageView);
-        resetButton.setLayoutX(196);
+        resetButton.setLayoutX(96);
         resetButton.setLayoutY(0);
         resetButton.setStyle("-fx-background-color: transparent;");
 
@@ -121,10 +123,10 @@ public class AndromedaArithmeticScene extends Scene {
         helpButtonImageView.setFitHeight(96);
         helpButtonImageView.setFitWidth(96);
         helpButton = new Button("", helpButtonImageView);
-        helpButton.setLayoutX(96);
+        helpButton.setLayoutX(196);
         helpButton.setLayoutY(5);
         helpButton.setStyle("-fx-background-color: transparent;");
-//        helpButton.setVisible(false);
+        helpButton.setVisible(false);
 
         landingScene landingScene = new landingScene();
         Button homeButton = landingScene.getAsteroidHomeButton();
