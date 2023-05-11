@@ -1,3 +1,12 @@
+/* CSCI362 Software Engineering
+ * Class Project - Mission: Math!
+ * IntergalacticAlgebra.java - This is the main class for Intergalactic Algebra.
+ * It impliments the Fill in the Blank questions
+ *
+ * Produced: 4/10/2023
+ *
+ * @author Zakaria Lazzouni
+ * */
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -35,6 +44,10 @@ public class IntergallacticAlgebra extends Scene {
     public Alert difficulty;
     ImageView imageView;
 
+    /**
+     * This is the constructor for Intergalictic Algebra scene class
+     * This class impliments the fill in the blank type questions
+     */
     public IntergallacticAlgebra() {
 
         super(new Pane(), 1366, 768);
@@ -144,32 +157,7 @@ public class IntergallacticAlgebra extends Scene {
             Integer newAnswer = questions1.getAnswer();
             checkAns(ansString, newAnswer.toString());
             updateQuestionLabel();
-            /*
-            if (ansString.equals(newAnswer.toString())) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
-                alert.showAndWait();
-                score.addScore();
-                score.addTrys();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
-                alert.showAndWait();
-                score.addTrys();
-            }
-          //These lines generate a new random question each time Submit is pressed
-           if (score.getTrys() < 5){
-               questions1 = new Questions(grade);
-               randomQuestion = questions1.getQuestion();
-               finalQuestionLabel.setText(randomQuestion);
-               answerField.clear();
 
-            } else {
-               randomQuestion = score.getresult();
-               finalQuestionLabel.setText(randomQuestion);
-               finalQuestionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
-               root.getChildren().removeAll(submitButton,answerField);
-           }
-
-             */
         });
 
 
@@ -185,34 +173,46 @@ public class IntergallacticAlgebra extends Scene {
         double sceneWidth = intergallacticScene.getWidth();
         double sceneHeight = intergallacticScene.getHeight();
 
-     /*   questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
-        questionLabel.setLayoutY(sceneHeight / 2 - 80);
-        a.setLayoutX(sceneWidth / 2 - a.getWidth() / 2);
-        a.setLayoutY(sceneHeight / 2 - 50);*/
+
         submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
         submitButton.setLayoutY(sceneHeight / 2 + 100);
 
     }
 
-
+    /**
+     * Helper method to get handle to the scene
+     * @return Scene handle to fill in the blank scene
+     */
     public Scene getScene() {
         return intergallacticScene;
     }
 
-
+    /**
+     * Helper method to find the score of player
+     * @return Integer showing how many questions answered were correct
+     */
     public int getScore() {
         return score.getScore();
     }
 
-    // Gives a random variable
+    /**
+     * Helper method to get handle to exit button
+     * @return Button handle to exit button
+     */
     public Button getExitButton() {
         return exitButton;
     }
-
+    /**
+     * Helper method to get handle to reset button
+     * @return handle to reset button
+     */
     public Button getResetButton() {
         return resetButton;
     }
-
+    /**
+     * Method returning a String showing the Result/Progress of player
+     * @return String to be placed beside the planets
+     */
     public String getScoreResult() {
         if (score.getTrys() > 0) {
             return "Result : " + score.getScore() + " / " + score.getTrys();
@@ -220,12 +220,20 @@ public class IntergallacticAlgebra extends Scene {
             return "";
         }
     }
-
+    /**
+     * Helper method to set grade variable
+     * @param gr charater for grade level
+     */
     public void setGrade(char gr) {
         this.grade = gr;
     }
 
-
+    /**
+     * Method to check if the answer provided is correct
+     * Updates the scoreboard with information
+     * @param ans : User provided answer
+     * @param newAns : Actual correct answer
+     */
     public void checkAns(String ans, String newAns) {
         if (ans.equals(newAns)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
@@ -238,7 +246,9 @@ public class IntergallacticAlgebra extends Scene {
             score.addTrys();
         }
     }
-
+    /**
+     * Method to generate a new question and update the questionLabel Text node
+     */
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
         if (score.getTrys() < 5) {
@@ -262,6 +272,8 @@ public class IntergallacticAlgebra extends Scene {
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
             root.getChildren().removeAll(submitButton, answerField);
+
+            //The lines below are for showing the medals once the results are displayed
 
             Image medalBronze = new Image("file:resources/assets/medalbronze.png");
             //ImageView imageViewBronze = new ImageView(medalBronze);

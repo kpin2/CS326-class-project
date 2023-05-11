@@ -1,3 +1,12 @@
+/* CSCI362 Software Engineering
+ * Class Project - Mission: Math!
+ * CosmicCountingScene.java - This is the main class for Cosmic counting.
+ * It impliments the True and False Questions
+ *
+ * Produced: 4/25/2023
+ *
+ * @author Zakaria Lazzouni
+ * */
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -11,7 +20,7 @@ import javafx.scene.transform.Scale;
 import java.util.Random;
 /**
  * Class: CosmicCountingScene
- * Generates the scene for Fill in the blank Questions
+ * Generates the scene for True and False questions
  */
 
 public class CosmicCountingScene extends Scene {
@@ -44,7 +53,10 @@ public class CosmicCountingScene extends Scene {
 
     public Alert difficulty;
     ImageView imageView;
-
+    /**
+     * This is the constructor for Cosmic counting scene class
+     * This class impliments the True and False questions
+     */
     public CosmicCountingScene() {
 
         super(new Pane(), 1366, 768);
@@ -192,21 +204,33 @@ public class CosmicCountingScene extends Scene {
 
 
     }
-
+    /**
+     * Helper method to get handle to the scene
+     * @return Scene handle to fill in the blank scene
+     */
     public Scene getScene() {
         return cosmicScene;
     }
-
+    /**
+     * Helper method to get handle to exit button
+     * @return Button handle to exit button
+     */
     public Button getExitButton() {
 
         return exitButton;
     }
-
+    /**
+     * Helper method to get handle to reset button
+     * @return handle to reset button
+     */
     public Button getResetButton() {
 
         return resetButton;
     }
-
+    /**
+     * Method returning a String showing the Result/Progress of player
+     * @return String to be placed beside the planets
+     */
     public String getScoreResult() {
         if (score.getTrys() > 0) {
             return "Result : " + score.getScore() + " / " + score.getTrys();
@@ -214,7 +238,10 @@ public class CosmicCountingScene extends Scene {
             return "";
         }
     }
-
+    /**
+     * Helper method to find the score of player
+     * @return Integer showing how many questions answered were correct
+     */
     public int getScore() {
         return score.getScore();
     }
@@ -224,7 +251,11 @@ public class CosmicCountingScene extends Scene {
         Random rand = new Random();
         return (rand.nextInt(num));
     }
-
+    /**
+     * Method to check if the answer provided is correct
+     * Updates the scoreboard with information
+     * @param ans : User provided answer
+     */
     public void checkAns(String ans) {
         if (ans.equals(answers[indx])) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
@@ -237,7 +268,9 @@ public class CosmicCountingScene extends Scene {
             score.addTrys();
         }
     }
-
+    /**
+     * Method to generate a new question and update the questionLabel Text node
+     */
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
         if (score.getTrys() < 5) {
@@ -282,6 +315,8 @@ public class CosmicCountingScene extends Scene {
             //hide the submit button and true/false buttons once we have reached 5 trys
             root.getChildren().removeAll(choice1, choice2, submitButton);
 
+            //The lines below are for showing the medals once the results are displayed
+
             Image medalBronze = new Image("file:resources/assets/medalbronze.png");
             //ImageView imageViewBronze = new ImageView(medalBronze);
 
@@ -309,7 +344,10 @@ public class CosmicCountingScene extends Scene {
 
         }
     }
-
+    /**
+     * Helper method to set grade variable
+     * @param gr charater for grade level
+     */
     public void setGrade(char gr) {
         this.grade = gr;
     }

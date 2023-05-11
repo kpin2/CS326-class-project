@@ -1,3 +1,12 @@
+/* CSCI362 Software Engineering
+ * Class Project - Mission: Math!
+ * AndromedaArithmeticScene.java - This is the main class for Andromeda Arithmetic.
+ * It impliments the Multiple choice questions
+ *
+ * Produced: 4/20/2023
+ *
+ * @author Zakaria Lazzouni
+ * */
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -351,6 +360,8 @@ public class AndromedaArithmeticScene extends Scene {
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
             root.getChildren().removeAll(submitButton, choice1, choice2, choice3, choice4);
+
+           //The lines below are for showing the medals once the results are displayed
 
             Image medalBronze = new Image("file:resources/assets/medalbronze.png");
             //ImageView imageViewBronze = new ImageView(medalBronze);
