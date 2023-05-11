@@ -182,18 +182,32 @@ public class mainDriver extends Application {
         this.landingScene.getIntergalacticAlgebra().setOnAction(e -> {
             this.practiceFITB.difficulty.showAndWait().ifPresent(response -> {
                 if (response.getText().equals("Easy")) {
-                    this.practiceFITB.setGrade((char) 1);
+                    this.practiceFITB.setGrade('k');
                 } else if (response.getText().equals("Medium")) {
-                    this.practiceFITB.setGrade((char) 2);
+                    this.practiceFITB.setGrade('1');
                 } else if (response.getText().equals("Hard")) {
-                    this.practiceFITB.setGrade((char) 3);
+                    this.practiceFITB.setGrade('3');
                 }
             });
+            this.practiceFITB.updateQuestionLabel();
             this.switchScene(stage, this.practiceFITB.getScene());
         });
 
 
-        this.landingScene.getCosmicCountingButton().setOnAction(e -> this.switchScene(stage, this.practiceTF.getScene()));
+        this.landingScene.getCosmicCountingButton().setOnAction(e -> {
+            this.practiceTF.difficulty.showAndWait().ifPresent(response -> {
+                if (response.getText().equals("Easy")) {
+                    this.practiceTF.setGrade('k');
+                } else if (response.getText().equals("Medium")) {
+                    this.practiceTF.setGrade('2');
+                } else if (response.getText().equals("Hard")) {
+                    this.practiceTF.setGrade('3');
+                }
+            });
+            this.practiceTF.updateQuestionLabel();
+
+            this.switchScene(stage, this.practiceTF.getScene());
+        });
         this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
 
 
@@ -201,7 +215,7 @@ public class mainDriver extends Application {
 
         this.practiceFITB.getExitButton().setOnAction(e -> {
 
-            if (this.practiceFITB.getScore() == 5) {
+            if ((this.practiceTF.getScore() == 5) && (this.practiceFITB.getScore() == 5)) {
                 this.switchScene(stage, this.finalResult.getScene());
             } else {
                 this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
@@ -211,6 +225,18 @@ public class mainDriver extends Application {
 
         });
 
+
+        this.practiceTF.getExitButton().setOnAction(e -> {
+
+            if ((this.practiceTF.getScore() == 5) && (this.practiceFITB.getScore() == 5)) {
+                this.switchScene(stage, this.finalResult.getScene());
+            } else {
+                this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
+                this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+                this.switchScene(stage, this.landingScene.getScene());
+            }
+
+        });
 
 
 

@@ -25,8 +25,10 @@ public class practiceFITB extends Scene {
 
     private Button exitButton;
     private Button resetButton;
-    Label questionLabel;
-    Alert difficulty;
+    private Button submitButton;
+    private TextField answerField;
+    private Label questionLabel;
+    public Alert difficulty;
     public practiceFITB() {
 
         super(new Pane(),1366, 768);
@@ -46,7 +48,7 @@ public class practiceFITB extends Scene {
         randomQuestion = questions1.getQuestion();
 //        System.out.println("practiceFITB constructor and question is : " + randomQuestion);
 
-        TextField answerField = new TextField();
+        answerField = new TextField();
         answerField.setLayoutX(580);
         answerField.setLayoutY(330);
         root.getChildren().add(answerField);
@@ -87,29 +89,27 @@ public class practiceFITB extends Scene {
         exitButton.setStyle("-fx-background-color: transparent;");
 //        resetButton.setStyle("-fx-background-color: transparent;");
 
-        Label questionLabel = new Label(randomQuestion);
+        questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
         questionLabel.setText(randomQuestion);
         questionLabel.setLayoutX(580);
         questionLabel.setLayoutY(300);
 
 
-        Button submitButton = new Button("Submit");
+        submitButton = new Button("Submit");
 
 
         //Label finalQuestionLabel = questionLabel;
-        Label finalQuestionLabel = new Label(randomQuestion);
-        finalQuestionLabel.setText(randomQuestion);
-        finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        finalQuestionLabel.setLayoutX(580);
-        finalQuestionLabel.setLayoutY(300);
 
-        root.getChildren().add(finalQuestionLabel);
+
+        root.getChildren().add(questionLabel);
         submitButton.setOnAction(event -> {
 
             String ansString=answerField.getText();
             Integer newAnswer = questions1.getAnswer();
-
+            checkAns(ansString, newAnswer.toString());
+            updateQuestionLabel();
+            /*
             if (ansString.equals(newAnswer.toString())) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
                 alert.showAndWait();
@@ -133,6 +133,8 @@ public class practiceFITB extends Scene {
                finalQuestionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
                root.getChildren().removeAll(submitButton,answerField);
            }
+
+             */
         });
 
 
@@ -141,17 +143,17 @@ public class practiceFITB extends Scene {
             score.setTrys(0);
             questions1 = new Questions(grade);
             randomQuestion = questions1.getQuestion();
-            finalQuestionLabel.setText(randomQuestion);
-            finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+            questionLabel.setText(randomQuestion);
+            questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             answerField.clear();
 
         });
 
 
 
-        finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        finalQuestionLabel.setLayoutX(580);
-        finalQuestionLabel.setLayoutY(300);
+        //finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        //finalQuestionLabel.setLayoutX(580);
+        //finalQuestionLabel.setLayoutY(300);
 
 //        toolBar.getItems().addAll(resetButton,exitButton);
         root.getChildren().addAll(resetButton, exitButton, text,  submitButton);
@@ -202,8 +204,38 @@ public class practiceFITB extends Scene {
         }
     }
 
-    public void setGrade(char grade) {
-        this.grade = grade;
+    public void setGrade(char gr) {
+        this.grade = gr;
     }
+
+
+    public void checkAns(String ans, String newAns) {
+        if (ans.equals(newAns)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
+            alert.showAndWait();
+            score.addScore();
+            score.addTrys();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
+            alert.showAndWait();
+            score.addTrys();
+        }
+    }
+
+    public void updateQuestionLabel() {
+        //These lines generate a new random question each time Submit is pressed
+        if (score.getTrys() < 5){
+            Questions newQuestion = new Questions(grade);
+            randomQuestion = newQuestion.getQuestion();
+            questionLabel.setText(randomQuestion);
+            answerField.clear();
+        } else {
+            randomQuestion = score.getresult();
+            questionLabel.setText(randomQuestion);
+            questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
+            root.getChildren().removeAll(submitButton,answerField);
+        }
+    }
+
 
 }

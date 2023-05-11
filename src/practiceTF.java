@@ -16,32 +16,53 @@ public class practiceTF extends Scene {
     private scoreboard score;
     private Button exitButton;
     private Button resetButton;
+    private Button submitButton;
+    private RadioButton choice1, choice2;
+    private Label questionLabel;
+    private String randomQuestion;
+    private char grade;
 
+
+    private String[] questions = {
+            "2 + 2 equals 4",
+            "A quadrilateral has 3 sides",
+            "16/4 equals 4",
+            "A triangle has 3 sides",
+            "4 - 2 equals 6"
+    };
+    private String[] answers = {
+            "True",
+            "False",
+            "True",
+            "True",
+            "False"
+    };
+
+    private int indx;
+
+    public Alert difficulty;
     public practiceTF() {
 
         super(new Pane(),1366, 768);
         root = new Pane();
         practiceTF = new Scene(root, 1366, 768);
         score = new scoreboard();
-
-        String[] questions = {
-                "2 + 2 equals 4",
-                "A quadrilateral has 3 sides",
-                "16/4 equals 4",
-                "A triangle has 3 sides",
-                "4 - 2 equals 6"
-        };
-        String[] answers = {
-                "True",
-                "False",
-                "True",
-                "True",
-                "False"
-        };
         Random rand = new Random();
-        int indx =rand.nextInt(questions.length);
 
-        String randomQuestion = questions[indx];
+
+        difficulty = new Alert(Alert.AlertType.CONFIRMATION);
+        difficulty.setTitle("Select difficulty");
+        difficulty.setHeaderText("Select difficulty");
+        difficulty.setContentText("Choose your option.");
+
+        ButtonType buttonTypeOne = new ButtonType("Easy");
+        ButtonType buttonTypeTwo = new ButtonType("Medium");
+        ButtonType buttonTypeThree = new ButtonType("Hard");
+        difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
+
+        indx =rand.nextInt(questions.length);
+
+        randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -58,15 +79,15 @@ public class practiceTF extends Scene {
         Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
         exitButton.setGraphic(new ImageView(exitButtonImage));
 
-        Label questionLabel = new Label(randomQuestion);
+        questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        RadioButton choice1 = new RadioButton("True");
-        RadioButton choice2 = new RadioButton("False");
+        choice1 = new RadioButton("True");
+        choice2 = new RadioButton("False");
 
 
         ToggleGroup choicesGroup = new ToggleGroup();
         choicesGroup.getToggles().addAll(choice1, choice2);
-        Button submitButton = new Button("Submit");
+        submitButton = new Button("Submit");
 
         // Setting the font and color for the answers
         choice1.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
@@ -77,21 +98,19 @@ public class practiceTF extends Scene {
         submitButton.setOnAction(event -> {
             RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
             String ansString=selectedChoice.getText();
-
-            if (ansString.equals(answers[indx])) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
-                alert.showAndWait();
-                score.addScore();
-                score.addTrys();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
-                alert.showAndWait();
-                score.addTrys();
-            }
+            checkAns(ansString);
+            updateQuestionLabel();
         });
 
 
         exitButton.setOnAction(e -> {
+        });
+
+        resetButton.setOnAction(e -> {
+            score.setScore(0);
+            score.setTrys(0);
+            updateQuestionLabel();
+            root.getChildren().addAll(choice1, choice2, submitButton);
         });
 
         toolBar.getItems().addAll(resetButton, exitButton);
@@ -145,6 +164,46 @@ public class practiceTF extends Scene {
         }
     }
 
+    public int getScore() {
+        return score.getScore();
+    }
+
+    // Gives a random variable
+    public int getrandnum(int num){
+        Random rand = new Random();
+        return (rand.nextInt(num));
+    }
+    public void checkAns(String ans) {
+        if (ans.equals(answers[indx])) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
+            alert.showAndWait();
+            score.addScore();
+            score.addTrys();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
+            alert.showAndWait();
+            score.addTrys();
+        }
+    }
+
+    public void updateQuestionLabel() {
+        //These lines generate a new random question each time Submit is pressed
+        if (score.getTrys() < 5){
+            indx = getrandnum(questions.length);
+            randomQuestion = questions[indx];
+            questionLabel.setText(randomQuestion);
+
+
+        } else {
+            randomQuestion = score.getresult();
+            questionLabel.setText(randomQuestion);
+            root.getChildren().removeAll(choice1, choice2, submitButton);
+        }
+    }
+
+    public void setGrade(char gr) {
+        this.grade = gr;
+    }
 
 }
 

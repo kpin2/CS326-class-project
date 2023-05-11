@@ -7,13 +7,13 @@ public class Questions {
     private int a,b;
     static char operation;
     static int answer;
-    private Random ran = new Random();
+    private Random ran;
     static char [] ops = {'+','-','*','/'};
     private char actualOp;
 
     public Questions(char grade)
     {
-
+        ran = new Random();
         if(grade=='k')
         {
             a = ran.nextInt(21);
