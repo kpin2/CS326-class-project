@@ -74,7 +74,7 @@ public class mainDriver extends Application {
         stage.getIcons().addAll(smShip, px64Ship, px48Ship, asteroid, asteroidSmall, comet, comet2);
 
         //setting the stage to the beginning scene
-        stage.setScene(this.finalResult.getScene());
+        stage.setScene(this.beginningScene.getScene());
 
         //event handling for beginning scene
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
@@ -123,9 +123,7 @@ public class mainDriver extends Application {
         });
 
         ///this will bring the user back to the beginning scene
-        this.selectionScene.exitButton.setOnAction(e -> {
-            this.switchScene(stage, this.beginningScene.getScene());
-        });
+        this.selectionScene.exitButton.setOnAction(e -> this.switchScene(stage, this.beginningScene.getScene()));
 
         //once login is successful, switch to the landing scene
         this.loginScene.loginButton.setOnAction(e -> {
@@ -272,6 +270,26 @@ public class mainDriver extends Application {
 
         });
 
+        this.andromedaScene.getHomeButton().setOnAction(e -> {
+            this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+            this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+            this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
+            this.switchScene(stage, this.landingScene.getScene());
+        });
+
+        this.cosmicScene.getHomeButton().setOnAction(e -> {
+            this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+            this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+            this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
+            this.switchScene(stage, this.landingScene.getScene());
+        });
+
+        this.intergallacticScene.getHomeButton().setOnAction(e -> {
+            this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+            this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+            this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
+            this.switchScene(stage, this.landingScene.getScene());
+        });
 
         stage.show();
     }
