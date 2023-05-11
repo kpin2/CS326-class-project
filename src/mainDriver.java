@@ -25,7 +25,7 @@ public class mainDriver extends Application {
     private final landingScene landingScene;
     private final IntergallacticAlgebra intergallacticScene;
     private final CosmicCountingScene cosmicScene;
-    private final practiceExamScene practiceExamScene;
+
     private final beginningScene beginningScene;
     private final FinalResult finalResult;
     private final databaseOps dbOps;
@@ -38,7 +38,6 @@ public class mainDriver extends Application {
         this.landingScene = new landingScene();
         this.intergallacticScene = new IntergallacticAlgebra();
         this.cosmicScene = new CosmicCountingScene();
-        this.practiceExamScene = new practiceExamScene();
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
         this.finalResult = new FinalResult();
@@ -79,7 +78,7 @@ public class mainDriver extends Application {
 
         //event handling for beginning scene
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
-        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
+        this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.landingScene.getScene()));
 
         //account creation
         final String[] userN = {""};
