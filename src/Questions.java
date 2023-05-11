@@ -115,6 +115,10 @@ public class Questions {
     {
         return "What is " + a + operation + b + " equal to?\n";
     }
+    public String getTFQuestion()
+    {
+        return " " + a + operation + b + " is equal to  ";
+    }
 
     public int getAnswer()
     {
