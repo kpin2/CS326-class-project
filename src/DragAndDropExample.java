@@ -42,14 +42,45 @@ public class DragAndDropExample extends Application {
         Questions questions1 = new Questions(k);
 
 
-        //creating toolbar for the reset and exit buttons
-        ToolBar toolBar = new ToolBar();
 
-        Button exitButton = new Button("Exit");
+
         Button resetButton = new Button("Reset");
+        resetButton.setLayoutX(250);
 
-        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
-        exitButton.setGraphic(new ImageView(exitButtonImage));
+        landingScene landingScene = new landingScene();
+        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton.setLayoutX(-100);
+        homeButton.setLayoutY(200);
+        homeButton.setStyle("-fx-background-color: transparent;");
+
+        Image exitButtonImage = new Image("file:resources/assets/exit.png");
+        ImageView exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
+        Button exitButton = new Button("", exitButtonImageView);
+        exitButton.setLayoutX(-5);
+        exitButton.setLayoutY(-5);
+        exitButton.setStyle("-fx-background-color: transparent;");
+
+        ImageView smallShip = landingScene.getSmallShipImageView();
+        smallShip.setLayoutX(95);
+        smallShip.setLayoutY(152);
+        smallShip.setRotate(-25);
+
+        Image helpButtonImage = new Image("file:resources/assets/help2.png");
+        ImageView helpButtonImageView = new ImageView(helpButtonImage);
+        helpButtonImageView.setFitHeight(96);
+        helpButtonImageView.setFitWidth(96);
+        Button helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(96);
+        helpButton.setLayoutY(5);
+        helpButton.setStyle("-fx-background-color: transparent;");
+        helpButton.setVisible(false);
+
+        root.getChildren().addAll(smallShip, homeButton, helpButton, exitButton);
+
+
+
         String answer = new String(String.valueOf(questions1.getAnswer()));
 
         Label questionLabel = new Label(questions1.getQuestion());
@@ -101,12 +132,10 @@ public class DragAndDropExample extends Application {
         });
 
 
-        exitButton.setOnAction(e -> {
-            stage.close();
-        });
 
-        toolBar.getItems().addAll(resetButton, exitButton);
-        root.getChildren().addAll(toolBar, text, questionLabel, choice1, choice2, choice3, choice4, submitButton);
+
+
+        root.getChildren().addAll(resetButton, text, questionLabel, choice1, choice2, choice3, choice4, submitButton);
         double sceneWidth = scene.getWidth();
         double sceneHeight = scene.getHeight();
 

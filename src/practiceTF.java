@@ -41,9 +41,10 @@ public class practiceTF extends Scene {
     private int indx;
 
     public Alert difficulty;
+
     public practiceTF() {
 
-        super(new Pane(),1366, 768);
+        super(new Pane(), 1366, 768);
         root = new Pane();
         practiceTF = new Scene(root, 1366, 768);
         score = new scoreboard();
@@ -60,7 +61,7 @@ public class practiceTF extends Scene {
         ButtonType buttonTypeThree = new ButtonType("Hard");
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
-        indx =rand.nextInt(questions.length);
+        indx = rand.nextInt(questions.length);
 
         randomQuestion = questions[indx];
 
@@ -71,13 +72,12 @@ public class practiceTF extends Scene {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-        ToolBar toolBar = new ToolBar();
 
-        exitButton = new Button("Exit");
+
         resetButton = new Button("Reset");
+        resetButton.setLayoutX(250);
+        resetButton.setLayoutY(10);
 
-        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
-        exitButton.setGraphic(new ImageView(exitButtonImage));
 
         questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
@@ -94,17 +94,13 @@ public class practiceTF extends Scene {
         choice2.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 
 
-
         submitButton.setOnAction(event -> {
             RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
-            String ansString=selectedChoice.getText();
+            String ansString = selectedChoice.getText();
             checkAns(ansString);
             updateQuestionLabel();
         });
 
-
-        exitButton.setOnAction(e -> {
-        });
 
         resetButton.setOnAction(e -> {
             score.setScore(0);
@@ -113,8 +109,7 @@ public class practiceTF extends Scene {
             root.getChildren().addAll(choice1, choice2, submitButton);
         });
 
-        toolBar.getItems().addAll(resetButton, exitButton);
-        root.getChildren().addAll(toolBar, text, questionLabel, choice1, choice2, submitButton);
+        root.getChildren().addAll(resetButton, text, questionLabel, choice1, choice2, submitButton);
         double sceneWidth = practiceTF.getWidth();
         double sceneHeight = practiceTF.getHeight();
 
@@ -128,38 +123,59 @@ public class practiceTF extends Scene {
         submitButton.setLayoutY(sceneHeight / 2 + 100);
 
 
-   /*     WebView webview = new WebView();
-        webview.getEngine().load(
+        landingScene landingScene = new landingScene();
+        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton.setLayoutX(-100);
+        homeButton.setLayoutY(200);
+        homeButton.setStyle("-fx-background-color: transparent;");
 
-                "https://www.youtube.com/embed/lBCIGY3dWXQ" //be sure to get the YouTube embed URL
-        );
-        webview.setPrefSize(640, 390);
-        webview.setLayoutX(0);
-        webview.setLayoutY(0);
-        root2.getChildren().add(webview);
-        scene.setRoot(root2);*/
+        Image exitButtonImage = new Image("file:resources/assets/exit.png");
+        ImageView exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
+        exitButton = new Button("", exitButtonImageView);
+        exitButton.setLayoutX(-5);
+        exitButton.setLayoutY(-5);
+        exitButton.setStyle("-fx-background-color: transparent;");
+
+        ImageView smallShip = landingScene.getSmallShipImageView();
+        smallShip.setLayoutX(95);
+        smallShip.setLayoutY(152);
+        smallShip.setRotate(-25);
+
+        Image helpButtonImage = new Image("file:resources/assets/help2.png");
+        ImageView helpButtonImageView = new ImageView(helpButtonImage);
+        helpButtonImageView.setFitHeight(96);
+        helpButtonImageView.setFitWidth(96);
+        Button helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(96);
+        helpButton.setLayoutY(5);
+        helpButton.setStyle("-fx-background-color: transparent;");
+        helpButton.setVisible(false);
+
+        root.getChildren().addAll(smallShip, homeButton, helpButton, exitButton);
 
 
     }
 
-    public Scene getScene(){
+    public Scene getScene() {
         return practiceTF;
     }
-    public Button getExitButton(){
+
+    public Button getExitButton() {
 
         return exitButton;
     }
 
-    public Button getResetButton(){
+    public Button getResetButton() {
 
         return resetButton;
     }
 
     public String getScoreResult() {
-        if(score.getTrys() > 0) {
+        if (score.getTrys() > 0) {
             return "Result : " + score.getScore() + " / " + score.getTrys();
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -169,10 +185,11 @@ public class practiceTF extends Scene {
     }
 
     // Gives a random variable
-    public int getrandnum(int num){
+    public int getrandnum(int num) {
         Random rand = new Random();
         return (rand.nextInt(num));
     }
+
     public void checkAns(String ans) {
         if (ans.equals(answers[indx])) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
@@ -188,7 +205,7 @@ public class practiceTF extends Scene {
 
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
-        if (score.getTrys() < 5){
+        if (score.getTrys() < 5) {
             indx = getrandnum(questions.length);
             randomQuestion = questions[indx];
             questionLabel.setText(randomQuestion);

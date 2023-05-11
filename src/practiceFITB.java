@@ -6,7 +6,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 
 public class practiceFITB extends Scene {
 
@@ -16,7 +15,7 @@ public class practiceFITB extends Scene {
 
     public int indx;
 
-   public String randomQuestion;
+    public String randomQuestion;
 
     private Questions questions1;
     private char grade;
@@ -29,9 +28,10 @@ public class practiceFITB extends Scene {
     private TextField answerField;
     private Label questionLabel;
     public Alert difficulty;
+
     public practiceFITB() {
 
-        super(new Pane(),1366, 768);
+        super(new Pane(), 1366, 768);
         root = new Pane();
         practiceFITB = new Scene(root, 1366, 768);
 
@@ -46,7 +46,6 @@ public class practiceFITB extends Scene {
         grade = 'k';
         questions1 = new Questions(grade);
         randomQuestion = questions1.getQuestion();
-//        System.out.println("practiceFITB constructor and question is : " + randomQuestion);
 
         answerField = new TextField();
         answerField.setLayoutX(580);
@@ -58,11 +57,6 @@ public class practiceFITB extends Scene {
         ButtonType buttonTypeThree = new ButtonType("Hard");
 
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
-//        difficulty.showAndWait();
-
-
-
-
 
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -72,12 +66,26 @@ public class practiceFITB extends Scene {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-//        ToolBar toolBar = new ToolBar();
 
 
         resetButton = new Button("Reset");
-        resetButton.setLayoutX(110);
+        resetButton.setLayoutX(250);
         resetButton.setLayoutY(10);
+
+
+        questionLabel = new Label(randomQuestion);
+        questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
+        questionLabel.setText(randomQuestion);
+        questionLabel.setLayoutX(580);
+        questionLabel.setLayoutY(300);
+
+        submitButton = new Button("Submit");
+
+        landingScene landingScene = new landingScene();
+        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton.setLayoutX(-100);
+        homeButton.setLayoutY(200);
+        homeButton.setStyle("-fx-background-color: transparent;");
 
         Image exitButtonImage = new Image("file:resources/assets/exit.png");
         ImageView exitButtonImageView = new ImageView(exitButtonImage);
@@ -87,25 +95,30 @@ public class practiceFITB extends Scene {
         exitButton.setLayoutX(-5);
         exitButton.setLayoutY(-5);
         exitButton.setStyle("-fx-background-color: transparent;");
-//        resetButton.setStyle("-fx-background-color: transparent;");
 
-        questionLabel = new Label(randomQuestion);
-        questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        questionLabel.setText(randomQuestion);
-        questionLabel.setLayoutX(580);
-        questionLabel.setLayoutY(300);
+        ImageView smallShip = landingScene.getSmallShipImageView();
+        smallShip.setLayoutX(95);
+        smallShip.setLayoutY(152);
+        smallShip.setRotate(-25);
 
+        Image helpButtonImage = new Image("file:resources/assets/help2.png");
+        ImageView helpButtonImageView = new ImageView(helpButtonImage);
+        helpButtonImageView.setFitHeight(96);
+        helpButtonImageView.setFitWidth(96);
+        Button helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(96);
+        helpButton.setLayoutY(5);
+        helpButton.setStyle("-fx-background-color: transparent;");
+        helpButton.setVisible(false);
 
-        submitButton = new Button("Submit");
+        root.getChildren().addAll(smallShip, homeButton, helpButton);
 
-
-        //Label finalQuestionLabel = questionLabel;
 
 
         root.getChildren().add(questionLabel);
         submitButton.setOnAction(event -> {
 
-            String ansString=answerField.getText();
+            String ansString = answerField.getText();
             Integer newAnswer = questions1.getAnswer();
             checkAns(ansString, newAnswer.toString());
             updateQuestionLabel();
@@ -150,13 +163,7 @@ public class practiceFITB extends Scene {
         });
 
 
-
-        //finalQuestionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        //finalQuestionLabel.setLayoutX(580);
-        //finalQuestionLabel.setLayoutY(300);
-
-//        toolBar.getItems().addAll(resetButton,exitButton);
-        root.getChildren().addAll(resetButton, exitButton, text,  submitButton);
+        root.getChildren().addAll(resetButton, exitButton, text, submitButton);
 
         double sceneWidth = practiceFITB.getWidth();
         double sceneHeight = practiceFITB.getHeight();
@@ -168,15 +175,10 @@ public class practiceFITB extends Scene {
         submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
         submitButton.setLayoutY(sceneHeight / 2 + 100);
 
-
-
-
-
-
     }
 
 
-    public Scene getScene(){
+    public Scene getScene() {
         return practiceFITB;
     }
 
@@ -184,22 +186,20 @@ public class practiceFITB extends Scene {
     public int getScore() {
         return score.getScore();
     }
-    // Gives a random variable
-    public Button getExitButton(){
 
+    // Gives a random variable
+    public Button getExitButton() {
         return exitButton;
     }
 
-    public Button getResetButton(){
-
+    public Button getResetButton() {
         return resetButton;
     }
 
     public String getScoreResult() {
-        if(score.getTrys() > 0) {
+        if (score.getTrys() > 0) {
             return "Result : " + score.getScore() + " / " + score.getTrys();
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -224,7 +224,7 @@ public class practiceFITB extends Scene {
 
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
-        if (score.getTrys() < 5){
+        if (score.getTrys() < 5) {
             Questions newQuestion = new Questions(grade);
             randomQuestion = newQuestion.getQuestion();
             questionLabel.setText(randomQuestion);
@@ -233,7 +233,7 @@ public class practiceFITB extends Scene {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
-            root.getChildren().removeAll(submitButton,answerField);
+            root.getChildren().removeAll(submitButton, answerField);
         }
     }
 

@@ -74,18 +74,17 @@ public class mainDriver extends Application {
         final Image comet2 = new Image("file:resources/assets/Comet-PNG-File.png");
         stage.getIcons().addAll(smShip, px64Ship, px48Ship, asteroid, asteroidSmall, comet, comet2);
 
-
-        //start at the beginning scene and handle click events
+        //setting the stage to the beginning scene
         stage.setScene(this.beginningScene.getScene());
 
-
+        //event handling for beginning scene
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
         this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
 
 
+        //account creation
         final String[] userN = {""};
         final String[] passW = {""};
-        //account creation
 
         this.accountCreation.register.setOnAction(e -> {
             if (this.accountCreation.password.getText().length() >= 8) {
@@ -157,7 +156,6 @@ public class mainDriver extends Application {
         /* Confirm  */
         this.landingScene.getExitButton().setOnAction(e -> {
 
-
             final Alert logoutConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
             logoutConfirmation.setTitle("Logout and Return to Login Screen");
             logoutConfirmation.setHeaderText("Are you sure you want to logout?");
@@ -208,6 +206,8 @@ public class mainDriver extends Application {
 
             this.switchScene(stage, this.practiceTF.getScene());
         });
+
+
         this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
 
 
