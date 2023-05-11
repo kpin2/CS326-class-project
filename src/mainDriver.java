@@ -84,6 +84,8 @@ public class mainDriver extends Application {
         final String[] userN = {""};
         final String[] passW = {""};
 
+        ///checks to see if password being inputted is at least 8 characters long
+        ///if it is it will save the username and password and move to the next step of the account creation process
         this.accountCreation.register.setOnAction(e -> {
             if (this.accountCreation.password.getText().length() >= 8) {
                 {
@@ -94,7 +96,8 @@ public class mainDriver extends Application {
             }
         });
 
-
+        ///it will check to see if the username already exists and provide a corresponding error message
+        ///If there is no error, in which the username inputted is unique, it will add the information that had selected and inputted by the user such as the username, password, and the selected avatar
         this.selectionScene.confirmBtn.setOnAction(e -> {
             try {
                 if (this.dbOps.addUser(userN[0], passW[0], this.selectionScene.avatar)) {
@@ -111,7 +114,7 @@ public class mainDriver extends Application {
             }
         });
 
-
+        ///this allows the user to go back and change what they want their username or password to be, making the value of the username, password, and user's avatar null until they input what they want for each field
         selectionScene.back.setOnAction(e -> {
             userN[0] = "";
             passW[0] = "";
@@ -119,6 +122,7 @@ public class mainDriver extends Application {
             switchScene(stage, accountCreation.getScene());
         });
 
+        ///this will bring the user back to the beginning scene
         this.selectionScene.exitButton.setOnAction(e -> {
             this.switchScene(stage, this.beginningScene.getScene());
         });
