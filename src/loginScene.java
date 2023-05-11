@@ -68,18 +68,21 @@ public class loginScene extends Scene {
 
         ToolBar toolBar = new ToolBar();
 
-        exitButton = new Button("Exit");
-        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
-        exitButton.setGraphic(new ImageView(exitButtonImage));
+        Image exitButtonImage = new Image("file:resources/assets/exit.png");
+        ImageView exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
+        exitButton = new Button("", exitButtonImageView);
+        exitButton.setLayoutX(-5);
+        exitButton.setLayoutY(-5);
+        exitButton.setStyle("-fx-background-color: transparent;");
+
 
         loginButton = new Button("Login");
         toolBar.setLayoutX(683);
         toolBar.setLayoutY(530);
         toolBar.getItems().add(loginButton);
 
-        landingScene landingScene = new landingScene();
-        exitButton = landingScene.getExitButton();
-        exitButton.setStyle("-fx-background-color: transparent;");
 
         avatarImage = new ImageView();
         avatarImage.setFitWidth(500);

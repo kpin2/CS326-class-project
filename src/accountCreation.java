@@ -98,7 +98,7 @@ public class accountCreation extends Scene {
         confirm.getText();
 
         final ToolBar toolBar = new ToolBar();
-        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
+        Image exitButtonImage = new Image("file:resources/assets/exit.png");
         ImageView exitButtonImageView = new ImageView(exitButtonImage);
         exitButtonImageView.setFitHeight(96);
         exitButtonImageView.setFitWidth(96);

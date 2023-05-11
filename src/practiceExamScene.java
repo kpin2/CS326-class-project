@@ -12,6 +12,7 @@ import java.util.Random;
 public class practiceExamScene extends Scene {
 
     private Scene practiceExamScene;
+    private Button exitButton;
 
     public practiceExamScene() {
 
@@ -39,13 +40,42 @@ public class practiceExamScene extends Scene {
         Text text = new Text(375, 130, "Mission: Math!");
         text.setFont(Font.loadFont("file:resources/font/SpaceMission.otf", 64));
         text.setFill(Color.RED);
-        ToolBar toolBar = new ToolBar();
 
-        Button exitButton = new Button("Exit");
         Button resetButton = new Button("Reset");
+        resetButton.setLayoutX(250);
 
-        Image exitButtonImage = new Image("file:resources/assets/Exit Button.png");
-        exitButton.setGraphic(new ImageView(exitButtonImage));
+        landingScene landingScene = new landingScene();
+        Button homeButton = landingScene.getAsteroidHomeButton();
+        homeButton.setLayoutX(-100);
+        homeButton.setLayoutY(200);
+        homeButton.setStyle("-fx-background-color: transparent;");
+
+        Image exitButtonImage = new Image("file:resources/assets/exit.png");
+        ImageView exitButtonImageView = new ImageView(exitButtonImage);
+        exitButtonImageView.setFitHeight(96);
+        exitButtonImageView.setFitWidth(96);
+        exitButton = new Button("", exitButtonImageView);
+        exitButton.setLayoutX(-5);
+        exitButton.setLayoutY(-5);
+        exitButton.setStyle("-fx-background-color: transparent;");
+
+        ImageView smallShip = landingScene.getSmallShipImageView();
+        smallShip.setLayoutX(95);
+        smallShip.setLayoutY(152);
+        smallShip.setRotate(-25);
+
+        Image helpButtonImage = new Image("file:resources/assets/help2.png");
+        ImageView helpButtonImageView = new ImageView(helpButtonImage);
+        helpButtonImageView.setFitHeight(96);
+        helpButtonImageView.setFitWidth(96);
+        Button helpButton = new Button("", helpButtonImageView);
+        helpButton.setLayoutX(96);
+        helpButton.setLayoutY(5);
+        helpButton.setStyle("-fx-background-color: transparent;");
+        helpButton.setVisible(false);
+
+        root.getChildren().addAll(smallShip, homeButton, helpButton,exitButton);
+
 
         Label questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
@@ -75,11 +105,8 @@ public class practiceExamScene extends Scene {
         });
 
 
-        exitButton.setOnAction(e -> {
-        });
 
-        toolBar.getItems().addAll(resetButton, exitButton);
-        root.getChildren().addAll(toolBar, text, questionLabel, choice1, choice2, choice3, choice4, submitButton);
+        root.getChildren().addAll(resetButton, text, questionLabel, choice1, choice2, choice3, choice4, submitButton);
         double sceneWidth = practiceExamScene.getWidth();
         double sceneHeight = practiceExamScene.getHeight();
 

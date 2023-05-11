@@ -24,6 +24,10 @@ public class landingScene extends Scene {
 
     //declaring class variables
     private final Scene landingScene;
+
+
+
+    private final ImageView smallShipImageView;
     private String username;
     private Button exitButton;
     private Button helpButton;
@@ -33,16 +37,16 @@ public class landingScene extends Scene {
     private Button intergalacticAlgebra;
 
     private Image avatarImage;
-    private ImageView avatarImageView;
+    private final ImageView avatarImageView;
     private Button avatarButton;
 
 
     private Rectangle avatarDisplay;
 
 
-    private Text cosmicCountingResultText;
-    private Text andromedaResultText;
-    private Text intergalacticAlgebraResultText;
+    private final Text cosmicCountingResultText;
+    private final Text andromedaResultText;
+    private final Text intergalacticAlgebraResultText;
 
 
     public landingScene() {
@@ -115,7 +119,7 @@ public class landingScene extends Scene {
         cosmicCountingImage = new Image("file:resources/assets/planet 300x250.png");
 
         //image views for the buttons and other assets
-        ImageView exitButtonImageView, helpButtonImageView, asteroidHomeImageView, smallShipImageView, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView;
+        ImageView exitButtonImageView, helpButtonImageView, asteroidHomeImageView, andromedaPlanetImageView, galaxyImageView, cosmicCountingImageView;
 
         //exit and help buttons
         exitButtonImageView = new ImageView(exitButtonImage);
@@ -199,7 +203,7 @@ public class landingScene extends Scene {
         });
 
 
-        //Galactic Geometry assets
+        //Intergalactic Algebra
         galaxyImageView = new ImageView(galaxyImage);
         galaxyImageView.setFitHeight(379);
         galaxyImageView.setFitWidth(800);
@@ -340,7 +344,9 @@ public class landingScene extends Scene {
         this.intergalacticAlgebraResultText.setText(msg);
     }
 
-
+    public ImageView getSmallShipImageView() {
+        return smallShipImageView;
+    }
     public Button getAvatarButton() {
         return avatarButton;
     }
