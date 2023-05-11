@@ -1,3 +1,18 @@
+/**
+ * Professor these are all the practice tests/tutorials and stuff that was missing from our project. To run them
+ * they just need to be moved up one level to the "src" folder, that's why it's giving an error about the package.
+ * To load directly into these scenes, just edit line 77 of mainDriver.java and replace:
+ * <p>
+ *        //setting the stage to the beginning scene
+ *         stage.setScene(this.beginningScene.getScene());
+ *                              ^^^ replace with: this.practiceFITB.getScene() or this.practiceTF.getScene()
+ *                              or this.practiceExamScene.getScene()
+ * </p>
+ * We deleted all of this right before the presentation since it was unfinished. But if you look on all the other
+ * scenes throughout the project there is a "helpButton" that is added and hidden, that would have led to those
+ * scenes if they were finished.
+ * */
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;

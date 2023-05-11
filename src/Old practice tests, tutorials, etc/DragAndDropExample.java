@@ -1,3 +1,12 @@
+/**
+ * Professor these are all the practice tests/tutorials and stuff that was missing from our project. To run them
+ * they just need to be moved up one level to the "src" folder, that's why it's giving an error about the package.
+ * <p>
+ * We deleted all of this right before the presentation since it was unfinished. But if you look on all the other
+ * scenes throughout the project there is a "helpButton" that is added and hidden, that would have led to those scenes
+ * if they were finished.
+ * */
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
