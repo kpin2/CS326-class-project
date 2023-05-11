@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 /**
  * Class: IntergallacticAlgebraScene
@@ -32,6 +33,7 @@ public class IntergallacticAlgebra extends Scene {
     private TextField answerField;
     private Label questionLabel;
     public Alert difficulty;
+    ImageView imageView;
 
     public IntergallacticAlgebra() {
 
@@ -65,6 +67,17 @@ public class IntergallacticAlgebra extends Scene {
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
+
+        //imageView to hold medals image
+        imageView = new ImageView();
+        Scale scaleTransformation = new Scale();
+        scaleTransformation.setX(0.70);
+        scaleTransformation.setY(0.70);
+        scaleTransformation.setPivotX(600);
+        scaleTransformation.setPivotY(400);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
+        imageView.getTransforms().add(scaleTransformation);
 
         //Setting the font
         Text text = new Text(375, 130, "Mission: Math!");
@@ -241,12 +254,45 @@ public class IntergallacticAlgebra extends Scene {
             if(!root.getChildren().contains(answerField)) {
                 root.getChildren().add(answerField);
             }
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
             //root.getChildren().addAll(submitButton, answerField);
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
             root.getChildren().removeAll(submitButton, answerField);
+
+            Image medalBronze = new Image("file:resources/assets/medalbronze.png");
+            //ImageView imageViewBronze = new ImageView(medalBronze);
+
+            Image medalSilver = new Image("file:resources/assets/medalsilver.png");
+            //ImageView imageViewSilver = new ImageView(medalSilver);
+
+            Image medalGold = new Image("file:resources/assets/medalgold.png");
+            //ImageView imageViewGold = new ImageView(medalGold);
+
+
+
+            if(root.getChildren().contains(imageView)) {
+                root.getChildren().remove(imageView);
+            }
+
+
+            if(score.getScore() == 3){
+                imageView.setImage(medalBronze);
+                root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 4){
+                imageView.setImage(medalSilver);
+                root.getChildren().add(imageView);
+            }
+            if(score.getScore() == 5){
+                imageView.setImage(medalGold);
+                root.getChildren().add(imageView);
+            }
+
         }
     }
 
