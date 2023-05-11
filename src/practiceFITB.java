@@ -7,13 +7,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Class: IntergallacticAlgebraScene
+ * Generates the scene for Fill in the blank Questions
+ */
+
 public class practiceFITB extends Scene {
 
-    private final Scene practiceFITB;
+    private final Scene intergallacticScene;
     private Pane root;
+    // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
-
-    public int indx;
 
     public String randomQuestion;
 
@@ -33,7 +37,7 @@ public class practiceFITB extends Scene {
 
         super(new Pane(), 1366, 768);
         root = new Pane();
-        practiceFITB = new Scene(root, 1366, 768);
+        intergallacticScene = new Scene(root, 1366, 768);
 
         score = new scoreboard();
 
@@ -154,19 +158,14 @@ public class practiceFITB extends Scene {
         resetButton.setOnAction(e -> {
             score.setScore(0);
             score.setTrys(0);
-            questions1 = new Questions(grade);
-            randomQuestion = questions1.getQuestion();
-            questionLabel.setText(randomQuestion);
-            questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-            answerField.clear();
-
+            updateQuestionLabel();
         });
 
 
         root.getChildren().addAll(resetButton, exitButton, text, submitButton);
 
-        double sceneWidth = practiceFITB.getWidth();
-        double sceneHeight = practiceFITB.getHeight();
+        double sceneWidth = intergallacticScene.getWidth();
+        double sceneHeight = intergallacticScene.getHeight();
 
      /*   questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
         questionLabel.setLayoutY(sceneHeight / 2 - 80);
@@ -179,7 +178,7 @@ public class practiceFITB extends Scene {
 
 
     public Scene getScene() {
-        return practiceFITB;
+        return intergallacticScene;
     }
 
 
@@ -228,7 +227,15 @@ public class practiceFITB extends Scene {
             Questions newQuestion = new Questions(grade);
             randomQuestion = newQuestion.getQuestion();
             questionLabel.setText(randomQuestion);
+            questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
             answerField.clear();
+            if(!root.getChildren().contains(submitButton)) {
+                root.getChildren().add(submitButton);
+            }
+            if(!root.getChildren().contains(answerField)) {
+                root.getChildren().add(answerField);
+            }
+            //root.getChildren().addAll(submitButton, answerField);
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);

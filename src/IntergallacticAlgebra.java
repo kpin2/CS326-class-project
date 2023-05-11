@@ -7,55 +7,39 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.Random;
 /**
- * Class: CosmicCountingScene
+ * Class: IntergallacticAlgebraScene
  * Generates the scene for Fill in the blank Questions
  */
 
-public class practiceTF extends Scene {
+public class IntergallacticAlgebra extends Scene {
 
-    private final Scene practiceTF;
+    private final Scene intergallacticScene;
     private Pane root;
     // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
-    // Toolbar buttons to exit or reset the scene
+
+    public String randomQuestion;
+
+    private Questions questions1;
+    private char grade;
+    //private Label questionLabel;
+    private String finalQuestion, finalAnswer;
+
     private Button exitButton;
     private Button resetButton;
-    // Button used to indicate response is ready
     private Button submitButton;
-    private RadioButton choice1, choice2;
+    private TextField answerField;
     private Label questionLabel;
-    private String randomQuestion;
-    private char grade;
-
-
-    private String[] questions = {
-            "2 + 2 equals 4",
-            "A quadrilateral has 3 sides",
-            "16/4 equals 4",
-            "A triangle has 3 sides",
-            "4 - 2 equals 6"
-    };
-    private String[] answers = {
-            "True",
-            "False",
-            "True",
-            "True",
-            "False"
-    };
-
-    private int indx;
-
     public Alert difficulty;
 
-    public practiceTF() {
+    public IntergallacticAlgebra() {
 
         super(new Pane(), 1366, 768);
         root = new Pane();
-        practiceTF = new Scene(root, 1366, 768);
+        intergallacticScene = new Scene(root, 1366, 768);
+
         score = new scoreboard();
-        Random rand = new Random();
 
 
         difficulty = new Alert(Alert.AlertType.CONFIRMATION);
@@ -63,14 +47,21 @@ public class practiceTF extends Scene {
         difficulty.setHeaderText("Select difficulty");
         difficulty.setContentText("Choose your option.");
 
+        grade = 'k';
+        questions1 = new Questions(grade);
+        randomQuestion = questions1.getQuestion();
+
+        answerField = new TextField();
+        answerField.setLayoutX(580);
+        answerField.setLayoutY(330);
+        root.getChildren().add(answerField);
+
         ButtonType buttonTypeOne = new ButtonType("Easy");
         ButtonType buttonTypeTwo = new ButtonType("Medium");
         ButtonType buttonTypeThree = new ButtonType("Hard");
+
         difficulty.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeThree);
 
-        indx = rand.nextInt(questions.length);
-
-        randomQuestion = questions[indx];
 
         BackgroundImage myBI = new BackgroundImage(new Image("file:resources/assets/background.png", 1366, 768, false, true), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
@@ -88,46 +79,11 @@ public class practiceTF extends Scene {
 
         questionLabel = new Label(randomQuestion);
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        choice1 = new RadioButton("True");
-        choice2 = new RadioButton("False");
+        questionLabel.setText(randomQuestion);
+        questionLabel.setLayoutX(580);
+        questionLabel.setLayoutY(300);
 
-
-        ToggleGroup choicesGroup = new ToggleGroup();
-        choicesGroup.getToggles().addAll(choice1, choice2);
         submitButton = new Button("Submit");
-
-        // Setting the font and color for the answers
-        choice1.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-        choice2.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-
-
-        submitButton.setOnAction(event -> {
-            RadioButton selectedChoice = (RadioButton) choicesGroup.getSelectedToggle();
-            String ansString = selectedChoice.getText();
-            checkAns(ansString);
-            updateQuestionLabel();
-        });
-
-
-        resetButton.setOnAction(e -> {
-            score.setScore(0);
-            score.setTrys(0);
-            updateQuestionLabel();
-        });
-
-        root.getChildren().addAll(resetButton, text, questionLabel, choice1, choice2, submitButton);
-        double sceneWidth = practiceTF.getWidth();
-        double sceneHeight = practiceTF.getHeight();
-
-        questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
-        questionLabel.setLayoutY(sceneHeight / 2 - 80);
-        choice1.setLayoutX(sceneWidth / 2 - choice1.getWidth() / 2);
-        choice1.setLayoutY(sceneHeight / 2 - 50);
-        choice2.setLayoutX(sceneWidth / 2 - choice2.getWidth() / 2);
-        choice2.setLayoutY(sceneHeight / 2 - 20);
-        submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
-        submitButton.setLayoutY(sceneHeight / 2 + 100);
-
 
         landingScene landingScene = new landingScene();
         Button homeButton = landingScene.getAsteroidHomeButton();
@@ -159,22 +115,83 @@ public class practiceTF extends Scene {
         helpButton.setStyle("-fx-background-color: transparent;");
         helpButton.setVisible(false);
 
-        root.getChildren().addAll(smallShip, homeButton, helpButton, exitButton);
+        root.getChildren().addAll(smallShip, homeButton, helpButton);
 
+
+
+        root.getChildren().add(questionLabel);
+        submitButton.setOnAction(event -> {
+
+            String ansString = answerField.getText();
+            Integer newAnswer = questions1.getAnswer();
+            checkAns(ansString, newAnswer.toString());
+            updateQuestionLabel();
+            /*
+            if (ansString.equals(newAnswer.toString())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
+                alert.showAndWait();
+                score.addScore();
+                score.addTrys();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong!");
+                alert.showAndWait();
+                score.addTrys();
+            }
+          //These lines generate a new random question each time Submit is pressed
+           if (score.getTrys() < 5){
+               questions1 = new Questions(grade);
+               randomQuestion = questions1.getQuestion();
+               finalQuestionLabel.setText(randomQuestion);
+               answerField.clear();
+
+            } else {
+               randomQuestion = score.getresult();
+               finalQuestionLabel.setText(randomQuestion);
+               finalQuestionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
+               root.getChildren().removeAll(submitButton,answerField);
+           }
+
+             */
+        });
+
+
+        resetButton.setOnAction(e -> {
+            score.setScore(0);
+            score.setTrys(0);
+            updateQuestionLabel();
+        });
+
+
+        root.getChildren().addAll(resetButton, exitButton, text, submitButton);
+
+        double sceneWidth = intergallacticScene.getWidth();
+        double sceneHeight = intergallacticScene.getHeight();
+
+     /*   questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
+        questionLabel.setLayoutY(sceneHeight / 2 - 80);
+        a.setLayoutX(sceneWidth / 2 - a.getWidth() / 2);
+        a.setLayoutY(sceneHeight / 2 - 50);*/
+        submitButton.setLayoutX(sceneWidth / 2 - submitButton.getWidth() / 2);
+        submitButton.setLayoutY(sceneHeight / 2 + 100);
 
     }
+
 
     public Scene getScene() {
-        return practiceTF;
+        return intergallacticScene;
     }
 
-    public Button getExitButton() {
 
+    public int getScore() {
+        return score.getScore();
+    }
+
+    // Gives a random variable
+    public Button getExitButton() {
         return exitButton;
     }
 
     public Button getResetButton() {
-
         return resetButton;
     }
 
@@ -186,18 +203,13 @@ public class practiceTF extends Scene {
         }
     }
 
-    public int getScore() {
-        return score.getScore();
+    public void setGrade(char gr) {
+        this.grade = gr;
     }
 
-    // Gives a random variable
-    public int getrandnum(int num) {
-        Random rand = new Random();
-        return (rand.nextInt(num));
-    }
 
-    public void checkAns(String ans) {
-        if (ans.equals(answers[indx])) {
+    public void checkAns(String ans, String newAns) {
+        if (ans.equals(newAns)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Correct!");
             alert.showAndWait();
             score.addScore();
@@ -212,33 +224,25 @@ public class practiceTF extends Scene {
     public void updateQuestionLabel() {
         //These lines generate a new random question each time Submit is pressed
         if (score.getTrys() < 5) {
-            indx = getrandnum(questions.length);
-            randomQuestion = questions[indx];
+            Questions newQuestion = new Questions(grade);
+            randomQuestion = newQuestion.getQuestion();
             questionLabel.setText(randomQuestion);
             questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
-            choice1.setSelected(false);
-            choice2.setSelected(false);
+            answerField.clear();
             if(!root.getChildren().contains(submitButton)) {
                 root.getChildren().add(submitButton);
             }
-            if(!root.getChildren().contains(choice1)) {
-                root.getChildren().add(choice1);
+            if(!root.getChildren().contains(answerField)) {
+                root.getChildren().add(answerField);
             }
-            if(!root.getChildren().contains(choice2)) {
-                root.getChildren().add(choice2);
-            }
-
+            //root.getChildren().addAll(submitButton, answerField);
         } else {
             randomQuestion = score.getresult();
             questionLabel.setText(randomQuestion);
-            //hide the submit button and true/false buttons once we have reached 5 trys
-            root.getChildren().removeAll(choice1, choice2, submitButton);
+            questionLabel.setStyle("-fx-font-size: 40px; -fx-text-fill: white;");
+            root.getChildren().removeAll(submitButton, answerField);
         }
     }
 
-    public void setGrade(char gr) {
-        this.grade = gr;
-    }
 
 }
-

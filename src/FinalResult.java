@@ -16,7 +16,7 @@ public class FinalResult extends Scene {
 
     //declare Scene variable to allow getScene() to return the scene
     private final Scene FinalResult;
-
+    private Timeline timeline;
     public FinalResult() {
         super(new Pane(), 960, 540);
 
@@ -44,23 +44,19 @@ public class FinalResult extends Scene {
 
         // over the course of 5 seconds
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), keyValue);
-        Timeline timeline = new Timeline(keyFrame);
+        timeline = new Timeline(keyFrame);
 
 
         Text text = new Text(250, 100, "Mission Complete!");
         text.setFill(Color.rgb(243, 5, 1));
         text.setId("title");
 
-
-
-
-
         root.getChildren().addAll(imageView, text);
-        timeline.play();
 
     }
 
     public Scene getScene(){
+        timeline.play();
         return FinalResult;
     }
 
