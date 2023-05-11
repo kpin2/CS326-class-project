@@ -105,6 +105,7 @@ public class DragAndDropExample extends Application {
         RadioButton choice3 = new RadioButton(String.valueOf(incorrect2));
         RadioButton choice4 = new RadioButton(String.valueOf(incorrect3));
 
+        System.out.println("choice1 getText is " + choice1.getText());
 
         questionLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 

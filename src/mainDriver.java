@@ -23,28 +23,28 @@ public class mainDriver extends Application {
     private final loginScene loginScene;
     private final accountCreation accountCreation;
     private final landingScene landingScene;
-    private final practiceFITB practiceFITB;
-    private final practiceTF practiceTF;
+    private final IntergallacticAlgebra intergallacticScene;
+    private final CosmicCountingScene cosmicScene;
     private final practiceExamScene practiceExamScene;
     private final beginningScene beginningScene;
     private final FinalResult finalResult;
     private final databaseOps dbOps;
     private final avatarSelection selectionScene;
-    private final DragAndDropExample dragAndDropExample;
+    private final AndromedaArithmeticScene andromedaScene;
 
     //constructor to initialize all the scenes and dbOps
     public mainDriver() {
         this.loginScene = new loginScene();
         this.landingScene = new landingScene();
-        this.practiceFITB = new practiceFITB();
-        this.practiceTF = new practiceTF();
+        this.intergallacticScene = new IntergallacticAlgebra();
+        this.cosmicScene = new CosmicCountingScene();
         this.practiceExamScene = new practiceExamScene();
         this.accountCreation = new accountCreation();
         this.beginningScene = new beginningScene();
         this.finalResult = new FinalResult();
         this.dbOps = new databaseOps();
         this.selectionScene = new avatarSelection();
-        this.dragAndDropExample = new DragAndDropExample();
+        this.andromedaScene = new AndromedaArithmeticScene();
     }
 
     //method to switch scenes
@@ -80,7 +80,6 @@ public class mainDriver extends Application {
         //event handling for beginning scene
         this.beginningScene.create.setOnMouseClicked(e -> this.switchScene(stage, this.accountCreation.getScene()));
         this.beginningScene.login.setOnMouseClicked(e -> this.switchScene(stage, this.loginScene.getScene()));
-
 
         //account creation
         final String[] userN = {""};
@@ -169,75 +168,106 @@ public class mainDriver extends Application {
             });
         });
 
-
+        //event handler to go to Landing Scene when home planet is clicked
         this.landingScene.getAsteroidHomeButton().setOnAction(e -> {
-            this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
-            this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+            this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+            this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+            this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
             this.switchScene(stage, this.landingScene.getScene());
         });
 
-
+        //event handler to go to Intergallactic Scene when planet is clicked on landing scene
         this.landingScene.getIntergalacticAlgebra().setOnAction(e -> {
-            this.practiceFITB.difficulty.showAndWait().ifPresent(response -> {
+            this.intergallacticScene.difficulty.showAndWait().ifPresent(response -> {
                 if (response.getText().equals("Easy")) {
-                    this.practiceFITB.setGrade('k');
+                    this.intergallacticScene.setGrade('k');
                 } else if (response.getText().equals("Medium")) {
-                    this.practiceFITB.setGrade('1');
+                    this.intergallacticScene.setGrade('1');
                 } else if (response.getText().equals("Hard")) {
-                    this.practiceFITB.setGrade('3');
+                    this.intergallacticScene.setGrade('3');
                 }
             });
-            this.practiceFITB.updateQuestionLabel();
-            this.switchScene(stage, this.practiceFITB.getScene());
+            this.intergallacticScene.updateQuestionLabel();
+            this.switchScene(stage, this.intergallacticScene.getScene());
         });
 
-
+        //event handler to go to Cosmic Scene when planet is clicked on landing scene
         this.landingScene.getCosmicCountingButton().setOnAction(e -> {
-            this.practiceTF.difficulty.showAndWait().ifPresent(response -> {
+            this.cosmicScene.difficulty.showAndWait().ifPresent(response -> {
                 if (response.getText().equals("Easy")) {
-                    this.practiceTF.setGrade('k');
+                    this.cosmicScene.setGrade('k');
                 } else if (response.getText().equals("Medium")) {
-                    this.practiceTF.setGrade('2');
+                    this.cosmicScene.setGrade('2');
                 } else if (response.getText().equals("Hard")) {
-                    this.practiceTF.setGrade('3');
+                    this.cosmicScene.setGrade('3');
                 }
             });
-            this.practiceTF.updateQuestionLabel();
+            this.cosmicScene.updateQuestionLabel();
 
-            this.switchScene(stage, this.practiceTF.getScene());
+            this.switchScene(stage, this.cosmicScene.getScene());
+        });
+
+        //event handler to go to Andromeda Scene when planet is clicked on landing scene
+        this.landingScene.getAndromedaArithmetic().setOnAction(e -> {
+            this.andromedaScene.difficulty.showAndWait().ifPresent(response -> {
+                if (response.getText().equals("Easy")) {
+                    this.andromedaScene.setGrade('k');
+                } else if (response.getText().equals("Medium")) {
+                    this.andromedaScene.setGrade('2');
+                } else if (response.getText().equals("Hard")) {
+                    this.andromedaScene.setGrade('3');
+                }
+            });
+            this.andromedaScene.updateQuestionLabel();
+
+            this.switchScene(stage, this.andromedaScene.getScene());
         });
 
 
-        this.landingScene.getAndromedaArithmetic().setOnAction(e -> this.switchScene(stage, this.practiceExamScene.getScene()));
+        this.landingScene.getHelpButton().setOnAction(e -> this.switchScene(stage, this.intergallacticScene.getScene()));
 
+        //Event handler for exit button on IntergalacticAlgebra Scene
+        this.intergallacticScene.getExitButton().setOnAction(e -> {
 
-        this.landingScene.getHelpButton().setOnAction(e -> this.switchScene(stage, this.practiceFITB.getScene()));
-
-        this.practiceFITB.getExitButton().setOnAction(e -> {
-
-            if ((this.practiceTF.getScore() == 5) && (this.practiceFITB.getScore() == 5)) {
+            if ((this.cosmicScene.getScore() == 5) && (this.intergallacticScene.getScore() == 5) && (this.andromedaScene.getScore() == 5)) {
                 this.switchScene(stage, this.finalResult.getScene());
             } else {
-                this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
-                this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+                this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+                this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+                this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
+                this.switchScene(stage, this.landingScene.getScene());
+            }
+
+        });
+
+        //Event handler for exit button on CosmicCounting Scene
+        this.cosmicScene.getExitButton().setOnAction(e -> {
+
+            if ((this.cosmicScene.getScore() == 5) && (this.intergallacticScene.getScore() == 5) && (this.andromedaScene.getScore() == 5)) {
+                this.switchScene(stage, this.finalResult.getScene());
+            } else {
+                this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+                this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+                this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
                 this.switchScene(stage, this.landingScene.getScene());
             }
 
         });
 
 
-        this.practiceTF.getExitButton().setOnAction(e -> {
+        //Event handler for exit button on AndromedaArithmetic Scene
+        this.andromedaScene.getExitButton().setOnAction(e -> {
 
-            if ((this.practiceTF.getScore() == 5) && (this.practiceFITB.getScore() == 5)) {
+            if ((this.cosmicScene.getScore() == 5) && (this.intergallacticScene.getScore() == 5) && (this.andromedaScene.getScore() == 5)) {
                 this.switchScene(stage, this.finalResult.getScene());
             } else {
-                this.landingScene.setCosmicCountingResultTxt(this.practiceTF.getScoreResult());
-                this.landingScene.setIntergalacticAlgebraResultText(this.practiceFITB.getScoreResult());
+                this.landingScene.setCosmicCountingResultTxt(this.cosmicScene.getScoreResult());
+                this.landingScene.setIntergalacticAlgebraResultText(this.intergallacticScene.getScoreResult());
+                this.landingScene.setAnrdomedaResultTxt(this.andromedaScene.getScoreResult());
                 this.switchScene(stage, this.landingScene.getScene());
             }
 
         });
-
 
 
         stage.show();

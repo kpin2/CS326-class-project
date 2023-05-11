@@ -13,9 +13,9 @@ import java.util.Random;
  * Generates the scene for Fill in the blank Questions
  */
 
-public class practiceTF extends Scene {
+public class CosmicCountingScene extends Scene {
 
-    private final Scene practiceTF;
+    private final Scene cosmicScene;
     private Pane root;
     // Scoreboard class used to track number of questions answered and correct responses
     private scoreboard score;
@@ -49,11 +49,11 @@ public class practiceTF extends Scene {
 
     public Alert difficulty;
 
-    public practiceTF() {
+    public CosmicCountingScene() {
 
         super(new Pane(), 1366, 768);
         root = new Pane();
-        practiceTF = new Scene(root, 1366, 768);
+        cosmicScene = new Scene(root, 1366, 768);
         score = new scoreboard();
         Random rand = new Random();
 
@@ -116,8 +116,8 @@ public class practiceTF extends Scene {
         });
 
         root.getChildren().addAll(resetButton, text, questionLabel, choice1, choice2, submitButton);
-        double sceneWidth = practiceTF.getWidth();
-        double sceneHeight = practiceTF.getHeight();
+        double sceneWidth = cosmicScene.getWidth();
+        double sceneHeight = cosmicScene.getHeight();
 
         questionLabel.setLayoutX(sceneWidth / 2 - questionLabel.getWidth() / 2);
         questionLabel.setLayoutY(sceneHeight / 2 - 80);
@@ -165,7 +165,7 @@ public class practiceTF extends Scene {
     }
 
     public Scene getScene() {
-        return practiceTF;
+        return cosmicScene;
     }
 
     public Button getExitButton() {
