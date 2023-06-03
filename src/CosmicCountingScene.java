@@ -351,7 +351,7 @@ public class CosmicCountingScene extends Scene {
     }
     /**
      * Helper method to set grade variable
-     * @param gr charater for grade level
+     * @param gr character for grade level
      */
     public void setGrade(char gr) {
         this.grade = gr;

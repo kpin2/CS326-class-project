@@ -7,15 +7,19 @@
  * @author: Kevin Pinto
  */
 
+/**
+ * 6/2/2023 - The MMadmin account was a security risk with a hardcoded plaintext password for simplicity of the project and demos in class. The passwords have since been changed, and all access granted to the resources, server, and database for the other group members has been revoked.
+ * */
+
+
 import javafx.scene.image.Image;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
 
 public class databaseOps {
+    Connection myConnection;
 
     public boolean userExists(String username) {
         boolean existence = false;
@@ -100,14 +104,6 @@ public class databaseOps {
                     return avatar;
                 }
             }
-            /*ResultSet myResult = myStatement.executeQuery("SELECT * FROM dbo.user_registration WHERE username = '" + username + "'");
-
-            if (myResult.next()) {
-                avatar = new Image(myResult.getBlob("avatar").getBinaryStream());
-                return avatar;
-            }
-            return avatar;
-        }*/
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -148,7 +144,7 @@ public class databaseOps {
 
 
         try {
-            Connection myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
+            myConnection = DriverManager.getConnection("jdbc:sqlserver://missionmath.database.windows.net:1433;database=Mission_Math;", "MMadmin@missionmath", "faq9Adxxa7XDe7M");
             Statement myStatement = myConnection.createStatement();
             System.out.println("Connection successful");
             myStatement.execute("SELECT * FROM avatar_images");
@@ -167,6 +163,14 @@ public class databaseOps {
         return avatars;
     }
 
+    /**
+     *  Method to retrieve all the avatar images from the database and store them in a HashMap of String and Image objects. Allows for easy retrieval of the image based on the avatar/file name.
+     *  @return HashMap of String and Image objects containing all avatars from the avatar_images table
+     *  <p> This method makes a connection to the Mission_Math remote database via JDBC and queries the avatar_images table to retrieve all the avatar images. The avatar images are stored in a HashMap of String and Image objects.
+     *  <p> The method uses the following SQL query:
+     *  <p>SELECT * FROM avatar_images</p>
+     * @author Kevin Pinto
+     * */
     public HashMap<String, Image> avatarMap() {
 
         //maps the name of the avatar to the image
@@ -194,6 +198,8 @@ public class databaseOps {
      * @param username username entered by user - String
      * @param password password entered by user - String
      * @return true if user exists in database, false if not
+     * <p>The method uses the following SQL query:</p>
+     * <p>SELECT * FROM dbo.user_registration WHERE username = 'username' AND password = 'password'</p>
      * @author Kevin Pinto
      */
     public boolean verifyLogin(String username, String password) {
